@@ -1,0 +1,34 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.sticky-header, .sticky-footer {
+  position: relative; /* Set initial position */
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticky-header,
+.sticky-footer {
+  height: 80px;
+}
+
+.content {
+  padding: 20px;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}

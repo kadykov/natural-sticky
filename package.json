@@ -1,0 +1,52 @@
+{
+  "name": "natural-sticky",
+  "version": "1.0.0",
+  "description": "A lightweight, framework-agnostic package for a natural hide-on-scroll effect.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist",
+    "build:esm": "esbuild src/index.ts --bundle --platform=browser --outfile=dist/index.mjs --format=esm",
+    "build:cjs": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs",
+    "build:umd:top": "esbuild src/top.ts --bundle --platform=browser --outfile=dist/natural-sticky.top.min.js --format=iife --global-name=naturalStickyTop --minify --footer:js='naturalStickyTop = naturalStickyTop.default'",
+    "build:umd:bottom": "esbuild src/bottom.ts --bundle --platform=browser --outfile=dist/natural-sticky.bottom.min.js --format=iife --global-name=naturalStickyBottom --minify --footer:js='naturalStickyBottom = naturalStickyBottom.default'",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:umd:top && npm run build:umd:bottom && npm run build:types",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kadykov/natural-sticky.git"
+  },
+  "keywords": [
+    "sticky",
+    "scroll",
+    "hide-on-scroll",
+    "natural-scrolling"
+  ],
+  "author": "Gemini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kadykov/natural-sticky/issues"
+  },
+  "homepage": "https://github.com/kadykov/natural-sticky#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.4",
+    "@semantic-release/npm": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "esbuild": "^0.25.9",
+    "semantic-release": "^24.2.7",
+    "typescript": "^5.9.2"
+  }
+}
