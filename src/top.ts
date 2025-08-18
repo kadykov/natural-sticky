@@ -1,12 +1,12 @@
 /**
  * Attaches a natural hide/show behavior to a sticky element placed at the top.
- * 
+ *
  * This function creates a smooth, natural-feeling top element (like a header) that:
  * - Hides when scrolling down by naturally scrolling with the content
  * - Shows when scrolling up by positioning itself just above the viewport to scroll into view naturally
  * - Becomes sticky at the top when fully visible during upward scroll
  * - Releases from sticky position when scrolling down to allow natural hiding
- * 
+ *
  * Key characteristics of the top implementation:
  * - Uses 'top' property for both sticky and relative positioning
  * - When releasing from sticky on scroll down, positions element at current scroll position
@@ -23,7 +23,8 @@ export function naturalStickyTop(element: HTMLElement) {
     const scrollingUp = currentScrollY < lastScrollY;
     const elementHeight = element.offsetHeight;
     const elementRect = element.getBoundingClientRect();
-    const isElementVisible = elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+    const isElementVisible =
+      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
 
     // If we are sticky and scroll down, release the element.
     if (mode === 'sticky' && scrollingDown) {
@@ -34,10 +35,10 @@ export function naturalStickyTop(element: HTMLElement) {
     }
     // If we are released and scrolling up, and the element is not yet visible...
     else if (mode === 'relative' && scrollingUp && !isElementVisible) {
-        // ...move the element to be just above the viewport, ready to be revealed.
-        element.style.position = 'relative';
-        // Position element just above viewport so it scrolls into view naturally
-        element.style.top = `${currentScrollY - elementHeight}px`;
+      // ...move the element to be just above the viewport, ready to be revealed.
+      element.style.position = 'relative';
+      // Position element just above viewport so it scrolls into view naturally
+      element.style.top = `${currentScrollY - elementHeight}px`;
     }
     // If we are released and the element has scrolled into view at the top...
     else if (mode === 'relative' && elementRect.top >= 0) {
@@ -53,11 +54,11 @@ export function naturalStickyTop(element: HTMLElement) {
   // Run once on load to set the initial state correctly.
   handleScroll();
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
   return {
     destroy: () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     },
   };
 }
