@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header Only Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Natural Sticky Header</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Scroll Down to See the Natural Hide Effect</h2>
+        <p>
+          You know what? Lorem ipsum is boring. Instead of meaningless
+          placeholder text, let's show you the actual TypeScript source code
+          that makes this header behavior work!
+        </p>
+
+        <p>
+          <strong>Fun fact:</strong> This entire script is only
+          <strong>1.1KB minified</strong> and has
+          <strong>zero dependencies</strong>. Pure TypeScript compiled to
+          vanilla JavaScript.
+        </p>
+
+        <h3>🔍 The Magic Behind This Header Animation</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>/**
+ * Attaches a natural hide/show behavior to a sticky element placed at the top.
+ */
+export function naturalStickyTop(element: HTMLElement) {
+  let lastScrollY = window.scrollY;
+  let mode = 'relative';
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY;
+    const scrollingUp = currentScrollY < lastScrollY;
+    const elementHeight = element.offsetHeight;
+    const elementRect = element.getBoundingClientRect();
+    const isElementVisible =
+      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+
+    // If we are sticky and scroll down, release the element.
+    if (mode === 'sticky' && scrollingDown) {
+      mode = 'relative';
+      element.style.position = 'relative';
+      // Position element at current scroll position so it moves naturally with content
+      element.style.top = `${currentScrollY}px`;
+    }
+    // If we are released and scrolling up, and the element is not yet visible...
+    else if (mode === 'relative' && scrollingUp && !isElementVisible) {
+      // ...move the element to be just above the viewport, ready to be revealed.
+      element.style.position = 'relative';
+      // Position element just above viewport so it scrolls into view naturally
+      element.style.top = `${currentScrollY - elementHeight}px`;
+    }
+    // If we are released and the element has scrolled into view at the top...
+    else if (mode === 'relative' && elementRect.top >= 0) {
+      // ...make it sticky again.
+      mode = 'sticky';
+      element.style.position = 'sticky';
+      element.style.top = '0';
+    }
+
+    lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+  };
+
+  // Run once on load to set the initial state correctly.
+  handleScroll();
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  return {
+    destroy: () => {
+      window.removeEventListener('scroll', handleScroll);
+    },
+  };
+}</code></pre>
+        </div>
+
+        <p>
+          Pretty neat, right? The key insight is that instead of using CSS
+          transitions or JavaScript animations, we let the browser's natural
+          scrolling do all the work. When you scroll down, the header just goes
+          along for the ride. When you scroll up, we position it just above the
+          viewport so it naturally scrolls back into view.
+        </p>
+
+        <p>Keep scrolling to see more of how this works...</p>
+
+        <h3>🎯 How It Works - The Natural Approach</h3>
+        <p>
+          Traditional sticky headers often use slide animations that can feel
+          jarring and distracting:
+        </p>
+        <ul style="color: #dc3545">
+          <li>❌ Sudden appearance/disappearance that breaks focus</li>
+          <li>❌ Fixed animation timing that doesn't match scroll speed</li>
+          <li>❌ Can cause layout shifts and visual interruptions</li>
+          <li>❌ Often require heavy animation libraries</li>
+          <li>❌ Trigger-based animations feel disconnected from user input</li>
+        </ul>
+
+        <p>
+          Our natural approach is different - it's designed to be
+          <strong>less distracting</strong>:
+        </p>
+        <ul style="color: #28a745">
+          <li>✅ Elements move with the natural scroll flow</li>
+          <li>✅ Animation speed matches your scroll speed perfectly</li>
+          <li>✅ No jarring transitions or layout shifts</li>
+          <li>✅ Feels intuitive and unobtrusive - doesn't break user focus</li>
+          <li>
+            ✅ Movement feels like part of the content, not a separate animation
+          </li>
+          <li>✅ Only 1.1KB with zero dependencies</li>
+        </ul>
+
+        <h3>⚙️ The Three States Explained</h3>
+        <p>The header operates in three distinct modes:</p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>1. Sticky Mode:</strong> <code>position: sticky; top: 0</code
+          ><br />
+          Header is visible and sticks to the top of the viewport
+        </div>
+
+        <div
+          style="
+            background: #f3e5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>2. Released Mode (scrolling down):</strong>
+          <code>position: relative; top: currentScrollY</code><br />
+          Header flows naturally with the content as you scroll down
+        </div>
+
+        <div
+          style="
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>3. Preparation Mode (scrolling up):</strong>
+          <code>position: relative; top: currentScrollY - elementHeight</code
+          ><br />
+          Header is positioned just above the viewport, ready to scroll into
+          view
+        </div>
+
+        <p>
+          The secret sauce is in the positioning logic. When you scroll down, we
+          switch from <code>position: sticky</code> to
+          <code>position: relative</code> and set the top position to the
+          current scroll position. This makes the element flow naturally with
+          the content as you scroll down.
+        </p>
+
+        <p>
+          When you scroll back up and the element isn't visible yet, we position
+          it just above the viewport. As you continue scrolling up, it naturally
+          comes into view, and once it reaches the top, we switch it back to
+          <code>position: sticky</code>.
+        </p>
+
+        <h3>🌐 Browser Compatibility</h3>
+        <p>
+          Works in all modern browsers that support
+          <code>position: sticky</code> (which is pretty much everything since
+          2017). No polyfills needed, no feature detection required - just
+          works.
+        </p>
+
+        <h3>📦 Bundle Size Comparison</h3>
+        <p>Let's put that 1.1KB into perspective:</p>
+        <ul>
+          <li><strong>Natural Sticky (top):</strong> 1.1KB minified</li>
+          <li><strong>AOS (Animate On Scroll):</strong> ~13KB minified</li>
+          <li><strong>Headroom.js:</strong> ~7KB minified</li>
+          <li><strong>Sticky-js:</strong> ~4KB minified</li>
+        </ul>
+
+        <p>
+          That's 85% smaller than the most popular alternatives, with better
+          performance and more natural animations!
+        </p>
+
+        <p>
+          Try scrolling up and down a few more times to really feel the
+          difference. Notice how the header movement feels completely natural,
+          like it's just part of the page content flowing with your scroll. No
+          artificial timing, no disconnected animations - just pure, natural
+          movement.
+        </p>
+      </div>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header);
+        }
+      });
+    </script>
+  </body>
+</html>

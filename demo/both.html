@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header + Footer Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Top Sticky Header</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Both Header and Footer Animation</h2>
+        <p>
+          This demo shows both the header and footer with natural sticky
+          behavior simultaneously. While this can be useful in some cases, we
+          generally recommend using them separately to avoid overwhelming the
+          user.
+        </p>
+
+        <h3>🎯 Less Distracting by Design</h3>
+        <p>
+          Even with both elements animated, notice how the movement feels
+          natural and non-intrusive. Traditional slide animations would be
+          overwhelming with two animated elements, but our natural approach
+          keeps things smooth and unobtrusive.
+        </p>
+
+        <h3>When to Use Both Together</h3>
+        <p>Having both animated can work well for:</p>
+        <ul>
+          <li>Apps with distinct top navigation and bottom action bars</li>
+          <li>Media players with top controls and bottom playback controls</li>
+          <li>Games or interactive content with UI elements at both ends</li>
+        </ul>
+
+        <p>
+          However, for content-focused sites, using just one usually provides a
+          cleaner experience.
+        </p>
+
+        <h3>Complete Implementation Example</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            margin: 1rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('.sticky-header');
+  const footer = document.querySelector('.sticky-footer');
+
+  if (header && window.naturalStickyTop) {
+    window.naturalStickyTop(header);
+  }
+
+  if (footer && window.naturalStickyBottom) {
+    window.naturalStickyBottom(footer);
+  }
+});</code></pre>
+        </div>
+
+        <p>
+          <strong>Ultra lightweight:</strong> Combined, both scripts are only
+          <strong>2.4KB minified</strong> with
+          <strong>zero dependencies</strong>.
+        </p>
+
+        <p>
+          Both elements work independently - the header logic doesn't interfere
+          with the footer logic and vice versa. Each maintains its own scroll
+          state and positioning calculations.
+        </p>
+
+        <h3>The Natural Approach</h3>
+        <p>
+          Instead of using CSS transitions or JavaScript animations, we let the
+          browser's native scrolling do all the work. When you scroll down,
+          elements naturally flow with the content. When you scroll up, we
+          position them just outside the viewport so they naturally scroll back
+          into view.
+        </p>
+
+        <p>
+          Try scrolling in different patterns - fast, slow, short scrolls, long
+          scrolls - to see how both elements respond naturally to your input.
+        </p>
+
+        <p>
+          Notice how there's no jarring slide-in effect, no fixed animation
+          timing that doesn't match your scroll speed, and no layout shifts. The
+          movement feels completely organic.
+        </p>
+      </div>
+    </main>
+
+    <footer class="sticky-footer">
+      <p>Both Header and Footer - Natural Movement Demo</p>
+    </footer>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

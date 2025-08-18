@@ -1,10 +1,29 @@
 # Natural Sticky
 
-A lightweight, framework-agnostic package for a natural hide-on-scroll effect.
+A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
-This package provides a smooth, natural-feeling header that hides when scrolling down and reappears when scrolling up, without using JavaScript animations or thresholds.
+**✨ Key Features:**
 
-[Live Demo](https://github.kadykov.com/natural-sticky/demo/)
+- **🚀 Ultra Lightweight:** Only 1.1KB minified (top), 1.3KB (bottom)
+- **🚫 Zero Dependencies:** Pure TypeScript compiled to vanilla JavaScript
+- **🎯 Natural Movement:** No jarring animations, just smooth natural scrolling
+- **� Less Distracting:** Movement syncs with your scroll speed - no sudden pop-ins or slide effects
+- **�🔧 Framework Agnostic:** Works with React, Vue, Angular, or plain JavaScript
+
+This package provides smooth, natural-feeling sticky elements that hide when scrolling down and reappear when scrolling up, without using JavaScript animations or scroll thresholds that can feel disconnected from user behavior.
+
+[Live Demo](https://kadykov.github.io/natural-sticky/)
+
+## Why Choose Natural Sticky?
+
+**Compared to alternatives:**
+
+- **Natural Sticky:** 1.1-1.3KB, zero dependencies, natural movement, non-distracting
+- **Headroom.js:** ~7KB, requires configuration, jarring slide animations
+- **AOS (Animate On Scroll):** ~13KB, heavy animations, complex setup
+- **Sticky-js:** ~4KB, basic functionality, disconnected from scroll behavior
+
+**The difference is in the approach:** Instead of using CSS transitions or JavaScript animations that can feel disconnected from your scroll behavior, Natural Sticky lets the browser's native scrolling handle all movement. Elements flow naturally with your scroll speed, creating a seamless, unobtrusive experience that doesn't break user focus or create visual distractions.
 
 ## How it works
 
@@ -29,7 +48,8 @@ This package provides two separate functions, one for top-placed elements and on
 
 Include the script for the function you need. You can use a service like jsDelivr.
 
-**For a top-placed element (e.g., a header):**
+**For a top-placed element (e.g., a header) - Only 1.1KB:**
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js"></script>
 <script>
@@ -40,7 +60,8 @@ Include the script for the function you need. You can use a service like jsDeliv
 </script>
 ```
 
-**For a bottom-placed element (e.g., a footer):**
+**For a bottom-placed element (e.g., a footer) - Only 1.3KB:**
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js"></script>
 <script>
@@ -51,7 +72,7 @@ Include the script for the function you need. You can use a service like jsDeliv
 </script>
 ```
 
-### With a Bundler (e.g., Webpack, Vite)
+### With a Bundler (e.g., Webpack, Vite) - Optimal Bundle Size
 
 Import only the function you need to keep your bundle size minimal.
 
@@ -78,18 +99,21 @@ if (footer) {
 This package provides two separate implementations for top-placed and bottom-placed elements. While the core concept is the same, there are important differences in how positioning is calculated:
 
 #### Top Implementation (`naturalStickyTop`)
+
 - Uses `position: sticky` with `top: 0` when sticky
 - When releasing on scroll down, positions element at current scroll position
 - When moving above viewport on scroll up, positions element just above viewport (negative offset)
 - Transitions to sticky when element's top edge reaches viewport top
 
-#### Bottom Implementation (`naturalStickyBottom`) 
+#### Bottom Implementation (`naturalStickyBottom`)
+
 - Uses `position: sticky` with `bottom: 0` when sticky
 - When releasing on scroll up, calculates complex offset to maintain current document position
 - When moving below viewport on scroll down, positions element just below viewport bottom
 - Transitions to sticky when element's bottom edge is fully within viewport
 
 The bottom implementation is more complex because:
+
 1. **Bottom-anchored positioning**: Elements positioned relative to bottom behave differently than top-anchored elements
 2. **Document flow calculations**: When switching from sticky to relative positioning, we must preserve the element's visual position in the document
 3. **Natural position tracking**: We need to track where the element would naturally appear in the document flow vs. where it currently appears after applying offsets

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Footer Only Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="content">
+        <h2>Natural Sticky Footer Demo</h2>
+        <p>
+          Scroll down to see the footer appear naturally, then scroll back up to
+          see it hide seamlessly.
+        </p>
+
+        <p>
+          <strong>Lightweight champion:</strong> This footer script is only
+          <strong>1.3KB minified</strong> with
+          <strong>zero dependencies</strong>. Pure TypeScript power!
+        </p>
+
+        <h3>🔍 Footer Implementation Deep Dive</h3>
+        <p>
+          The footer implementation is more complex than the header because
+          bottom-anchored positioning behaves differently. Let's look at the
+          actual source code:
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>/**
+ * Attaches a natural hide/show behavior to a sticky element placed at the bottom.
+ */
+export function naturalStickyBottom(element: HTMLElement) {
+  let lastScrollY = window.scrollY;
+  let mode = 'relative';
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY;
+    const scrollingUp = currentScrollY < lastScrollY;
+    const elementRect = element.getBoundingClientRect();
+    const elementHeight = element.offsetHeight;
+    const isElementVisible =
+      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+
+    // Scenario 1: Element is sticky at bottom and user scrolls up
+    // Release the element from sticky position so it can scroll with content naturally
+    if (mode === 'sticky' && scrollingUp) {
+      mode = 'relative';
+      element.style.position = 'relative';
+
+      // When releasing from sticky bottom position, we need to calculate where
+      // the element should be positioned to maintain visual continuity.
+      // The element is currently at the bottom of the viewport, so we calculate
+      // its position relative to the document end to maintain that relationship.
+      const currentDocumentPosition = elementRect.top + currentScrollY;
+
+      // Reset any previous bottom styling since we're switching to top-based positioning
+      element.style.bottom = '';
+
+      // Calculate the offset from the element's natural position (at document end)
+      // This ensures the element appears to stay in place when transitioning from sticky
+      const targetOffset =
+        currentDocumentPosition -
+        (document.documentElement.scrollHeight - elementHeight);
+
+      element.style.top = `${targetOffset}px`;
+    }
+    // Scenario 2: Element is in relative mode, user scrolls down, and element is not visible
+    // Position the element just below the viewport so it can naturally scroll into view
+    else if (mode === 'relative' && scrollingDown && !isElementVisible) {
+      element.style.position = 'relative';
+
+      // Calculate where we want the element to appear (just below the viewport)
+      const targetPosition = currentScrollY + window.innerHeight;
+
+      // Get the element's current offset and natural position in the document
+      const currentTopOffset = parseFloat(element.style.top || '0');
+      const naturalElementTop =
+        elementRect.top + currentScrollY - currentTopOffset;
+
+      // Calculate the offset needed to position element just below viewport
+      const offset = targetPosition - naturalElementTop;
+      element.style.top = `${offset}px`;
+    }
+    // Scenario 3: Element is in relative mode and has scrolled into view at bottom
+    // Make it sticky so it stays at the bottom of the viewport
+    else if (mode === 'relative' && elementRect.bottom <= window.innerHeight) {
+      mode = 'sticky';
+      element.style.position = 'sticky';
+      element.style.top = 'auto'; // Reset top positioning
+      element.style.bottom = '0'; // Stick to bottom of viewport
+    }
+
+    lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+  };
+
+  // Run once on load to set the initial state correctly.
+  handleScroll();
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  return {
+    destroy: () => {
+      window.removeEventListener('scroll', handleScroll);
+    },
+  };
+}</code></pre>
+        </div>
+
+        <h3>🧠 Why Bottom Is More Complex</h3>
+        <p>
+          As you can see from the source code above, the bottom implementation
+          requires more sophisticated calculations. Here's why:
+        </p>
+
+        <div
+          style="
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Bottom-anchored positioning:</strong> Elements positioned
+          relative to bottom behave differently than top-anchored elements. We
+          need to account for document height changes and viewport
+          relationships.
+        </div>
+
+        <div
+          style="
+            background: #d1ecf1;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Document flow calculations:</strong> When switching from
+          sticky to relative positioning, we must preserve the element's visual
+          position in the document while changing its anchor point.
+        </div>
+
+        <div
+          style="
+            background: #d4edda;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Natural position tracking:</strong> We need to track where the
+          element would naturally appear in the document flow vs. where it
+          currently appears after applying offsets.
+        </div>
+
+        <p>The bottom sticky implementation is particularly useful for:</p>
+        <ul>
+          <li>
+            <strong>Cookie banners</strong> that don't get in the way of reading
+          </li>
+          <li>
+            <strong>Call-to-action bars</strong> that appear when relevant
+            content is reached
+          </li>
+          <li>
+            <strong>Media player controls</strong> that hide during content
+            browsing
+          </li>
+          <li>
+            <strong>Chat widgets</strong> that respect user focus and scroll
+            behavior
+          </li>
+          <li><strong>Shopping cart summaries</strong> in e-commerce sites</li>
+        </ul>
+
+        <h3>🎭 The Three Scenarios Explained</h3>
+        <p>The footer operates through three distinct scenarios:</p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Scenario 1 - Sticky to Released (scroll up):</strong><br />
+          When user scrolls up while footer is sticky, we calculate its current
+          document position and switch to relative positioning with a complex
+          offset calculation to maintain visual continuity.
+        </div>
+
+        <div
+          style="
+            background: #f3e5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Scenario 2 - Preparation (scroll down):</strong><br />
+          When scrolling down and footer isn't visible, we position it just
+          below the viewport so it naturally scrolls into view as the user
+          continues scrolling down.
+        </div>
+
+        <div
+          style="
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>Scenario 3 - Released to Sticky:</strong><br />
+          When the footer scrolls into view at the bottom, we switch it back to
+          <code>position: sticky; bottom: 0</code> so it stays anchored to the
+          bottom of the viewport.
+        </div>
+
+        <h3>⚡ Performance Characteristics</h3>
+        <p>
+          Despite the complexity, the footer implementation is highly optimized:
+        </p>
+        <ul>
+          <li>
+            <strong>Passive event listeners</strong> for smooth scrolling
+            performance
+          </li>
+          <li>
+            <strong>Minimal DOM queries</strong> - getBoundingClientRect() only
+            when needed
+          </li>
+          <li>
+            <strong>No continuous animations</strong> - just position updates
+          </li>
+          <li>
+            <strong>Debouncing not needed</strong> - calculations are
+            lightweight
+          </li>
+        </ul>
+
+        <h3>📐 Mathematical Precision</h3>
+        <p>The key mathematical relationships that make this work:</p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 1rem 0;
+          "
+        >
+          <code>
+            // Current position in document<br />
+            currentDocumentPosition = elementRect.top + currentScrollY<br /><br />
+
+            // Natural position at document end<br />
+            naturalPosition = documentHeight - elementHeight<br /><br />
+
+            // Offset to maintain visual continuity<br />
+            targetOffset = currentDocumentPosition - naturalPosition<br />
+          </code>
+        </div>
+
+        <p>
+          These calculations ensure that when we switch positioning modes, the
+          footer appears to stay in exactly the same place visually, creating
+          the seamless natural effect.
+        </p>
+
+        <p>
+          Keep scrolling to see how this feels compared to traditional
+          implementations... Notice how the footer doesn't just "pop" into
+          existence - it naturally flows into view as if it were always part of
+          the content you're scrolling through.
+        </p>
+
+        <h3>🆚 Traditional vs Natural: Less Distracting Experience</h3>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+          "
+        >
+          <div
+            style="
+              background: #f8d7da;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border: 1px solid #f5c6cb;
+            "
+          >
+            <h4 style="color: #721c24; margin-top: 0">
+              ❌ Traditional Slide Animations
+            </h4>
+            <ul style="color: #721c24; margin: 0; padding-left: 1.2rem">
+              <li>Sudden slide-up from bottom edge</li>
+              <li>Fixed animation speed (usually 300ms)</li>
+              <li>Triggered by scroll thresholds</li>
+              <li>Can interrupt reading flow</li>
+              <li>Feels disconnected from user input</li>
+            </ul>
+          </div>
+          <div
+            style="
+              background: #d4edda;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border: 1px solid #c3e6cb;
+            "
+          >
+            <h4 style="color: #155724; margin-top: 0">
+              ✅ Natural Sticky Approach
+            </h4>
+            <ul style="color: #155724; margin: 0; padding-left: 1.2rem">
+              <li>Naturally flows into view</li>
+              <li>Speed matches your scroll exactly</li>
+              <li>No artificial triggers or thresholds</li>
+              <li>Doesn't break reading concentration</li>
+              <li>Feels like part of the content</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>
+          This creates a much more cohesive and
+          <strong>less distracting user experience</strong>, especially
+          important for elements like footers that typically contain secondary
+          actions or information.
+        </p>
+
+        <p>
+          Try different scroll patterns - quick scrolls, slow scrolls, bouncing
+          back and forth. The footer responds perfectly to every movement,
+          always feeling natural and never jarring.
+        </p>
+      </div>
+    </main>
+
+    <footer class="sticky-footer">
+      <p>Natural Sticky Footer - Only 1.3KB, Zero Dependencies! 🚀</p>
+    </footer>
+
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const footer = document.querySelector('.sticky-footer');
+        if (footer && window.naturalStickyBottom) {
+          window.naturalStickyBottom(footer);
+        }
+      });
+    </script>
+  </body>
+</html>

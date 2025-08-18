@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natural Sticky - Lightweight Hide-on-Scroll Effects</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background: #fafafa;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        margin: 0 0 2rem 0;
+        opacity: 0.9;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 3rem 0;
+      }
+
+      .feature {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature h3 {
+        color: #333;
+        margin: 0 0 1rem 0;
+      }
+
+      .feature p {
+        color: #666;
+        margin: 0;
+      }
+
+      .demo-section {
+        margin: 4rem 0;
+      }
+
+      .demo-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: #333;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .demo-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .demo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .demo-card h3 {
+        margin: 0;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        font-size: 1.25rem;
+      }
+
+      .demo-card iframe {
+        width: 100%;
+        height: 350px;
+        border: none;
+        display: block;
+      }
+
+      .demo-card .demo-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        text-align: center;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+
+      .demo-card .demo-link:hover {
+        background: #0056b3;
+      }
+
+      .installation {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        margin: 3rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .installation h2 {
+        color: #333;
+        margin-top: 0;
+      }
+
+      .code-block {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+        margin: 1.5rem 0;
+        overflow-x: auto;
+      }
+
+      .code-block pre {
+        margin: 0;
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .highlight {
+        background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+        color: #333;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .github-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+
+      .github-link:hover {
+        background: #555;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .demo-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <h1>Natural Sticky</h1>
+        <p>
+          Lightweight, framework-agnostic hide-on-scroll effects that feel
+          completely natural
+        </p>
+        <p>
+          <span class="highlight">Only 1.1KB</span> •
+          <span class="highlight">Zero Dependencies</span> •
+          <span class="highlight">Pure TypeScript</span>
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Ultra Lightweight</h3>
+          <p>
+            Just 1.1KB minified for top headers, 1.3KB for bottom footers. No
+            bloat, maximum performance.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🚫</div>
+          <h3>Zero Dependencies</h3>
+          <p>
+            Pure TypeScript that compiles to vanilla JavaScript. No external
+            libraries, no version conflicts.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>Natural Movement</h3>
+          <p>
+            No jarring animations or sudden pop-ins. Elements move naturally
+            with your scroll speed, creating a seamless, non-distracting
+            experience.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">�</div>
+          <h3>Less Distracting</h3>
+          <p>
+            Unlike traditional slide animations that can break focus, our
+            approach feels intuitive and unobtrusive.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">�🔧</div>
+          <h3>Framework Agnostic</h3>
+          <p>
+            Works with React, Vue, Angular, or vanilla JavaScript. Use it
+            anywhere, with anything.
+          </p>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h2>Live Demos</h2>
+        <p
+          style="
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+          "
+        >
+          Try scrolling in the embedded demos below, or click to open them
+          full-screen
+        </p>
+
+        <div class="demo-grid">
+          <div class="demo-card">
+            <h3>📱 Header Only</h3>
+            <iframe
+              src="demo/header-only.html"
+              title="Header Only Demo"
+            ></iframe>
+            <a href="demo/header-only.html" target="_blank" class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+
+          <div class="demo-card">
+            <h3>📄 Footer Only</h3>
+            <iframe
+              src="demo/footer-only.html"
+              title="Footer Only Demo"
+            ></iframe>
+            <a href="demo/footer-only.html" target="_blank" class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+
+          <div class="demo-card">
+            <h3>📱📄 Header + Footer</h3>
+            <iframe
+              src="demo/both.html"
+              title="Header and Footer Demo"
+            ></iframe>
+            <a href="demo/both.html" target="_blank" class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="installation">
+        <h2>Quick Start</h2>
+
+        <h3>Install via NPM</h3>
+        <div class="code-block">
+          <pre>npm install natural-sticky</pre>
+        </div>
+
+        <h3>Or use via CDN (just 1.1KB!)</h3>
+        <div class="code-block">
+          <pre>
+&lt;script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.my-header');
+    window.naturalStickyTop(header);
+  });
+&lt;/script&gt;</pre
+          >
+        </div>
+
+        <h3>With a bundler</h3>
+        <div class="code-block">
+          <pre>
+import { naturalStickyTop, naturalStickyBottom } from 'natural-sticky';
+
+// For headers
+const headerInstance = naturalStickyTop(document.querySelector('.header'));
+
+// For footers  
+const footerInstance = naturalStickyBottom(document.querySelector('.footer'));
+
+// Clean up when needed
+headerInstance.destroy();
+footerInstance.destroy();</pre
+          >
+        </div>
+
+        <h2>Why Natural Sticky?</h2>
+        <p>
+          Traditional sticky headers use CSS transitions or JavaScript
+          animations that can feel jarring and disconnected from the user's
+          scroll behavior. Natural Sticky takes a different approach:
+        </p>
+
+        <ul>
+          <li>
+            <strong>No animations</strong> - Elements move with the natural flow
+            of scrolling
+          </li>
+          <li>
+            <strong>Perfect synchronization</strong> - Movement speed matches
+            scroll speed exactly
+          </li>
+          <li>
+            <strong>Minimal footprint</strong> - Less than 1.5KB total, zero
+            dependencies
+          </li>
+          <li>
+            <strong>Universal compatibility</strong> - Works everywhere modern
+            JavaScript runs
+          </li>
+        </ul>
+
+        <p>
+          The secret is in switching between <code>position: sticky</code> and
+          <code>position: relative</code> at exactly the right moments, letting
+          the browser's native scrolling handle all the movement naturally.
+        </p>
+
+        <a
+          href="https://github.com/kadykov/natural-sticky"
+          class="github-link"
+          target="_blank"
+        >
+          View on GitHub →
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
