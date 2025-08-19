@@ -1,12 +1,16 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  cursor: grab;
 }
 
-.sticky-header, .sticky-footer {
+body.dragging {
+  cursor: grabbing;
+  user-select: none; /* Only disable text selection while dragging */
+}
+
+.sticky-header,
+.sticky-footer {
   position: relative; /* Set initial position */
   background-color: #333;
   color: white;

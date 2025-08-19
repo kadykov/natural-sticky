@@ -21,6 +21,22 @@
           user.
         </p>
 
+        <div
+          style="
+            background: #fff3e0;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #ef6c00">
+            💡 <strong>Interactive demo:</strong> Click and drag to scroll at
+            any speed you want! Test how both header and footer respond
+            naturally to different scroll patterns.
+          </p>
+        </div>
+
         <h3>🎯 Less Distracting by Design</h3>
         <p>
           Even with both elements animated, notice how the movement feels
@@ -105,8 +121,25 @@
       <p>Both Header and Footer - Natural Movement Demo</p>
     </footer>
 
+    <!-- Natural Sticky Demo Scripts -->
     <script src="../dist/natural-sticky.top.min.js"></script>
     <script src="../dist/natural-sticky.bottom.min.js"></script>
-    <script src="main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        const footer = document.querySelector('.sticky-footer');
+
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header);
+        }
+
+        if (footer && window.naturalStickyBottom) {
+          window.naturalStickyBottom(footer);
+        }
+      });
+    </script>
+
+    <!-- Drag-to-scroll functionality for demo purposes -->
+    <script src="drag-scroll.js"></script>
   </body>
 </html>
