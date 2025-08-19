@@ -92,6 +92,55 @@ if (footer) {
 }
 ```
 
+## CSS Requirements
+
+For the scripts to work correctly, your sticky elements **must not have margins** that create gaps from their respective screen edges:
+
+```css
+.my-header {
+  margin-top: 0; /* Required: Headers must align with top edge */
+  /* margin-bottom, margin-left, margin-right can be preserved */
+}
+
+.my-footer {
+  margin-bottom: 0; /* Required: Footers must align with bottom edge */
+  /* margin-top, margin-left, margin-right can be preserved */
+}
+```
+
+**Why specific margins break the scripts:**
+
+- **Headers**: `margin-top` creates a gap from the top viewport edge, disrupting positioning calculations
+- **Footers**: `margin-bottom` creates a gap from the bottom viewport edge, disrupting positioning calculations
+- **Other margins**: `margin-left`, `margin-right`, and non-conflicting vertical margins can be preserved
+
+**Elements that need margin reset:**
+
+- Headings (`<h1>`, `<h2>`, etc.) - have default vertical margins like `margin: 21px 0`
+- Paragraphs (`<p>`) - have default vertical margins
+- Lists (`<ul>`, `<ol>`) - have default margins
+- Any element with CSS margins applied to the problematic edges
+
+**Elements that work without reset:**
+
+- `<div>`, `<span>`, `<nav>`, `<section>` - have no default margins
+
+### Minimal Working Example
+
+```html
+<!-- This works immediately (no default margins) -->
+<div class="header">Header</div>
+
+<!-- This needs specific margin reset -->
+<h1 class="header" style="margin-top: 0;">
+  Header with bottom spacing preserved
+</h1>
+
+<script>
+  naturalStickyTop(document.querySelector('.header'));
+</script>
+```
+
 ## Development
 
 ### Implementation Details

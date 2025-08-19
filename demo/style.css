@@ -22,6 +22,18 @@ body.dragging {
   justify-content: center;
 }
 
+.sticky-header {
+  /* CRITICAL: Reset top margin for proper top edge alignment */
+  margin-top: 0;
+  /* Other margins preserved: margin-bottom, margin-left, margin-right */
+}
+
+.sticky-footer {
+  /* CRITICAL: Reset bottom margin for proper bottom edge alignment */
+  margin-bottom: 0;
+  /* Other margins preserved: margin-top, margin-left, margin-right */
+}
+
 .sticky-header,
 .sticky-footer {
   height: 80px;
