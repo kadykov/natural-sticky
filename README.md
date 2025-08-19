@@ -1,5 +1,9 @@
 # Natural Sticky
 
+[![npm version](https://badge.fury.io/js/natural-sticky.svg)](https://badge.fury.io/js/natural-sticky)
+[![NPM Downloads](https://img.shields.io/npm/dw/natural-sticky)](https://badge.fury.io/js/natural-sticky)
+[![License](https://img.shields.io/npm/l/natural-sticky)](https://opensource.org/licenses/MIT)
+
 A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
 **✨ Key Features:**
