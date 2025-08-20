@@ -1,5 +1,13 @@
 # Natural Sticky
 
+<div align="center">
+  <img src="demo/header-1080p.webp" alt="Natural Sticky Header Demo" width="540" />
+  <br>
+  <em>Natural hide-on-scroll effect - the header moves naturally with your scroll speed</em>
+</div>
+
+[Live Demo](https://kadykov.github.io/natural-sticky/)
+
 [![npm version](https://badge.fury.io/js/natural-sticky.svg)](https://badge.fury.io/js/natural-sticky)
 [![NPM Downloads](https://img.shields.io/npm/dw/natural-sticky)](https://badge.fury.io/js/natural-sticky)
 [![License](https://img.shields.io/npm/l/natural-sticky)](https://opensource.org/licenses/MIT)
@@ -11,12 +19,10 @@ A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 - **🚀 Ultra Lightweight:** Only 1.1KB minified (top), 1.3KB (bottom)
 - **🚫 Zero Dependencies:** Pure TypeScript compiled to vanilla JavaScript
 - **🎯 Natural Movement:** No jarring animations, just smooth natural scrolling
-- **� Less Distracting:** Movement syncs with your scroll speed - no sudden pop-ins or slide effects
-- **�🔧 Framework Agnostic:** Works with React, Vue, Angular, or plain JavaScript
+- **🔇 Less Distracting:** Movement syncs with your scroll speed - no sudden pop-ins or slide effects
+- **🔧 Framework Agnostic:** Works with React, Vue, Angular, or plain JavaScript
 
 This package provides smooth, natural-feeling sticky elements that hide when scrolling down and reappear when scrolling up, without using JavaScript animations or scroll thresholds that can feel disconnected from user behavior.
-
-[Live Demo](https://kadykov.github.io/natural-sticky/)
 
 ## Why Choose Natural Sticky?
 
