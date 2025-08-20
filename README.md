@@ -1,7 +1,7 @@
 # Natural Sticky
 
 <div align="center">
-  <img src="demo/header-1080p.webp" alt="Natural Sticky Header Demo" width="540" />
+  <img src="https://github.kadykov.com/natural-sticky/demo/header-1080p.webp" alt="Natural Sticky Header Demo" width="540" />
   <br>
   <em>Natural hide-on-scroll effect - the header moves naturally with your scroll speed</em>
 </div>
