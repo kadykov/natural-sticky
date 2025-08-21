@@ -49,6 +49,25 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Clean up unnecessary files for GitHub Pages
+        run: |
+          # Create a temporary directory for files we want to keep
+          mkdir -p /tmp/pages-content
+
+          # Copy only the files and directories we want to keep
+          cp index.html /tmp/pages-content/ 2>/dev/null || true
+          cp -r demo /tmp/pages-content/ 2>/dev/null || true
+          cp -r dist /tmp/pages-content/ 2>/dev/null || true
+
+          # Remove everything in current directory
+          rm -rf .* * 2>/dev/null || true
+
+          # Move back only what we want to keep
+          mv /tmp/pages-content/* . 2>/dev/null || true
+
+          # Clean up temp directory
+          rm -rf /tmp/pages-content
+
       - name: Generate sitemap
         id: sitemap
         uses: cicirello/generate-sitemap@v1
