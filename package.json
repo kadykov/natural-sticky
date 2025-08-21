@@ -1,6 +1,6 @@
 {
   "name": "natural-sticky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "A lightweight, framework-agnostic package for a natural hide-on-scroll effect.",
   "main": "dist/index.js",
