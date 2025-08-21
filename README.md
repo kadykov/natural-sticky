@@ -6,7 +6,7 @@
   <em>Natural hide-on-scroll effect - the header moves naturally with your scroll speed</em>
 </div>
 
-[Live Demo](https://kadykov.github.io/natural-sticky/)
+[Live Demo](https://kadykov.github.io/natural-sticky/) | [Header CodePen Example](https://codepen.io/kadykov/pen/emprNoY) | [Footer CodePen Example](https://codepen.io/kadykov/pen/WbQJQjq)
 
 [![npm version](https://badge.fury.io/js/natural-sticky.svg)](https://badge.fury.io/js/natural-sticky)
 [![NPM Downloads](https://img.shields.io/npm/dw/natural-sticky)](https://badge.fury.io/js/natural-sticky)
