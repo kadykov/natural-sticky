@@ -10,31 +10,32 @@
         font-family: Arial, sans-serif;
       }
 
-      .content {
+      main {
         height: 2000px; /* Long content for scrolling */
         padding: 20px;
       }
 
       /* MINIMAL REQUIRED STYLING */
-      .test-footer {
+      footer {
         background-color: #333;
         color: white;
         text-align: center;
+        padding: 20px;
         margin-bottom: 0; /* REQUIRED: Reset bottom margin for proper edge alignment */
         /* margin-top, margin-left, margin-right preserved */
       }
     </style>
   </head>
   <body>
-    <div class="content">
+    <main>
       <h1>Scroll Test Content</h1>
       <p>Scroll down to see the footer, then scroll up to test hiding...</p>
       <p>This content is 2000px tall to enable scrolling.</p>
-    </div>
+    </main>
 
-    <h1 class="test-footer" id="footer">Footer Text</h1>
+    <footer id="footer">Footer Text</footer>
 
-    <script src="dist/natural-sticky.bottom.min.js"></script>
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
     <script>
       // Initialize the footer script
       naturalStickyBottom(document.getElementById('footer'));

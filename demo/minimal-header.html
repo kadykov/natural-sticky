@@ -11,31 +11,33 @@
       }
 
       /* MINIMAL REQUIRED STYLING */
-      .test-header {
+      header {
         background-color: #333;
         color: white;
         text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
         margin-top: 0; /* REQUIRED: Reset top margin for proper edge alignment */
         /* margin-bottom, margin-left, margin-right preserved */
       }
 
-      .content {
+      main {
         height: 2000px; /* Long content for scrolling */
         padding: 20px;
       }
     </style>
   </head>
   <body>
-    <!-- Try changing this to <h1> and remove margin: 0 above to see it break -->
-    <h1 class="test-header" id="header">Header Text</h1>
+    <header id="header">Natural Sticky Header</header>
 
-    <div class="content">
+    <main>
       <h1>Scroll Test Content</h1>
       <p>Scroll down and up to test the header behavior...</p>
       <p>This content is 2000px tall to enable scrolling.</p>
-    </div>
+    </main>
 
-    <script src="dist/natural-sticky.top.min.js"></script>
+    <script src="../dist/natural-sticky.top.min.js"></script>
     <script>
       // Initialize the header script
       naturalStickyTop(document.getElementById('header'));
