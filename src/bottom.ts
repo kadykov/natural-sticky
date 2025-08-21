@@ -16,21 +16,52 @@
  */
 export function naturalStickyBottom(element: HTMLElement) {
   let lastScrollY = window.scrollY;
-  let mode = 'relative';
+  let isSticky = false; // Start in relative mode
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    const scrollingDown = currentScrollY > lastScrollY;
-    const scrollingUp = currentScrollY < lastScrollY;
     const elementRect = element.getBoundingClientRect();
-    const elementHeight = element.offsetHeight;
-    const isElementVisible =
-      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
 
-    // Scenario 1: Element is sticky at bottom and user scrolls up
-    // Release the element from sticky position so it can scroll with content naturally
-    if (mode === 'sticky' && scrollingUp) {
-      mode = 'relative';
+    // Handle all relative mode logic first
+    if (!isSticky) {
+      // First priority: Check if element should switch to sticky
+      // For bottom elements: predict where bottom edge will be on next scroll event
+      // Formula: elementRect.bottom - scrollSpeed <= window.innerHeight (where scrollSpeed = currentScrollY - lastScrollY)
+      if (
+        elementRect.bottom - (currentScrollY - lastScrollY) <=
+        window.innerHeight
+      ) {
+        // Element will be at bottom of viewport on next scroll event - make it sticky now
+        isSticky = true;
+        element.style.position = 'sticky';
+        element.style.top = 'auto'; // Reset top positioning
+        element.style.bottom = '0'; // Stick to bottom of viewport
+      }
+      // Second priority: If scrolling down and element is not visible, position below viewport
+      // Check: scrolling down AND element not visible (bottom > 0 AND top < window height)
+      else if (
+        currentScrollY > lastScrollY &&
+        !(elementRect.bottom > 0 && elementRect.top < window.innerHeight)
+      ) {
+        element.style.position = 'relative';
+
+        // Calculate where we want the element to appear (just below the viewport)
+        const targetPosition = currentScrollY + window.innerHeight;
+
+        // Get the element's current offset and natural position in the document
+        const currentTopOffset = parseFloat(element.style.top || '0');
+        const naturalElementTop =
+          elementRect.top + currentScrollY - currentTopOffset;
+
+        // Calculate the offset needed to position element just below viewport
+        const offset = targetPosition - naturalElementTop;
+        element.style.top = `${offset}px`;
+      }
+    }
+    // Handle sticky mode logic - release from sticky when scrolling up
+    else if (currentScrollY < lastScrollY) {
+      // Release from sticky when scrolling up
+      isSticky = false;
       element.style.position = 'relative';
 
       // When releasing from sticky bottom position, we need to calculate where
@@ -46,34 +77,9 @@ export function naturalStickyBottom(element: HTMLElement) {
       // This ensures the element appears to stay in place when transitioning from sticky
       const targetOffset =
         currentDocumentPosition -
-        (document.documentElement.scrollHeight - elementHeight);
+        (document.documentElement.scrollHeight - element.offsetHeight);
 
       element.style.top = `${targetOffset}px`;
-    }
-    // Scenario 2: Element is in relative mode, user scrolls down, and element is not visible
-    // Position the element just below the viewport so it can naturally scroll into view
-    else if (mode === 'relative' && scrollingDown && !isElementVisible) {
-      element.style.position = 'relative';
-
-      // Calculate where we want the element to appear (just below the viewport)
-      const targetPosition = currentScrollY + window.innerHeight;
-
-      // Get the element's current offset and natural position in the document
-      const currentTopOffset = parseFloat(element.style.top || '0');
-      const naturalElementTop =
-        elementRect.top + currentScrollY - currentTopOffset;
-
-      // Calculate the offset needed to position element just below viewport
-      const offset = targetPosition - naturalElementTop;
-      element.style.top = `${offset}px`;
-    }
-    // Scenario 3: Element is in relative mode and has scrolled into view at bottom
-    // Make it sticky so it stays at the bottom of the viewport
-    else if (mode === 'relative' && elementRect.bottom <= window.innerHeight) {
-      mode = 'sticky';
-      element.style.position = 'sticky';
-      element.style.top = 'auto'; // Reset top positioning
-      element.style.bottom = '0'; // Stick to bottom of viewport
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

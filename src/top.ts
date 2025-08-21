@@ -11,41 +11,46 @@
  * - Uses 'top' property for both sticky and relative positioning
  * - When releasing from sticky on scroll down, positions element at current scroll position
  * - When moving above viewport on scroll up, positions element just above viewport (negative offset)
- * - Transitions to sticky when element's top edge reaches viewport top (elementRect.top >= 0)
+ * - Transitions to sticky using scroll speed prediction to avoid visual gaps (predicted elementRect.top >= 0)
  */
 export function naturalStickyTop(element: HTMLElement) {
   let lastScrollY = window.scrollY;
-  let mode = 'relative';
+  let isSticky = false; // Start in relative mode
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    const scrollingDown = currentScrollY > lastScrollY;
-    const scrollingUp = currentScrollY < lastScrollY;
-    const elementHeight = element.offsetHeight;
     const elementRect = element.getBoundingClientRect();
-    const isElementVisible =
-      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
 
-    // If we are sticky and scroll down, release the element.
-    if (mode === 'sticky' && scrollingDown) {
-      mode = 'relative';
+    // Handle all relative mode logic first
+    if (!isSticky) {
+      // First priority: Check if element should switch to sticky
+      // Predict where element will be on next scroll event to avoid visual gaps
+      // Formula: elementRect.top - scrollSpeed >= 0 (where scrollSpeed = currentScrollY - lastScrollY)
+      if (elementRect.top - (currentScrollY - lastScrollY) >= 0) {
+        // Element will be visible at top on next scroll event - make it sticky now
+        isSticky = true;
+        element.style.position = 'sticky';
+        element.style.top = '0';
+      }
+      // Second priority: If scrolling up and element is not yet visible, position above viewport
+      // Check: scrolling up AND element not visible (bottom > 0 AND top < window height)
+      else if (
+        currentScrollY < lastScrollY &&
+        !(elementRect.bottom > 0 && elementRect.top < window.innerHeight)
+      ) {
+        // ...move the element to be just above the viewport, ready to be revealed.
+        element.style.position = 'relative';
+        // Position element just above viewport so it scrolls into view naturally
+        element.style.top = `${currentScrollY - element.offsetHeight}px`;
+      }
+    }
+    // Handle sticky mode logic - release from sticky when scrolling down
+    else if (currentScrollY > lastScrollY) {
+      // Release from sticky when scrolling down
+      isSticky = false;
       element.style.position = 'relative';
       // Position element at current scroll position so it moves naturally with content
       element.style.top = `${currentScrollY}px`;
-    }
-    // If we are released and scrolling up, and the element is not yet visible...
-    else if (mode === 'relative' && scrollingUp && !isElementVisible) {
-      // ...move the element to be just above the viewport, ready to be revealed.
-      element.style.position = 'relative';
-      // Position element just above viewport so it scrolls into view naturally
-      element.style.top = `${currentScrollY - elementHeight}px`;
-    }
-    // If we are released and the element has scrolled into view at the top...
-    else if (mode === 'relative' && elementRect.top >= 0) {
-      // ...make it sticky again.
-      mode = 'sticky';
-      element.style.position = 'sticky';
-      element.style.top = '0';
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

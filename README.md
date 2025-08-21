@@ -16,10 +16,11 @@ A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
 **✨ Key Features:**
 
-- **🚀 Ultra Lightweight:** Only 1.1KB minified (top), 1.3KB (bottom)
+- **🚀 Ultra Lightweight:** Only 1.0KB minified (top), 1.2KB (bottom)
 - **🚫 Zero Dependencies:** Pure TypeScript compiled to vanilla JavaScript
 - **🎯 Natural Movement:** No jarring animations, just smooth natural scrolling
 - **🔇 Less Distracting:** Movement syncs with your scroll speed - no sudden pop-ins or slide effects
+- **⚡ Smart Prediction:** Uses scroll speed prediction to eliminate visual gaps during transitions
 - **🔧 Framework Agnostic:** Works with React, Vue, Angular, or plain JavaScript
 
 This package provides smooth, natural-feeling sticky elements that hide when scrolling down and reappear when scrolling up, without using JavaScript animations or scroll thresholds that can feel disconnected from user behavior.
@@ -28,7 +29,7 @@ This package provides smooth, natural-feeling sticky elements that hide when scr
 
 **Compared to alternatives:**
 
-- **Natural Sticky:** 1.1-1.3KB, zero dependencies, natural movement, non-distracting
+- **Natural Sticky:** 1.0-1.2KB, zero dependencies, natural movement, non-distracting, smart prediction
 - **Headroom.js:** ~7KB, requires configuration, jarring slide animations
 - **AOS (Animate On Scroll):** ~13KB, heavy animations, complex setup
 - **Sticky-js:** ~4KB, basic functionality, disconnected from scroll behavior
@@ -58,7 +59,7 @@ This package provides two separate functions, one for top-placed elements and on
 
 Include the script for the function you need. You can use a service like jsDelivr.
 
-**For a top-placed element (e.g., a header) - Only 1.1KB:**
+**For a top-placed element (e.g., a header) - Only 1.0KB:**
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js"></script>
@@ -70,7 +71,7 @@ Include the script for the function you need. You can use a service like jsDeliv
 </script>
 ```
 
-**For a bottom-placed element (e.g., a footer) - Only 1.3KB:**
+**For a bottom-placed element (e.g., a footer) - Only 1.2KB:**
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js"></script>
@@ -162,20 +163,33 @@ This package provides two separate implementations for top-placed and bottom-pla
 - Uses `position: sticky` with `top: 0` when sticky
 - When releasing on scroll down, positions element at current scroll position
 - When moving above viewport on scroll up, positions element just above viewport (negative offset)
-- Transitions to sticky when element's top edge reaches viewport top
+- **Smart transition timing**: Uses scroll speed prediction to eliminate visual gaps by switching to sticky before the element would become visible with a gap
 
 #### Bottom Implementation (`naturalStickyBottom`)
 
 - Uses `position: sticky` with `bottom: 0` when sticky
 - When releasing on scroll up, calculates complex offset to maintain current document position
 - When moving below viewport on scroll down, positions element just below viewport bottom
-- Transitions to sticky when element's bottom edge is fully within viewport
+- **Smart transition timing**: Uses scroll speed prediction to determine optimal moment for switching to sticky positioning
 
 The bottom implementation is more complex because:
 
 1. **Bottom-anchored positioning**: Elements positioned relative to bottom behave differently than top-anchored elements
 2. **Document flow calculations**: When switching from sticky to relative positioning, we must preserve the element's visual position in the document
 3. **Natural position tracking**: We need to track where the element would naturally appear in the document flow vs. where it currently appears after applying offsets
+
+### Scroll Speed Prediction
+
+Both implementations use intelligent scroll speed prediction to eliminate visual artifacts during transitions:
+
+**The Problem**: Traditional implementations often show visual gaps when switching from relative to sticky positioning. For example, if a user scrolls up at 10 pixels per event and the element is at -1px, by the next frame it would be at +9px, creating a visible gap at the top.
+
+**The Solution**: We predict where the element will be on the next scroll event using the formula:
+
+- **Top elements**: `elementRect.top - (currentScrollY - lastScrollY) >= 0`
+- **Bottom elements**: `elementRect.bottom - (currentScrollY - lastScrollY) <= window.innerHeight`
+
+This allows us to switch to sticky positioning preemptively, ensuring seamless transitions without visual gaps regardless of scroll speed or browser timing differences.
 
 ### Build and Test
 
