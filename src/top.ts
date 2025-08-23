@@ -11,11 +11,23 @@
  * - Uses 'top' property for both sticky and relative positioning
  * - When releasing from sticky on scroll down, positions element at current scroll position
  * - When moving above viewport on scroll up, positions element just above viewport (negative offset)
- * - Transitions to sticky using scroll speed prediction to avoid visual gaps (predicted elementRect.top >= 0)
+ * - Transitions to sticky using scroll step prediction to avoid visual gaps (predicted elementRect.top >= 0)
+ *
+ * @param element - The HTML element to make naturally sticky
+ * @param options - Configuration options
+ * @param options.snapEagerness - How eagerly the element snaps into sticky position (default: 1)
+ *   - 0: Pure natural movement, occasional visual gaps
+ *   - 1: Balanced behavior (recommended)
+ *   - 2-3: Reduced gaps, element "snaps" more eagerly to position
+ *   - Higher: Strong snap effect, immediate attraction to edge
  */
-export function naturalStickyTop(element: HTMLElement) {
+export function naturalStickyTop(
+  element: HTMLElement,
+  options?: { snapEagerness?: number }
+) {
   let lastScrollY = window.scrollY;
   let isSticky = false; // Start in relative mode
+  const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -25,8 +37,11 @@ export function naturalStickyTop(element: HTMLElement) {
     if (!isSticky) {
       // First priority: Check if element should switch to sticky
       // Predict where element will be on next scroll event to avoid visual gaps
-      // Formula: elementRect.top - scrollSpeed >= 0 (where scrollSpeed = currentScrollY - lastScrollY)
-      if (elementRect.top - (currentScrollY - lastScrollY) >= 0) {
+      // Formula: elementRect.top - snapEagerness * scrollStep >= 0 (where scrollStep = currentScrollY - lastScrollY)
+      if (
+        elementRect.top - snapEagerness * (currentScrollY - lastScrollY) >=
+        0
+      ) {
         // Element will be visible at top on next scroll event - make it sticky now
         isSticky = true;
         element.style.position = 'sticky';

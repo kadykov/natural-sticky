@@ -271,10 +271,10 @@
 
         <div class="demo-grid">
           <div class="demo-card">
-            <h3>📱 Header Only</h3>
+            <h3>📱 Header (Default)</h3>
             <iframe
               src="demo/header-only.html"
-              title="Header Only Demo"
+              title="Header Default Demo"
             ></iframe>
             <a href="demo/header-only.html" target="_blank" class="demo-link"
               >Open Full Demo →</a
@@ -282,10 +282,10 @@
           </div>
 
           <div class="demo-card">
-            <h3>📄 Footer Only</h3>
+            <h3>📄 Footer (Default)</h3>
             <iframe
               src="demo/footer-only.html"
-              title="Footer Only Demo"
+              title="Footer Default Demo"
             ></iframe>
             <a href="demo/footer-only.html" target="_blank" class="demo-link"
               >Open Full Demo →</a
@@ -293,15 +293,64 @@
           </div>
 
           <div class="demo-card">
-            <h3>📱📄 Header + Footer</h3>
+            <h3>🌿 Header Natural (0.0)</h3>
             <iframe
-              src="demo/both.html"
-              title="Header and Footer Demo"
+              src="demo/header-natural.html"
+              title="Header Natural Movement Demo"
             ></iframe>
-            <a href="demo/both.html" target="_blank" class="demo-link"
+            <a href="demo/header-natural.html" target="_blank" class="demo-link"
               >Open Full Demo →</a
             >
           </div>
+
+          <div class="demo-card">
+            <h3>🧲 Header Magnetic (3.0)</h3>
+            <iframe
+              src="demo/header-magnetic.html"
+              title="Header Magnetic Effect Demo"
+            ></iframe>
+            <a
+              href="demo/header-magnetic.html"
+              target="_blank"
+              class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem">
+          <a
+            href="demo/4-headers-comparison.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.75rem 1.5rem;
+              margin: 1rem;
+              background: #28a745;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              font-weight: 500;
+            "
+          >
+            🚀 Live 4-Headers Comparison →
+          </a>
+          <a
+            href="demo/snap-comparison.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.75rem 1.5rem;
+              margin: 1rem;
+              background: #667eea;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              font-weight: 500;
+            "
+          >
+            🎯 Separate Demos Comparison →
+          </a>
         </div>
       </div>
 
@@ -336,6 +385,11 @@ const headerInstance = naturalStickyTop(document.querySelector('.header'));
 
 // For footers  
 const footerInstance = naturalStickyBottom(document.querySelector('.footer'));
+
+// Fine-tune snap behavior with snapEagerness (0.0-3.0+)
+const eagerHeader = naturalStickyTop(document.querySelector('.header'), {
+  snapEagerness: 2.0  // More eager snapping to prevent visual gaps
+});
 
 // Clean up when needed
 headerInstance.destroy();
@@ -374,6 +428,24 @@ footerInstance.destroy();</pre
           <code>position: relative</code> at exactly the right moments, letting
           the browser's native scrolling handle all the movement naturally.
         </p>
+
+        <h3>Fine-tuning with snapEagerness</h3>
+        <p>
+          The <code>snapEagerness</code> parameter (default: 1.0) lets you
+          balance between natural movement and gap prevention:
+        </p>
+        <ul>
+          <li>
+            <strong>0.0</strong> - Pure natural movement, may show gaps on fast
+            scrolling
+          </li>
+          <li><strong>1.0</strong> - Balanced behavior (default)</li>
+          <li><strong>2.0</strong> - More eager snapping to prevent gaps</li>
+          <li>
+            <strong>3.0+</strong> - Magnetic effect with intentional snap
+            behavior
+          </li>
+        </ul>
 
         <a
           href="https://github.com/kadykov/natural-sticky"

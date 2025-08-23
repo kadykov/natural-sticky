@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SnapEagerness Comparison - Natural Sticky</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background: #fafafa;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin: 0 0 1rem 0;
+        color: #333;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        color: #666;
+        margin: 0 0 1rem 0;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      @media (min-width: 1200px) {
+        .comparison-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .demo-frame {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .demo-frame h3 {
+        margin: 0;
+        padding: 1rem 1.5rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        font-size: 1.1rem;
+        text-align: center;
+      }
+
+      .demo-frame iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+        display: block;
+      }
+
+      .demo-frame .demo-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        text-align: center;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .demo-frame .demo-link:hover {
+        background: #0056b3;
+      }
+
+      .description {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .description h2 {
+        color: #333;
+        margin-top: 0;
+      }
+
+      .value-guide {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .value-item {
+        padding: 1rem;
+        background: #f8f9fa;
+        border-left: 4px solid;
+        border-radius: 4px;
+      }
+
+      .value-item.natural {
+        border-left-color: #28a745;
+      }
+      .value-item.balanced {
+        border-left-color: #007bff;
+      }
+      .value-item.eager {
+        border-left-color: #ffc107;
+      }
+      .value-item.magnetic {
+        border-left-color: #dc3545;
+      }
+
+      .value-item strong {
+        color: #333;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .demo-frame iframe {
+          height: 800px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>SnapEagerness Parameter Comparison</h1>
+        <p>
+          Compare different snapEagerness values side by side to understand the
+          behavior trade-offs
+        </p>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="demo-frame">
+          <h3>🌿 Natural (0.0)</h3>
+          <iframe
+            src="snap-demo-0.html"
+            title="Natural Movement Demo"
+            data-sync-group="comparison"
+          ></iframe>
+          <a href="snap-demo-0.html" target="_blank" class="demo-link">
+            Open Individual Demo →
+          </a>
+        </div>
+
+        <div class="demo-frame">
+          <h3>⚖️ Balanced (1.0)</h3>
+          <iframe
+            src="snap-demo-1.html"
+            title="Balanced Movement Demo"
+            data-sync-group="comparison"
+          ></iframe>
+          <a href="snap-demo-1.html" target="_blank" class="demo-link">
+            Open Individual Demo →
+          </a>
+        </div>
+
+        <div class="demo-frame">
+          <h3>⚡ Eager (2.0)</h3>
+          <iframe
+            src="snap-demo-2.html"
+            title="Eager Movement Demo"
+            data-sync-group="comparison"
+          ></iframe>
+          <a href="snap-demo-2.html" target="_blank" class="demo-link">
+            Open Individual Demo →
+          </a>
+        </div>
+
+        <div class="demo-frame">
+          <h3>🧲 Magnetic (3.0)</h3>
+          <iframe
+            src="snap-demo-3.html"
+            title="Magnetic Movement Demo"
+            data-sync-group="comparison"
+          ></iframe>
+          <a href="snap-demo-3.html" target="_blank" class="demo-link">
+            Open Individual Demo →
+          </a>
+        </div>
+      </div>
+
+      <div class="description">
+        <h2>Understanding SnapEagerness Values</h2>
+        <p>
+          The <code>snapEagerness</code> parameter controls how aggressively the
+          sticky element anticipates scroll direction changes. It uses scroll
+          speed prediction to determine when to switch between sticky and
+          relative positioning.
+        </p>
+
+        <div class="value-guide">
+          <div class="value-item natural">
+            <strong>0.0 - Natural</strong>
+            Pure natural movement that perfectly matches scroll speed. May show
+            small gaps on very fast scrolling, but provides the most intuitive
+            experience.
+          </div>
+
+          <div class="value-item balanced">
+            <strong>1.0 - Balanced (Default)</strong>
+            The sweet spot between natural movement and gap prevention. Predicts
+            one scroll step ahead for smooth transitions without feeling
+            artificial.
+          </div>
+
+          <div class="value-item eager">
+            <strong>2.0 - Eager</strong>
+            More aggressive gap prevention that predicts two scroll steps ahead.
+            Creates slightly more pronounced snapping but eliminates visual
+            gaps.
+          </div>
+
+          <div class="value-item magnetic">
+            <strong>3.0+ - Magnetic</strong>
+            Creates an intentional "magnetic" effect where the element seems to
+            be attracted to the sticky position. Useful as a deliberate design
+            feature.
+          </div>
+        </div>
+
+        <h3>How to Choose the Right Value</h3>
+        <ul>
+          <li>
+            <strong>Content-focused sites:</strong> Use 0.0-1.0 for natural,
+            distraction-free scrolling
+          </li>
+          <li>
+            <strong>Apps with complex headers:</strong> Use 1.5-2.5 to prevent
+            layout shifts
+          </li>
+          <li>
+            <strong>Gaming or interactive sites:</strong> Use 3.0+ for
+            intentional snapping effects
+          </li>
+          <li>
+            <strong>Mobile-first designs:</strong> Consider higher values
+            (1.5-2.0) for touch scrolling
+          </li>
+        </ul>
+
+        <h3>What to Look For When Testing</h3>
+        <p>Try these tests to understand the differences:</p>
+        <ul>
+          <li>
+            <strong>Slow scrolling:</strong> All values should feel natural
+          </li>
+          <li>
+            <strong>Fast scrolling:</strong> Notice how higher values prevent
+            gaps
+          </li>
+          <li>
+            <strong>Direction changes:</strong> Higher values snap more quickly
+          </li>
+          <li>
+            <strong>Momentum scrolling:</strong> Test on mobile devices for
+            touch behavior
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

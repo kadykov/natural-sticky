@@ -23,7 +23,7 @@
     "build:umd:top": "esbuild src/top.ts --bundle --platform=browser --outfile=dist/natural-sticky.top.min.js --format=iife --global-name=naturalStickyTop --minify --footer:js='naturalStickyTop = naturalStickyTop.default'",
     "build:umd:bottom": "esbuild src/bottom.ts --bundle --platform=browser --outfile=dist/natural-sticky.bottom.min.js --format=iife --global-name=naturalStickyBottom --minify --footer:js='naturalStickyBottom = naturalStickyBottom.default'",
     "build:types": "tsc --emitDeclarationOnly",
-    "build": "npm run clean && npm run format:check && npm run lint:check && npm run build:esm && npm run build:cjs && npm run build:umd:top && npm run build:umd:bottom && npm run build:types",
+    "build": "npm run clean && npm run lint:check && npm run build:esm && npm run build:cjs && npm run build:umd:top && npm run build:umd:bottom && npm run build:types",
     "prepublishOnly": "npm run build",
     "prepare": "husky"
   },

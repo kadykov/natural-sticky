@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snap Eagerness 2.0 - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-size: 14px;
+      }
+      .content {
+        padding: 1rem;
+      }
+      .sticky-header {
+        background: #ffc107;
+        color: #212529;
+        padding: 0.5rem 1rem;
+        margin: 0;
+        font-size: 1rem;
+      }
+      .sticky-header h1 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Eager (2.0)</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Eager Gap Prevention (snapEagerness: 2.0)</h2>
+        <p>
+          <strong>Configuration:</strong> <code>{ snapEagerness: 2.0 }</code>
+        </p>
+        <p>
+          This setting predicts two scroll steps ahead, making transitions more
+          aggressive to virtually eliminate visual gaps.
+        </p>
+
+        <div
+          style="
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #856404">
+            ⚡ <strong>Eager snapping:</strong> The header becomes more
+            "committed" to snapping into sticky position, switching earlier to
+            prevent any chance of gaps.
+          </p>
+        </div>
+
+        <h3>🎯 When Aggressive Prevention is Needed</h3>
+        <p>
+          The 2.0 value is designed for scenarios where visual gaps are
+          unacceptable:
+        </p>
+
+        <ul>
+          <li>
+            ✅ <strong>Virtually eliminates gaps:</strong> Even during very fast
+            scrolling
+          </li>
+          <li>
+            ✅ <strong>High-contrast headers:</strong> Where gaps would be very
+            noticeable
+          </li>
+          <li>
+            ✅ <strong>Complex header layouts:</strong> Multi-element headers
+            that can't show partial states
+          </li>
+          <li>
+            ✅ <strong>Mobile-heavy usage:</strong> Handles momentum scrolling
+            aggressively
+          </li>
+          <li>
+            ⚠️ <strong>More noticeable snapping:</strong> Movement feels less
+            natural
+          </li>
+        </ul>
+
+        <h3>🔍 How Two-Step Prediction Works</h3>
+        <p>The algorithm looks further ahead to make earlier decisions:</p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>const handleScroll = () => {
+  const currentScrollY = window.scrollY;
+  const elementRect = element.getBoundingClientRect();
+  
+  // Calculate current scroll velocity
+  const scrollVelocity = currentScrollY - lastScrollY;
+  
+  // Predict TWO scroll steps ahead instead of one
+  const predictedTop = elementRect.top - 2.0 * scrollVelocity;
+  //                                      ↑
+  //                        snapEagerness: 2.0 = predict 2 steps ahead
+  
+  // Switch to sticky much earlier in the scroll
+  if (mode === 'relative' && predictedTop >= 0) {
+    mode = 'sticky';
+    element.style.position = 'sticky';
+    element.style.top = '0';
+  }
+}</code></pre>
+        </div>
+
+        <h3>📐 The Mathematics of Eagerness</h3>
+        <p>Understanding the prediction calculation:</p>
+        <ul>
+          <li>
+            <strong>Current Position:</strong> <code>elementRect.top</code> -
+            where the element is now
+          </li>
+          <li>
+            <strong>Velocity:</strong> <code>scrollVelocity</code> - how fast
+            we're scrolling
+          </li>
+          <li>
+            <strong>Two-Step Prediction:</strong>
+            <code>currentPos - 2 * velocity</code> - where we'll be in 2 frames
+          </li>
+          <li>
+            <strong>Earlier Switching:</strong> Becomes sticky when prediction
+            shows we're getting close
+          </li>
+        </ul>
+
+        <h3>🚀 Ideal Use Cases</h3>
+        <p>Consider snapEagerness: 2.0 when you need:</p>
+        <ul>
+          <li>
+            <strong>Perfect visual consistency:</strong> Zero tolerance for any
+            gaps
+          </li>
+          <li>
+            <strong>High-contrast designs:</strong> Dark headers on light
+            backgrounds where gaps stand out
+          </li>
+          <li>
+            <strong>Complex header content:</strong> Multiple elements, images,
+            or animations that can't show partial states
+          </li>
+          <li>
+            <strong>Mobile-first applications:</strong> Momentum scrolling with
+            unpredictable speeds
+          </li>
+          <li>
+            <strong>Gaming or interactive interfaces:</strong> Where snappy
+            behavior feels appropriate
+          </li>
+        </ul>
+
+        <h3>⚖️ Trade-offs to Consider</h3>
+        <p>The eager behavior comes with some trade-offs:</p>
+        <ul>
+          <li>
+            <strong>Less natural movement:</strong> The prediction becomes
+            noticeable to users
+          </li>
+          <li>
+            <strong>Earlier transitions:</strong> May feel like the header is
+            "jumping" to sticky mode
+          </li>
+          <li>
+            <strong>Reduced connection to scroll:</strong> Movement feels
+            slightly disconnected from user input
+          </li>
+          <li>
+            <strong>Potential over-correction:</strong> May switch to sticky
+            when it doesn't need to
+          </li>
+        </ul>
+
+        <div
+          style="
+            background: #e2e3e5;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #495057">
+            <strong>Design principle:</strong> Use higher snapEagerness values
+            when visual consistency is more important than natural movement
+            feel.
+          </p>
+        </div>
+
+        <h3>🧪 Testing the Eager Behavior</h3>
+        <p>Try these patterns to experience the aggressive gap prevention:</p>
+        <ul>
+          <li>
+            <strong>Slow scrolling:</strong> Notice the earlier transition to
+            sticky
+          </li>
+          <li>
+            <strong>Medium speed:</strong> The snapping should be clearly
+            noticeable
+          </li>
+          <li>
+            <strong>Fast scrolling:</strong> Gaps should be completely
+            eliminated
+          </li>
+          <li>
+            <strong>Sudden stops:</strong> Try scrolling fast then suddenly
+            stopping
+          </li>
+          <li>
+            <strong>Direction reversals:</strong> Quick changes should be
+            handled aggressively
+          </li>
+        </ul>
+
+        <h3>📱 Mobile Performance</h3>
+        <p>The 2.0 value is particularly effective on mobile devices:</p>
+        <ul>
+          <li>Handles the initial momentum burst of finger flicks</li>
+          <li>Prevents gaps during the high-speed phase</li>
+          <li>Maintains consistency during deceleration</li>
+          <li>Works well with iOS and Android momentum algorithms</li>
+        </ul>
+
+        <h3>📊 Comparison with Other Values</h3>
+        <p>Understanding the eagerness spectrum:</p>
+        <ul>
+          <li>
+            <strong>snapEagerness: 0.0</strong> - Pure natural (may show gaps)
+          </li>
+          <li>
+            <strong>snapEagerness: 1.0</strong> - Balanced default (subtle
+            prediction)
+          </li>
+          <li>
+            <strong>snapEagerness: 2.0</strong> ← You are here (Aggressive gap
+            prevention)
+          </li>
+          <li>
+            <strong>snapEagerness: 3.0</strong> - Intentional magnetic snapping
+          </li>
+        </ul>
+
+        <h3>⚡ Performance Impact</h3>
+        <p>The eager prediction has minimal performance cost:</p>
+        <ul>
+          <li>
+            <strong>Same computational complexity:</strong> Still just a
+            multiplication and comparison
+          </li>
+          <li>
+            <strong>Earlier DOM updates:</strong> Transitions happen sooner but
+            not more frequently
+          </li>
+          <li>
+            <strong>Consistent frame rates:</strong> No additional processing
+            per scroll event
+          </li>
+          <li>
+            <strong>Memory usage identical:</strong> No additional state
+            tracking required
+          </li>
+        </ul>
+
+        <p>
+          Continue scrolling to see how the eager behavior handles different
+          scroll patterns. Notice how the header seems more "decisive" about
+          when to snap into position - it doesn't wait for the natural timing,
+          but acts preemptively to ensure visual consistency.
+        </p>
+
+        <div
+          style="
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin: 2rem 0;
+          "
+        >
+          <p style="text-align: center; color: #856404">
+            <strong>Eager Prevention at Work!</strong><br />
+            Feel how the header anticipates your scrolling?<br />
+            Perfect for when gaps are unacceptable.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, { snapEagerness: 2.0 });
+        }
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>

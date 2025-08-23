@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header Natural (0.0) - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 1rem 2rem;
+        margin: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .sticky-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .sticky-header p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Pure Natural Movement</h1>
+      <p>snapEagerness: 0.0 - May show gaps on fast scrolling</p>
+    </header>
+
+    <main>
+      <section class="demo-content">
+        <h2>Pure Natural Movement Demo</h2>
+        <p>
+          This header uses <strong>snapEagerness: 0.0</strong>, which provides
+          the most natural scrolling experience. The header moves exactly with
+          your scroll speed, creating a perfectly synchronized feel.
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #1565c0">
+            💡 <strong>Pro tip:</strong> Try clicking and dragging to scroll!
+            This gives you precise control over scroll speed and direction, just
+            like on mobile devices.
+          </p>
+        </div>
+
+        <p>
+          <strong>Trade-off:</strong> On very fast scrolling, you might
+          occasionally see small gaps as the header transitions. This is the
+          price of pure natural movement - but for most users and use cases,
+          this provides the most intuitive experience.
+        </p>
+
+        <h3>🔍 The Magic Behind Natural Movement</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// snapEagerness: 0.0 means no prediction - pure natural movement
+const shouldBecomeSticky = elementRect.top - 0.0 * scrollSpeed >= 0;
+
+// This simplifies to just:
+const shouldBecomeSticky = elementRect.top >= 0;
+
+// No scroll speed prediction, just pure position-based logic</code></pre>
+        </div>
+
+        <h3>🌿 When to Use Natural Movement (0.0)</h3>
+        <ul style="color: #28a745">
+          <li>✅ When natural movement is your top priority</li>
+          <li>✅ For content-focused sites where smoothness matters most</li>
+          <li>✅ When your users typically scroll at moderate speeds</li>
+          <li>✅ For minimal, distraction-free interfaces</li>
+          <li>✅ Reading experiences and documentation sites</li>
+          <li>✅ When you want zero artificial behavior</li>
+        </ul>
+
+        <h3>⚙️ The Three States in Natural Mode</h3>
+        <p>
+          Even with 0.0 snapEagerness, the header operates in three distinct
+          modes:
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>1. Sticky Mode:</strong> <code>position: sticky; top: 0</code
+          ><br />
+          Header is visible and sticks to the top of the viewport naturally
+        </div>
+
+        <div
+          style="
+            background: #f3e5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>2. Released Mode (scrolling down):</strong>
+          <code>position: relative; top: currentScrollY</code><br />
+          Header flows naturally with the content as you scroll down
+        </div>
+
+        <div
+          style="
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>3. Preparation Mode (scrolling up):</strong>
+          <code>position: relative; top: currentScrollY - elementHeight</code
+          ><br />
+          Header is positioned just above the viewport, ready to scroll into
+          view naturally
+        </div>
+
+        <p>
+          The key difference with 0.0 snapEagerness is that transitions happen
+          based purely on the element's actual position, with no predictive
+          behavior. This creates the most natural feel but may occasionally show
+          gaps on very fast scrolling.
+        </p>
+
+        <h3>🎯 Perfect Use Cases</h3>
+        <p>
+          <strong>Documentation Sites:</strong> Where reading flow is paramount
+        </p>
+        <p>
+          <strong>Blogs and Articles:</strong> Minimal distraction during
+          reading
+        </p>
+        <p><strong>Portfolio Sites:</strong> Subtle, elegant header behavior</p>
+        <p>
+          <strong>Content Management:</strong> Where users focus on editing
+          content
+        </p>
+
+        <h3>📊 Performance Characteristics</h3>
+        <p>With snapEagerness: 0.0, the calculation is minimal:</p>
+        <ul>
+          <li><strong>CPU Usage:</strong> Lowest possible (no predictions)</li>
+          <li><strong>Smoothness:</strong> Perfectly matches scroll speed</li>
+          <li>
+            <strong>Visual Gaps:</strong> Rare, only on extremely fast scrolling
+          </li>
+          <li><strong>User Experience:</strong> Most natural and intuitive</li>
+        </ul>
+
+        <p>
+          Keep scrolling to test different patterns. Try slow scrolling, fast
+          scrolling, and quick direction changes. Notice how the header always
+          stays perfectly in sync with your movement.
+        </p>
+
+        <h3>🔄 Comparison with Other Values</h3>
+        <p>
+          Want to see how this compares with other snapEagerness values? Check
+          out our side-by-side comparisons:
+        </p>
+        <ul>
+          <li>
+            <a href="snap-comparison.html">4 Separate Demos Comparison</a>
+          </li>
+          <li>
+            <a href="4-headers-comparison.html">Live 4-Headers Comparison</a>
+          </li>
+        </ul>
+
+        <div class="spacer"></div>
+        <p>
+          This natural movement creates the most intuitive user experience, as
+          the header behaves exactly as users expect based on their scroll
+          input.
+        </p>
+        <div class="spacer"></div>
+      </section>
+    </main>
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, { snapEagerness: 0.0 });
+        }
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>

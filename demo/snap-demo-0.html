@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snap Eagerness 0.0 - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        font-size: 14px;
+      }
+      .content {
+        padding: 1rem;
+      }
+      .sticky-header {
+        background: #007bff;
+        color: white;
+        padding: 0.5rem 1rem;
+        margin: 0;
+        font-size: 1rem;
+      }
+      .sticky-header h1 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Pure Natural (0.0)</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Pure Natural Movement (snapEagerness: 0.0)</h2>
+        <p>
+          <strong>Configuration:</strong> <code>{ snapEagerness: 0.0 }</code>
+        </p>
+        <p>
+          This header uses the most natural feel but may occasionally show small
+          visual gaps when scrolling up quickly.
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #1565c0">
+            💡 <strong>Testing tip:</strong> Try scrolling at different speeds.
+            Notice how the movement feels completely natural and connected to
+            your scroll speed.
+          </p>
+        </div>
+
+        <h3>🔍 What Makes This "Natural"?</h3>
+        <p>
+          With snapEagerness set to 0.0, the header only becomes sticky when it
+          naturally reaches the top edge, with no prediction or early switching.
+          This creates the most organic feel.
+        </p>
+
+        <p>Key characteristics:</p>
+        <ul>
+          <li>
+            ✅ Perfect natural feel - header truly becomes part of content flow
+          </li>
+          <li>
+            ✅ Movement matches your exact scroll input with zero anticipation
+          </li>
+          <li>✅ Most intuitive and least distracting behavior</li>
+          <li>⚠️ May show brief gaps during very fast upward scrolling</li>
+        </ul>
+
+        <h3>📋 The Source Code Behind This Behavior</h3>
+        <p>
+          Here's the actual TypeScript implementation that powers this natural
+          movement:
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>/**
+ * Natural sticky behavior with configurable snap eagerness
+ */
+export function naturalStickyTop(element: HTMLElement, options: { snapEagerness?: number } = {}) {
+  const { snapEagerness = 1.0 } = options;
+  let lastScrollY = window.scrollY;
+  let mode = 'relative';
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY;
+    const scrollingUp = currentScrollY < lastScrollY;
+    const elementHeight = element.offsetHeight;
+    const elementRect = element.getBoundingClientRect();
+    const isElementVisible = elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+
+    // Calculate scroll velocity for prediction
+    const scrollVelocity = currentScrollY - lastScrollY;
+    const predictedTop = elementRect.top - snapEagerness * scrollVelocity;
+
+    // If we are sticky and scroll down, release the element
+    if (mode === 'sticky' && scrollingDown) {
+      mode = 'relative';
+      element.style.position = 'relative';
+      element.style.top = `${currentScrollY}px`;
+    }
+    // If scrolling up and element not visible, prepare for reveal
+    else if (mode === 'relative' && scrollingUp && !isElementVisible) {
+      element.style.position = 'relative';
+      element.style.top = `${currentScrollY - elementHeight}px`;
+    }
+    // With snapEagerness 0.0, only snap when naturally reaching the top
+    else if (mode === 'relative' && predictedTop >= 0) {
+      mode = 'sticky';
+      element.style.position = 'sticky';
+      element.style.top = '0';
+    }
+
+    lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+  };
+
+  handleScroll();
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  return { destroy: () => window.removeEventListener('scroll', handleScroll) };
+}</code></pre>
+        </div>
+
+        <h3>🎯 When to Choose snapEagerness: 0.0</h3>
+        <p>This setting is perfect when:</p>
+        <ul>
+          <li>
+            <strong>Natural movement is your top priority</strong> - Users will
+            feel the most intuitive connection
+          </li>
+          <li>
+            <strong>Content-focused sites</strong> - Reading experiences where
+            distraction should be minimized
+          </li>
+          <li>
+            <strong>Desktop-first designs</strong> - Mouse wheel scrolling is
+            typically more controlled
+          </li>
+          <li>
+            <strong>Performance-critical applications</strong> - Minimal
+            prediction logic reduces computation
+          </li>
+        </ul>
+
+        <h3>⚠️ Potential Trade-offs</h3>
+        <p>Be aware that with pure natural movement:</p>
+        <ul>
+          <li>Very fast scrolling may occasionally show brief visual gaps</li>
+          <li>
+            Mobile users with momentum scrolling might notice more artifacts
+          </li>
+          <li>
+            Complex header layouts may appear less polished during edge cases
+          </li>
+        </ul>
+
+        <p>
+          Continue scrolling to test different scroll speeds and patterns. Pay
+          attention to how the header responds to your exact scroll input
+          without any anticipation.
+        </p>
+
+        <p>Try these specific tests:</p>
+        <ul>
+          <li>
+            <strong>Slow, steady scrolling:</strong> Should feel perfectly
+            smooth
+          </li>
+          <li>
+            <strong>Quick direction changes:</strong> Notice the immediate
+            response
+          </li>
+          <li>
+            <strong>Fast upward scrolling:</strong> This is where you might see
+            occasional gaps
+          </li>
+          <li>
+            <strong>Momentum scrolling:</strong> (Mobile/trackpad) Watch
+            behavior during deceleration
+          </li>
+        </ul>
+
+        <h3>📊 Comparing with Other Values</h3>
+        <p>This 0.0 value represents one end of the spectrum:</p>
+        <ul>
+          <li>
+            <strong>snapEagerness: 0.0</strong> ← You are here (Pure natural)
+          </li>
+          <li>
+            <strong>snapEagerness: 1.0</strong> - Balanced default (1 step
+            prediction)
+          </li>
+          <li>
+            <strong>snapEagerness: 2.0</strong> - Eager gap prevention (2 step
+            prediction)
+          </li>
+          <li>
+            <strong>snapEagerness: 3.0</strong> - Magnetic effect (3 step
+            prediction)
+          </li>
+        </ul>
+
+        <p>
+          The higher the value, the more the system "anticipates" your scrolling
+          to prevent gaps, but at the cost of natural feel.
+        </p>
+
+        <p>
+          This is where the pure natural movement really shines - there's no
+          artificial prediction interfering with the organic flow of your
+          scrolling motion.
+        </p>
+
+        <div
+          style="
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 2rem 0;
+          "
+        >
+          <p style="text-align: center; color: #666">
+            <strong>Keep scrolling to continue testing!</strong><br />
+            The more you scroll, the better you'll feel the pure natural
+            movement.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, { snapEagerness: 0.0 });
+        }
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
