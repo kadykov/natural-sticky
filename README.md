@@ -21,6 +21,7 @@ A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 - **🎯 Natural Movement:** No jarring animations, just smooth natural scrolling
 - **🔇 Less Distracting:** Movement syncs with your scroll speed - no sudden pop-ins or slide effects
 - **⚡ Smart Prediction:** Uses scroll speed prediction to eliminate visual gaps during transitions
+- **🎛️ Configurable Snap Behavior:** Fine-tune with snapEagerness parameter (0.0-3.0+) for different use cases
 - **🔧 Framework Agnostic:** Works with React, Vue, Angular, or plain JavaScript
 
 This package provides smooth, natural-feeling sticky elements that hide when scrolling down and reappear when scrolling up, without using JavaScript animations or scroll thresholds that can feel disconnected from user behavior.
@@ -66,7 +67,11 @@ Include the script for the function you need. You can use a service like jsDeliv
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.my-header');
+    // Default balanced behavior
     window.naturalStickyTop(header);
+
+    // Or customize snap behavior
+    window.naturalStickyTop(header, { snapEagerness: 2.0 });
   });
 </script>
 ```
@@ -78,7 +83,11 @@ Include the script for the function you need. You can use a service like jsDeliv
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('.my-footer');
+    // Default balanced behavior
     window.naturalStickyBottom(footer);
+
+    // Or customize snap behavior
+    window.naturalStickyBottom(footer, { snapEagerness: 1.5 });
   });
 </script>
 ```
@@ -92,13 +101,19 @@ import { naturalStickyTop, naturalStickyBottom } from 'natural-sticky';
 
 const header = document.querySelector('.my-header');
 if (header) {
+  // Default balanced behavior (snapEagerness: 1.0)
   const headerInstance = naturalStickyTop(header);
+
+  // Or customize snap behavior for different use cases
+  const eagerHeader = naturalStickyTop(header, { snapEagerness: 2.0 }); // More gap prevention
+  const naturalHeader = naturalStickyTop(header, { snapEagerness: 0.0 }); // Pure natural movement
+
   // To remove the event listeners later: headerInstance.destroy();
 }
 
 const footer = document.querySelector('.my-footer');
 if (footer) {
-  const footerInstance = naturalStickyBottom(footer);
+  const footerInstance = naturalStickyBottom(footer, { snapEagerness: 1.5 });
   // To remove the event listeners later: footerInstance.destroy();
 }
 ```
@@ -152,6 +167,71 @@ For the scripts to work correctly, your sticky elements **must not have margins*
 </script>
 ```
 
+## Fine-tuning with snapEagerness
+
+The `snapEagerness` parameter allows you to balance between natural movement and visual gap prevention. It controls how aggressively the element anticipates scroll direction changes using scroll speed prediction.
+
+### Parameter Values
+
+- **`0.0`** - **Pure Natural Movement**
+  - Most intuitive and natural feeling
+  - Movement perfectly matches scroll speed
+  - May show brief gaps during very fast scrolling
+  - Best for content-focused sites and reading experiences
+
+- **`1.0`** - **Balanced Behavior (Default)**
+  - Sweet spot between natural movement and reliability
+  - Predicts one scroll step ahead
+  - Eliminates most visual gaps without feeling artificial
+  - Recommended for most applications
+
+- **`2.0`** - **Eager Gap Prevention**
+  - More aggressive gap prevention
+  - Predicts two scroll steps ahead
+  - Virtually eliminates all visual gaps
+  - Best for complex interfaces where gaps cause layout issues
+
+- **`3.0+`** - **Magnetic Effect**
+  - Creates intentional "magnetic" attraction to edges
+  - Snapping becomes a deliberate design feature
+  - Best for gaming interfaces or when snappy behavior is desired
+
+### Usage Examples
+
+```javascript
+// Content-focused site - prioritize natural movement
+naturalStickyTop(header, { snapEagerness: 0.0 });
+
+// General purpose - balanced default behavior
+naturalStickyTop(header); // Same as snapEagerness: 1.0
+
+// Mobile-heavy app - prevent gaps during touch scrolling
+naturalStickyTop(header, { snapEagerness: 2.0 });
+
+// Gaming interface - intentional magnetic effect
+naturalStickyTop(header, { snapEagerness: 3.0 });
+
+// Custom fine-tuning
+naturalStickyTop(header, { snapEagerness: 1.5 });
+```
+
+### How It Works
+
+The prediction algorithm uses scroll velocity to anticipate where elements will be:
+
+```
+predictedPosition = currentPosition - snapEagerness × scrollVelocity
+```
+
+- **Higher values** = more anticipation = fewer gaps but less natural movement
+- **Lower values** = less anticipation = more natural but occasional gaps
+- **Custom values** (like 1.5, 2.7) allow precise tuning for specific use cases
+
+### Live Comparisons
+
+- **[4-Headers Live Comparison](https://kadykov.github.io/natural-sticky/demo/4-headers-comparison.html)** - All values side-by-side in real-time
+- **[Individual Demos Comparison](https://kadykov.github.io/natural-sticky/demo/snap-comparison.html)** - Separate focused demos for each value
+
 ## Development
 
 ### Implementation Details
@@ -163,14 +243,16 @@ This package provides two separate implementations for top-placed and bottom-pla
 - Uses `position: sticky` with `top: 0` when sticky
 - When releasing on scroll down, positions element at current scroll position
 - When moving above viewport on scroll up, positions element just above viewport (negative offset)
-- **Smart transition timing**: Uses scroll speed prediction to eliminate visual gaps by switching to sticky before the element would become visible with a gap
+- **Smart transition timing**: Uses scroll speed prediction with configurable snapEagerness to eliminate visual gaps by switching to sticky before the element would become visible with a gap
+- **snapEagerness parameter**: Controls prediction aggressiveness (default: 1.0)
 
 #### Bottom Implementation (`naturalStickyBottom`)
 
 - Uses `position: sticky` with `bottom: 0` when sticky
 - When releasing on scroll up, calculates complex offset to maintain current document position
 - When moving below viewport on scroll down, positions element just below viewport bottom
-- **Smart transition timing**: Uses scroll speed prediction to determine optimal moment for switching to sticky positioning
+- **Smart transition timing**: Uses scroll speed prediction with configurable snapEagerness to determine optimal moment for switching to sticky positioning
+- **snapEagerness parameter**: Controls prediction aggressiveness (default: 1.0)
 
 The bottom implementation is more complex because:
 
@@ -178,18 +260,25 @@ The bottom implementation is more complex because:
 2. **Document flow calculations**: When switching from sticky to relative positioning, we must preserve the element's visual position in the document
 3. **Natural position tracking**: We need to track where the element would naturally appear in the document flow vs. where it currently appears after applying offsets
 
-### Scroll Speed Prediction
+### Scroll Speed Prediction with snapEagerness
 
-Both implementations use intelligent scroll speed prediction to eliminate visual artifacts during transitions:
+Both implementations use intelligent scroll speed prediction with configurable eagerness to eliminate visual artifacts during transitions:
 
 **The Problem**: Traditional implementations often show visual gaps when switching from relative to sticky positioning. For example, if a user scrolls up at 10 pixels per event and the element is at -1px, by the next frame it would be at +9px, creating a visible gap at the top.
 
-**The Solution**: We predict where the element will be on the next scroll event using the formula:
+**The Solution**: We predict where the element will be on the next scroll event using the formula with configurable snapEagerness:
 
-- **Top elements**: `elementRect.top - (currentScrollY - lastScrollY) >= 0`
-- **Bottom elements**: `elementRect.bottom - (currentScrollY - lastScrollY) <= window.innerHeight`
+- **Top elements**: `elementRect.top - snapEagerness * (currentScrollY - lastScrollY) >= 0`
+- **Bottom elements**: `elementRect.bottom - snapEagerness * (currentScrollY - lastScrollY) <= window.innerHeight`
 
-This allows us to switch to sticky positioning preemptively, ensuring seamless transitions without visual gaps regardless of scroll speed or browser timing differences.
+**How snapEagerness affects prediction**:
+
+- `snapEagerness: 0.0` - No prediction, pure position-based transitions
+- `snapEagerness: 1.0` - One scroll step prediction (default balanced behavior)
+- `snapEagerness: 2.0` - Two scroll steps prediction (more aggressive)
+- `snapEagerness: 3.0+` - Multi-step prediction (magnetic effect)
+
+This allows us to switch to sticky positioning with the desired level of anticipation, ensuring seamless transitions that match your application's needs - from pure natural movement to completely gap-free behavior.
 
 ### Build and Test
 
