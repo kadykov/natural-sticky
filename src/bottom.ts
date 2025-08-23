@@ -11,12 +11,24 @@
  * - Uses 'bottom' property for sticky positioning (unlike top which uses 'top')
  * - When releasing from sticky on scroll up, calculates position relative to document end
  * - When moving below viewport on scroll down, positions element just below viewport
- * - Transitions to sticky when element's bottom edge reaches viewport bottom (elementRect.bottom <= window.innerHeight)
+ * - Transitions to sticky using scroll step prediction to avoid visual gaps (predicted elementRect.bottom <= window.innerHeight)
  * - More complex positioning calculations due to bottom-anchored nature and document height considerations
+ *
+ * @param element - The HTML element to make naturally sticky
+ * @param options - Configuration options
+ * @param options.snapEagerness - How eagerly the element snaps into sticky position (default: 1)
+ *   - 0: Pure natural movement, occasional visual gaps
+ *   - 1: Balanced behavior (recommended)
+ *   - 2-3: Reduced gaps, element "snaps" more eagerly to position
+ *   - Higher: Strong snap effect, immediate attraction to edge
  */
-export function naturalStickyBottom(element: HTMLElement) {
+export function naturalStickyBottom(
+  element: HTMLElement,
+  options?: { snapEagerness?: number }
+) {
   let lastScrollY = window.scrollY;
   let isSticky = false; // Start in relative mode
+  const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -26,9 +38,9 @@ export function naturalStickyBottom(element: HTMLElement) {
     if (!isSticky) {
       // First priority: Check if element should switch to sticky
       // For bottom elements: predict where bottom edge will be on next scroll event
-      // Formula: elementRect.bottom - scrollSpeed <= window.innerHeight (where scrollSpeed = currentScrollY - lastScrollY)
+      // Formula: elementRect.bottom - snapEagerness * scrollStep <= window.innerHeight (where scrollStep = currentScrollY - lastScrollY)
       if (
-        elementRect.bottom - (currentScrollY - lastScrollY) <=
+        elementRect.bottom - snapEagerness * (currentScrollY - lastScrollY) <=
         window.innerHeight
       ) {
         // Element will be at bottom of viewport on next scroll event - make it sticky now

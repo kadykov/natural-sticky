@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header Magnetic (3.0) - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        color: white;
+        padding: 1rem 2rem;
+        margin: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .sticky-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .sticky-header p {
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Magnetic Effect</h1>
+      <p>snapEagerness: 3.0 - Strong "magnetic" attraction</p>
+    </header>
+
+    <main>
+      <section class="demo-content">
+        <h2>Magnetic Effect Demo</h2>
+        <p>
+          This header uses <strong>snapEagerness: 3.0</strong>, which creates a
+          strong "magnetic" attraction to the top edge. The header anticipates
+          your scroll direction and snaps eagerly into position.
+        </p>
+
+        <div
+          style="
+            background: #f8d7da;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #721c24">
+            🧲 <strong>Magnetic behavior:</strong> Try clicking and dragging to
+            scroll! Notice how the header seems to "reach" for the top edge,
+            creating an intentional snapping effect.
+          </p>
+        </div>
+
+        <p>
+          <strong>Trade-off:</strong> The movement is less natural but
+          eliminates visual gaps completely. The magnetic effect becomes part of
+          your design language - making the sticky behavior feel intentional and
+          pronounced.
+        </p>
+
+        <h3>🔍 The Science Behind Magnetic Snapping</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// snapEagerness: 3.0 means aggressive 3-step prediction
+const scrollSpeed = currentScrollY - lastScrollY;
+const shouldBecomeSticky = elementRect.top - 3.0 * scrollSpeed >= 0;
+
+// This creates "magnetic" behavior by predicting 3 scroll steps ahead
+// The header switches to sticky position before it's actually needed</code></pre>
+        </div>
+
+        <h3>🧲 When to Use Magnetic Effect (3.0+)</h3>
+        <ul style="color: #dc3545">
+          <li>✅ When you want snapping as a deliberate design feature</li>
+          <li>✅ For gaming or interactive applications</li>
+          <li>✅ When visual gaps are absolutely unacceptable</li>
+          <li>✅ For headers with complex animations or transitions</li>
+          <li>
+            ✅ When predictable behavior is more important than natural feel
+          </li>
+          <li>
+            ✅ Apps where the "magnetic" effect enhances the user experience
+          </li>
+        </ul>
+
+        <h3>⚙️ Magnetic Mode Behavior</h3>
+        <p>
+          With high snapEagerness, the transitions are much more aggressive:
+        </p>
+
+        <div
+          style="
+            background: #f8d7da;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>1. Eager Sticky Mode:</strong>
+          <code>position: sticky; top: 0</code><br />
+          Header "jumps" to sticky position as soon as upward scroll is detected
+        </div>
+
+        <div
+          style="
+            background: #f5c6cb;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>2. Predicted Release:</strong>
+          <code>position: relative; predicted position</code><br />
+          Header releases before you even reach the transition point
+        </div>
+
+        <div
+          style="
+            background: #f1b0b7;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+          "
+        >
+          <strong>3. Magnetic Attraction:</strong>
+          <code>Aggressive prediction algorithms</code><br />
+          Header seems to be "pulled" toward the sticky position like a magnet
+        </div>
+
+        <p>
+          The magnetic effect is achieved through aggressive scroll speed
+          prediction. The header doesn't wait for actual position changes - it
+          anticipates them based on your current scroll velocity.
+        </p>
+
+        <h3>🎯 Perfect Use Cases</h3>
+        <p>
+          <strong>Gaming Interfaces:</strong> Where snappy, predictable behavior
+          enhances gameplay
+        </p>
+        <p>
+          <strong>Dashboard Applications:</strong> Where headers contain
+          critical controls
+        </p>
+        <p>
+          <strong>Mobile Apps:</strong> Where touch scrolling is often fast and
+          unpredictable
+        </p>
+        <p>
+          <strong>Complex Headers:</strong> With dropdowns, search bars, or
+          interactive elements
+        </p>
+
+        <h3>📊 Performance Characteristics</h3>
+        <p>
+          With snapEagerness: 3.0, the behavior is highly optimized for
+          reliability:
+        </p>
+        <ul>
+          <li>
+            <strong>CPU Usage:</strong> Slightly higher (more calculations)
+          </li>
+          <li>
+            <strong>Predictability:</strong> Extremely high - no surprises
+          </li>
+          <li><strong>Visual Gaps:</strong> Virtually eliminated</li>
+          <li>
+            <strong>User Experience:</strong> Distinctive, intentional feel
+          </li>
+        </ul>
+
+        <h3>🎨 Design Language Integration</h3>
+        <p>
+          The magnetic effect works best when it aligns with your overall design
+          philosophy. Consider pairing it with:
+        </p>
+        <ul>
+          <li>
+            <strong>Smooth CSS transitions</strong> on the header elements
+          </li>
+          <li>
+            <strong>Subtle animations</strong> that complement the snapping
+          </li>
+          <li>
+            <strong>High-contrast headers</strong> that benefit from reliable
+            positioning
+          </li>
+          <li>
+            <strong>Interactive elements</strong> that need consistent
+            accessibility
+          </li>
+        </ul>
+
+        <p>
+          Keep scrolling to experience the magnetic effect. Try different scroll
+          speeds and directions. The header will consistently "jump" to
+          position, creating a predictable, gap-free experience.
+        </p>
+
+        <h3>⚖️ Natural vs Magnetic Trade-offs</h3>
+        <p>Understanding when to choose magnetic over natural behavior:</p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+          "
+        >
+          <div style="background: #d4edda; padding: 1rem; border-radius: 8px">
+            <strong style="color: #155724">Natural (0.0-1.0)</strong>
+            <ul style="margin: 0.5rem 0; color: #155724">
+              <li>More intuitive feel</li>
+              <li>Better for content sites</li>
+              <li>Occasional gaps possible</li>
+            </ul>
+          </div>
+          <div style="background: #f5c6cb; padding: 1rem; border-radius: 8px">
+            <strong style="color: #721c24">Magnetic (2.5-3.0+)</strong>
+            <ul style="margin: 0.5rem 0; color: #721c24">
+              <li>Predictable behavior</li>
+              <li>Better for app interfaces</li>
+              <li>Zero visual gaps</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>🔄 Comparison with Other Values</h3>
+        <p>
+          Want to see how this compares with other snapEagerness values? Check
+          out our side-by-side comparisons:
+        </p>
+        <ul>
+          <li>
+            <a href="snap-comparison.html">4 Separate Demos Comparison</a>
+          </li>
+          <li>
+            <a href="4-headers-comparison.html">Live 4-Headers Comparison</a>
+          </li>
+        </ul>
+
+        <div class="spacer"></div>
+        <p>
+          This magnetic behavior can enhance certain design aesthetics, making
+          the sticky behavior feel more intentional and pronounced.
+        </p>
+        <div class="spacer"></div>
+      </section>
+    </main>
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, { snapEagerness: 3.0 });
+        }
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
