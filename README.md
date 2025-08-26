@@ -125,8 +125,10 @@ Controls when the scroll-in effect activates based on scroll speed:
 
 ### Live Comparisons
 
-- [4-Headers Comparison](https://github.kadykov.com/natural-sticky/demo/4-headers-comparison.html) - All snapEagerness values side-by-side
-- [ScrollThreshold Demo](https://github.kadykov.com/natural-sticky/demo/scroll-threshold-demo.html) - Different activation thresholds
+- [4-Headers SnapEagerness](https://github.kadykov.com/natural-sticky/demo/4-headers-comparison.html) - Live side-by-side comparison
+- [SnapEagerness Demos](https://github.kadykov.com/natural-sticky/demo/snap-comparison.html) - Individual iframe comparisons
+- [4-Headers ScrollThreshold](https://github.kadykov.com/natural-sticky/demo/4-headers-scroll-threshold-comparison.html) - Live side-by-side comparison
+- [ScrollThreshold Demos](https://github.kadykov.com/natural-sticky/demo/scroll-threshold-demo.html) - Individual iframe comparisons
 
 ## How It Works
 

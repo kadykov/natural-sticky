@@ -36,11 +36,17 @@
 
       .threshold-demos {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
         padding: 40px 20px;
         max-width: 1400px;
         margin: 0 auto;
+      }
+
+      @media (min-width: 1200px) {
+        .threshold-demos {
+          grid-template-columns: repeat(4, 1fr);
+        }
       }
 
       .demo-card {
@@ -51,6 +57,8 @@
         transition:
           transform 0.3s ease,
           box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
       }
 
       .demo-card:hover {
@@ -60,29 +68,30 @@
 
       .demo-card h3 {
         margin: 0;
-        padding: 1.5rem;
+        padding: 1rem 1.5rem;
         background: #f8f9fa;
         border-bottom: 1px solid #eee;
         color: #333;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         text-align: center;
       }
 
       .demo-card iframe {
         width: 100%;
-        height: 350px;
+        height: 500px;
         border: none;
         display: block;
       }
 
       .demo-card .demo-link {
         display: block;
-        padding: 1rem 1.5rem;
+        padding: 0.75rem 1rem;
         text-align: center;
         background: #007bff;
         color: white;
         text-decoration: none;
         font-weight: 500;
+        font-size: 0.9rem;
         transition: background-color 0.3s ease;
       }
 
@@ -124,6 +133,26 @@
         sensitive to slow scrolling, while higher values require faster
         scrolling to trigger.
       </p>
+      <div style="margin-top: 30px">
+        <a
+          href="4-headers-scroll-threshold-comparison.html"
+          style="
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'"
+          onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'"
+        >
+          🚀 Try Live 4-Headers Comparison →
+        </a>
+      </div>
     </div>
 
     <div class="instructions">
