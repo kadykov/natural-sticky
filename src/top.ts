@@ -20,47 +20,59 @@
  *   - 1: Balanced behavior (recommended)
  *   - 2-3: Reduced gaps, element "snaps" more eagerly to position
  *   - Higher: Strong snap effect, immediate attraction to edge
+ * @param options.scrollThreshold - Minimum scroll speed (pixels/event) to trigger natural scroll-in effect (default: 0)
+ *   - 0: Always activate scroll-in effect (current behavior)
+ *   - 5-15: Activate only on medium-speed scrolling
+ *   - 20+: Activate only on fast scrolling
  */
 export function naturalStickyTop(
   element: HTMLElement,
-  options?: { snapEagerness?: number }
+  options?: { snapEagerness?: number; scrollThreshold?: number }
 ) {
   let lastScrollY = window.scrollY;
   let isSticky = false; // Start in relative mode
+  let isHeaderAtTop = true; // Track if header is positioned at top of document (top: 0px)
   const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
+  const scrollThreshold = options?.scrollThreshold ?? 0; // Default to always activate
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
     const elementRect = element.getBoundingClientRect();
+    const scrollStep = currentScrollY - lastScrollY;
+    const isElementVisible =
+      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
 
     // Handle all relative mode logic first
     if (!isSticky) {
       // First priority: Check if element should switch to sticky
       // Predict where element will be on next scroll event to avoid visual gaps
       // Formula: elementRect.top - snapEagerness * scrollStep >= 0 (where scrollStep = currentScrollY - lastScrollY)
-      if (
-        elementRect.top - snapEagerness * (currentScrollY - lastScrollY) >=
-        0
-      ) {
+      if (elementRect.top - snapEagerness * scrollStep >= 0) {
         // Element will be visible at top on next scroll event - make it sticky now
         isSticky = true;
+        isHeaderAtTop = false; // Reset flag when becoming sticky
         element.style.position = 'sticky';
         element.style.top = '0';
       }
-      // Second priority: If scrolling up and element is not yet visible, position above viewport
-      // Check: scrolling up AND element not visible (bottom > 0 AND top < window height)
-      else if (
-        currentScrollY < lastScrollY &&
-        !(elementRect.bottom > 0 && elementRect.top < window.innerHeight)
-      ) {
-        // ...move the element to be just above the viewport, ready to be revealed.
+      // Second priority: If scrolling up with sufficient speed and element is not visible, position above viewport
+      else if (-scrollStep >= scrollThreshold && !isElementVisible) {
+        // User is scrolling up with enough speed - reveal header above viewport
+        isHeaderAtTop = false; // Header will be positioned above viewport, not at top
         element.style.position = 'relative';
         // Position element just above viewport so it scrolls into view naturally
         element.style.top = `${currentScrollY - element.offsetHeight}px`;
       }
+      // Third priority: When header becomes invisible, move it to top of page
+      // This prevents the header from being stuck in the middle when user scrolls up slowly
+      else if (!isHeaderAtTop && !isElementVisible) {
+        // Header is not visible - move it to the top of the page
+        isHeaderAtTop = true;
+        element.style.position = 'relative';
+        element.style.top = '0px'; // Position at top of document
+      }
     }
     // Handle sticky mode logic - release from sticky when scrolling down
-    else if (currentScrollY > lastScrollY) {
+    else if (scrollStep > 0) {
       // Release from sticky when scrolling down
       isSticky = false;
       element.style.position = 'relative';

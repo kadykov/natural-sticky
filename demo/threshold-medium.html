@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medium Threshold Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(
+          135deg,
+          #ffc107 0%,
+          #fd7e14 100%
+        ) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Medium Threshold (scrollThreshold: 10)</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Balanced Responsiveness and Intentional Activation</h2>
+        <p>
+          This demo uses <code>scrollThreshold: 10</code> - a medium threshold
+          that requires moderate scroll speed to activate the natural scroll-in
+          effect. This creates a balance between responsiveness and intentional
+          interaction.
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #1565c0">
+            💡 <strong>Try this:</strong> Scroll down, then try scrolling up
+            with different speeds. Notice how gentle scrolling doesn't trigger
+            the effect, but moderate scrolling does.
+          </p>
+        </div>
+
+        <p>
+          <strong>Perfect for:</strong> General-purpose websites where you want
+          a balance between accessibility and preventing accidental activation.
+        </p>
+
+        <h3>⚖️ How Medium Threshold Works</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// Medium threshold configuration
+naturalStickyTop(header, { 
+  scrollThreshold: 10,
+  snapEagerness: 1 
+});
+
+// This means:
+// - Header activates when upward scroll speed ≥ 10px per scroll event
+// - Requires moderate scrolling intention
+// - Prevents accidental activation from tiny scroll movements
+// - Still accessible but more deliberate</code></pre>
+        </div>
+
+        <p>
+          The medium threshold strikes a balance between ease of use and
+          intentional interaction. It filters out small, accidental scroll
+          movements while still being accessible for deliberate navigation.
+        </p>
+
+        <p>Keep scrolling to explore the behavior patterns...</p>
+
+        <h3>🎯 Behavioral Characteristics</h3>
+        <p>Here's what happens with <code>scrollThreshold: 10</code>:</p>
+        <ul style="color: #1976d2">
+          <li>✅ Requires moderate scroll speed to activate</li>
+          <li>✅ Prevents activation from tiny accidental movements</li>
+          <li>✅ Good balance of accessibility and intentionality</li>
+          <li>✅ Works well with both mouse and trackpad</li>
+          <li>✅ Suitable for most general-purpose websites</li>
+        </ul>
+
+        <h3>📈 Scroll Speed Requirements</h3>
+        <p>
+          Medium threshold requires a more deliberate scroll motion. When you
+          scroll up with speed ≥10 pixels per scroll event, the header positions
+          itself above the viewport to naturally scroll back into view.
+        </p>
+
+        <div
+          style="
+            background: #f3e5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #7b1fa2">
+            🎭 <strong>UX Insight:</strong> Medium thresholds create a more
+            refined interaction - users need to show clear intent to reveal the
+            header, reducing visual noise from accidental triggers.
+          </p>
+        </div>
+
+        <h3>🔍 Practical Applications</h3>
+        <p>Medium threshold is ideal for:</p>
+        <ul>
+          <li>
+            <strong>E-commerce sites:</strong> Header appears when users
+            actively look for navigation
+          </li>
+          <li>
+            <strong>News websites:</strong> Doesn't interrupt reading flow with
+            accidental activations
+          </li>
+          <li>
+            <strong>Corporate websites:</strong> Professional feel with
+            intentional interactions
+          </li>
+          <li>
+            <strong>Portfolio sites:</strong> Subtle header behavior that
+            doesn't distract from content
+          </li>
+          <li>
+            <strong>Landing pages:</strong> Clean experience with deliberate
+            navigation access
+          </li>
+        </ul>
+
+        <h3>🧪 Testing Different Scroll Patterns</h3>
+        <p>Try these scrolling techniques to feel the threshold in action:</p>
+        <ol>
+          <li>
+            <strong>Tiny movements:</strong> Small mouse wheel clicks - header
+            won't appear
+          </li>
+          <li>
+            <strong>Moderate scrolling:</strong> Normal scroll speed - header
+            appears naturally
+          </li>
+          <li>
+            <strong>Fast scrolling:</strong> Quick movements - immediate
+            activation
+          </li>
+          <li>
+            <strong>Trackpad gestures:</strong> Two-finger scroll with moderate
+            pressure
+          </li>
+        </ol>
+
+        <div
+          style="
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #856404">
+            🎯 <strong>Design principle:</strong> The threshold acts as a
+            natural filter, ensuring the header appears when users actually want
+            to navigate, not just during casual browsing.
+          </p>
+        </div>
+
+        <h3>📊 Comparison with Other Thresholds</h3>
+        <p>How medium threshold compares:</p>
+        <ul>
+          <li>
+            <strong>Lower than high threshold:</strong> More accessible than
+            high values (20+)
+          </li>
+          <li>
+            <strong>Higher than low threshold:</strong> Less sensitive than low
+            values (2-5)
+          </li>
+          <li>
+            <strong>Sweet spot:</strong> Good for most use cases and user types
+          </li>
+          <li>
+            <strong>Versatile:</strong> Works well across different devices and
+            input methods
+          </li>
+        </ul>
+
+        <p>
+          The medium threshold demonstrates how scrollThreshold gives you fine
+          control over the user experience. You can tune the sensitivity to
+          match your site's personality and user expectations.
+        </p>
+
+        <p>
+          Remember: regardless of the threshold, the movement itself always
+          feels natural because the header moves with the scroll, not against
+          it. The threshold only controls when the positioning happens.
+        </p>
+      </div>
+    </main>
+
+    <!-- Natural Sticky Demo Script -->
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, {
+            scrollThreshold: 10,
+            snapEagerness: 1,
+          });
+        }
+      });
+    </script>
+
+    <!-- Drag-to-scroll functionality for demo purposes -->
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>

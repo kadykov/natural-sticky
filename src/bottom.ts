@@ -21,77 +21,76 @@
  *   - 1: Balanced behavior (recommended)
  *   - 2-3: Reduced gaps, element "snaps" more eagerly to position
  *   - Higher: Strong snap effect, immediate attraction to edge
+ * @param options.scrollThreshold - Minimum scroll speed (pixels/event) to trigger natural scroll-in effect (default: 0)
+ *   - 0: Always activate scroll-in effect (current behavior)
+ *   - 5-15: Activate only on medium-speed scrolling
+ *   - 20+: Activate only on fast scrolling
  */
 export function naturalStickyBottom(
   element: HTMLElement,
-  options?: { snapEagerness?: number }
+  options?: { snapEagerness?: number; scrollThreshold?: number }
 ) {
   let lastScrollY = window.scrollY;
   let isSticky = false; // Start in relative mode
+  let isFooterAtBottom = true; // Track if footer is positioned at bottom of document
   const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
+  const scrollThreshold = options?.scrollThreshold ?? 0; // Default to always activate
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
     const elementRect = element.getBoundingClientRect();
+    const scrollStep = currentScrollY - lastScrollY;
+    const viewportHeight = window.innerHeight;
+    const isElementVisible =
+      elementRect.bottom > 0 && elementRect.top < viewportHeight;
+    const naturalFooterPosition =
+      document.documentElement.scrollHeight - element.offsetHeight;
 
     // Handle all relative mode logic first
     if (!isSticky) {
       // First priority: Check if element should switch to sticky
       // For bottom elements: predict where bottom edge will be on next scroll event
-      // Formula: elementRect.bottom - snapEagerness * scrollStep <= window.innerHeight (where scrollStep = currentScrollY - lastScrollY)
-      if (
-        elementRect.bottom - snapEagerness * (currentScrollY - lastScrollY) <=
-        window.innerHeight
-      ) {
+      // Formula: elementRect.bottom - snapEagerness * scrollStep <= viewportHeight (where scrollStep = currentScrollY - lastScrollY)
+      if (elementRect.bottom - snapEagerness * scrollStep <= viewportHeight) {
         // Element will be at bottom of viewport on next scroll event - make it sticky now
         isSticky = true;
+        isFooterAtBottom = false; // Reset flag when becoming sticky
         element.style.position = 'sticky';
         element.style.top = 'auto'; // Reset top positioning
         element.style.bottom = '0'; // Stick to bottom of viewport
       }
-      // Second priority: If scrolling down and element is not visible, position below viewport
-      // Check: scrolling down AND element not visible (bottom > 0 AND top < window height)
-      else if (
-        currentScrollY > lastScrollY &&
-        !(elementRect.bottom > 0 && elementRect.top < window.innerHeight)
-      ) {
+      // Second priority: Check if scrolling down with enough speed to trigger scroll-in effect
+      else if (scrollStep >= scrollThreshold && !isElementVisible) {
+        // User is scrolling down with enough speed - reveal footer below viewport
+        isFooterAtBottom = false; // Footer will be positioned below viewport, not at bottom
         element.style.position = 'relative';
-
-        // Calculate where we want the element to appear (just below the viewport)
-        const targetPosition = currentScrollY + window.innerHeight;
-
-        // Get the element's current offset and natural position in the document
-        const currentTopOffset = parseFloat(element.style.top || '0');
-        const naturalElementTop =
-          elementRect.top + currentScrollY - currentTopOffset;
-
-        // Calculate the offset needed to position element just below viewport
-        const offset = targetPosition - naturalElementTop;
-        element.style.top = `${offset}px`;
+        // Position element just below viewport so it scrolls into view naturally
+        // Formula: offset = (currentScrollY + viewportHeight) - naturalFooterPosition
+        // This calculates the distance from footer's natural position to desired position (below viewport)
+        element.style.top = `${currentScrollY + viewportHeight - naturalFooterPosition}px`;
+      }
+      // Third priority: When footer becomes invisible, move it to bottom of document
+      // This prevents the footer from being stuck in the middle when user scrolls down slowly
+      else if (!isFooterAtBottom && !isElementVisible) {
+        // Footer is not visible - move it to the bottom of the document
+        isFooterAtBottom = true;
+        element.style.position = 'relative';
+        // Position at bottom of document (no offset needed, natural position)
+        element.style.top = '0px';
       }
     }
     // Handle sticky mode logic - release from sticky when scrolling up
-    else if (currentScrollY < lastScrollY) {
+    else if (scrollStep < 0) {
       // Release from sticky when scrolling up
       isSticky = false;
       element.style.position = 'relative';
-
-      // When releasing from sticky bottom position, we need to calculate where
-      // the element should be positioned to maintain visual continuity.
-      // The element is currently at the bottom of the viewport, so we calculate
-      // its position relative to the document end to maintain that relationship.
-      const currentDocumentPosition = elementRect.top + currentScrollY;
-
       // Reset any previous bottom styling since we're switching to top-based positioning
       element.style.bottom = '';
 
-      // Calculate the offset from the element's natural position (at document end)
-      // This ensures the element appears to stay in place when transitioning from sticky
-      const targetOffset =
-        currentDocumentPosition -
-        (document.documentElement.scrollHeight - element.offsetHeight);
-
-      element.style.top = `${targetOffset}px`;
+      // When releasing from sticky bottom position, maintain visual continuity
+      // Formula: offset = (elementRect.top + currentScrollY) - naturalFooterPosition
+      // This calculates offset from footer's natural position to keep it visually in the same place
+      element.style.top = `${elementRect.top + currentScrollY - naturalFooterPosition}px`;
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

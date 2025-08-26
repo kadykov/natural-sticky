@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Header Only Demo - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(
+          135deg,
+          #28a745 0%,
+          #20c997 100%
+        ) !important;
+      }
+    </style>
   </head>
   <body>
     <header class="sticky-header">
@@ -37,8 +46,9 @@
         </div>
 
         <p>
-          <strong>Fun fact:</strong> This entire script is only
-          <strong>1.0KB minified</strong> and has
+          <strong>Fun fact:</strong> This header uses the default settings:
+          <code>snapEagerness: 1.0</code> and <code>scrollThreshold: 0</code>.
+          This entire script is only <strong>1.0KB minified</strong> and has
           <strong>zero dependencies</strong>. Pure TypeScript compiled to
           vanilla JavaScript.
         </p>
@@ -56,55 +66,67 @@
         >
           <pre><code>/**
  * Attaches a natural hide/show behavior to a sticky element placed at the top.
+ * 
+ * @param element - The HTML element to make naturally sticky
+ * @param options - Configuration options
+ * @param options.snapEagerness - How eagerly element snaps into sticky position (default: 1)
+ * @param options.scrollThreshold - Minimum scroll speed to trigger natural scroll-in effect (default: 0)
  */
-export function naturalStickyTop(element: HTMLElement) {
+export function naturalStickyTop(element: HTMLElement, options?: { 
+  snapEagerness?: number; 
+  scrollThreshold?: number 
+}) {
   let lastScrollY = window.scrollY;
-  let mode = 'relative';
+  let isSticky = false;
+  let isHeaderAtTop = true;
+  const snapEagerness = options?.snapEagerness ?? 1;
+  const scrollThreshold = options?.scrollThreshold ?? 0;
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    const scrollingDown = currentScrollY > lastScrollY;
-    const scrollingUp = currentScrollY < lastScrollY;
-    const elementHeight = element.offsetHeight;
     const elementRect = element.getBoundingClientRect();
-    const isElementVisible =
-      elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+    const scrollStep = currentScrollY - lastScrollY;
+    const isElementVisible = elementRect.bottom > 0 && elementRect.top < window.innerHeight;
 
-    // If we are sticky and scroll down, release the element.
-    if (mode === 'sticky' && scrollingDown) {
-      mode = 'relative';
+    // Handle all relative mode logic first
+    if (!isSticky) {
+      // First priority: Check if element should switch to sticky
+      // Predict where element will be on next scroll event to avoid visual gaps
+      if (elementRect.top - snapEagerness * scrollStep >= 0) {
+        isSticky = true;
+        isHeaderAtTop = false;
+        element.style.position = 'sticky';
+        element.style.top = '0';
+      }
+      // Second priority: Check if scrolling up with enough speed to trigger scroll-in effect
+      else if (-scrollStep >= scrollThreshold && !isElementVisible) {
+        isHeaderAtTop = false;
+        element.style.position = 'relative';
+        // Position element just above viewport so it scrolls into view naturally
+        element.style.top = `${currentScrollY - element.offsetHeight}px`;
+      }
+      // Third priority: When header becomes invisible, move it to top of document
+      else if (!isHeaderAtTop && !isElementVisible) {
+        isHeaderAtTop = true;
+        element.style.position = 'relative';
+        element.style.top = '0px';
+      }
+    }
+    // Handle sticky mode logic - release from sticky when scrolling down
+    else if (scrollStep > 0) {
+      isSticky = false;
       element.style.position = 'relative';
       // Position element at current scroll position so it moves naturally with content
       element.style.top = `${currentScrollY}px`;
-    }
-    // If we are released and scrolling up, and the element is not yet visible...
-    else if (mode === 'relative' && scrollingUp && !isElementVisible) {
-      // ...move the element to be just above the viewport, ready to be revealed.
-      element.style.position = 'relative';
-      // Position element just above viewport so it scrolls into view naturally
-      element.style.top = `${currentScrollY - elementHeight}px`;
-    }
-    // If we are released and the element has scrolled into view at the top...
-    else if (mode === 'relative' && elementRect.top >= 0) {
-      // ...make it sticky again.
-      mode = 'sticky';
-      element.style.position = 'sticky';
-      element.style.top = '0';
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
   };
 
-  // Run once on load to set the initial state correctly.
   handleScroll();
-
   window.addEventListener('scroll', handleScroll, { passive: true });
 
-  return {
-    destroy: () => {
-      window.removeEventListener('scroll', handleScroll);
-    },
-  };
+  return { destroy: () => window.removeEventListener('scroll', handleScroll) };
 }</code></pre>
         </div>
 

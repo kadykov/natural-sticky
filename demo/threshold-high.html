@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High Threshold Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(
+          135deg,
+          #dc3545 0%,
+          #e83e8c 100%
+        ) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>High Threshold (scrollThreshold: 25)</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Fast Scrolling Required for Activation</h2>
+        <p>
+          This demo uses <code>scrollThreshold: 25</code> - a high threshold
+          that requires fast, deliberate scroll speed to activate the natural
+          scroll-in effect. Only intentional, rapid upward scrolling will
+          trigger the header to appear from above the viewport.
+        </p>
+
+        <div
+          style="
+            background: #ffebee;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #f44336;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #c62828">
+            💡 <strong>Try this:</strong> Scroll down, then try scrolling up
+            with different speeds. Only fast, deliberate upward scrolling will
+            make the header appear from above.
+          </p>
+        </div>
+
+        <p>
+          <strong>Perfect for:</strong> Minimal interfaces, immersive content
+          experiences, or applications where header appearance should only
+          happen with clear user intent.
+        </p>
+
+        <h3>🚀 How High Threshold Works</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// High threshold configuration
+naturalStickyTop(header, { 
+  scrollThreshold: 25,
+  snapEagerness: 1 
+});
+
+// This means:
+// - Header activates only when upward scroll speed ≥ 25px per scroll event
+// - Requires fast, deliberate scrolling
+// - Excellent for minimalist, distraction-free interfaces
+// - Only appears when user clearly intends to navigate</code></pre>
+        </div>
+
+        <p>
+          High thresholds create a clean, unobtrusive experience where the
+          header stays out of the way during normal content consumption. Users
+          must show clear navigational intent to reveal the header.
+        </p>
+
+        <p>Keep scrolling to understand when this approach works best...</p>
+
+        <h3>⚡ Behavioral Characteristics</h3>
+        <p>Here's what happens with <code>scrollThreshold: 25</code>:</p>
+        <ul style="color: #d32f2f">
+          <li>✅ Requires fast, deliberate scroll speed to activate</li>
+          <li>✅ Creates minimal, distraction-free reading experience</li>
+          <li>✅ Excellent for immersive content consumption</li>
+          <li>✅ Only activates with clear navigational intent</li>
+          <li>✅ Perfect for users who prefer minimal UI interference</li>
+        </ul>
+
+        <h3>🎯 When High Thresholds Excel</h3>
+        <p>
+          High threshold values filter out casual scroll movements entirely. The
+          header only positions itself above the viewport when you scroll up
+          with speed ≥25 pixels per scroll event - this requires intentional,
+          fast scrolling motions.
+        </p>
+
+        <div
+          style="
+            background: #e0f2f1;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #00695c;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #00695c">
+            🧘 <strong>Zen principle:</strong> High thresholds embody "less is
+            more" design philosophy - the header appears only when truly needed,
+            maintaining content focus.
+          </p>
+        </div>
+
+        <h3>🎨 Ideal Use Cases</h3>
+        <p>High threshold is perfect for:</p>
+        <ul>
+          <li>
+            <strong>Reading platforms:</strong> Medium, blogs, documentation -
+            minimal header interference
+          </li>
+          <li>
+            <strong>Portfolio websites:</strong> Let your work shine without UI
+            distractions
+          </li>
+          <li>
+            <strong>Art galleries:</strong> Focus stays on visual content, not
+            navigation
+          </li>
+          <li>
+            <strong>Immersive experiences:</strong> Games, interactive stories,
+            VR-like interfaces
+          </li>
+          <li>
+            <strong>Mobile-first designs:</strong> Mimics mobile app behavior
+            with intentional interactions
+          </li>
+        </ul>
+
+        <h3>🔬 Scroll Speed Analysis</h3>
+        <p>High thresholds require specific user behaviors:</p>
+        <ol>
+          <li>
+            <strong>Mouse wheel:</strong> Multiple rapid clicks or fast wheel
+            rotation
+          </li>
+          <li><strong>Trackpad:</strong> Quick two-finger flick gestures</li>
+          <li>
+            <strong>Keyboard:</strong> Page Up key or rapid arrow key presses
+          </li>
+          <li><strong>Touch devices:</strong> Fast flick or swipe gestures</li>
+        </ol>
+
+        <div
+          style="
+            background: #fce4ec;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #e91e63;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #ad1457">
+            🎪 <strong>Power user pattern:</strong> High thresholds appeal to
+            users who prefer keyboard shortcuts and fast navigation - they'll
+            naturally scroll with the required speed.
+          </p>
+        </div>
+
+        <h3>📱 Cross-Device Behavior</h3>
+        <p>How high threshold feels across different devices:</p>
+        <ul>
+          <li>
+            <strong>Desktop:</strong> Requires deliberate mouse wheel
+            acceleration or keyboard navigation
+          </li>
+          <li>
+            <strong>Laptop:</strong> Two-finger trackpad flick gestures work
+            naturally
+          </li>
+          <li>
+            <strong>Touch devices:</strong> Fast swipe gestures - matches mobile
+            app expectations
+          </li>
+          <li>
+            <strong>Accessibility tools:</strong> May require configuration for
+            some assistive devices
+          </li>
+        </ul>
+
+        <h3>⚖️ Trade-offs to Consider</h3>
+        <p>High thresholds provide benefits with some trade-offs:</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+          <div
+            style="
+              background: #e8f5e8;
+              padding: 1rem;
+              border-radius: 8px;
+              border-left: 4px solid #4caf50;
+            "
+          >
+            <h4 style="color: #2e7d32; margin-top: 0">✅ Benefits</h4>
+            <ul style="color: #2e7d32">
+              <li>Minimal UI distraction</li>
+              <li>Focus on content consumption</li>
+              <li>Clean, professional aesthetic</li>
+              <li>Matches mobile app patterns</li>
+              <li>Appeals to power users</li>
+            </ul>
+          </div>
+          <div
+            style="
+              background: #ffebee;
+              padding: 1rem;
+              border-radius: 8px;
+              border-left: 4px solid #f44336;
+            "
+          >
+            <h4 style="color: #c62828; margin-top: 0">⚠️ Considerations</h4>
+            <ul style="color: #c62828">
+              <li>Less accessible for some users</li>
+              <li>May frustrate casual browsers</li>
+              <li>Requires user education/discovery</li>
+              <li>Not ideal for complex navigation</li>
+              <li>May need accessibility alternatives</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>
+          The key is knowing your audience. High thresholds work beautifully for
+          focused, content-centric experiences where navigation is secondary to
+          consumption.
+        </p>
+
+        <p>
+          Try the fast scrolling motions now - notice how the header only
+          appears when you demonstrate clear intent to navigate. This creates a
+          calm, focused browsing experience that stays out of your way until you
+          need it.
+        </p>
+
+        <p>
+          Even with high thresholds, when the header does appear, it moves
+          naturally with your scroll speed. The naturalness of the movement
+          remains consistent - only the activation requirement changes.
+        </p>
+      </div>
+    </main>
+
+    <!-- Natural Sticky Demo Script -->
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, {
+            scrollThreshold: 25,
+            snapEagerness: 1,
+          });
+        }
+      });
+    </script>
+
+    <!-- Drag-to-scroll functionality for demo purposes -->
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
