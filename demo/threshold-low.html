@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Low Threshold Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(
+          135deg,
+          #007bff 0%,
+          #6610f2 100%
+        ) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>Low Threshold (scrollThreshold: 2)</h1>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Scroll Slowly to See Responsive Activation</h2>
+        <p>
+          This demo uses <code>scrollThreshold: 2</code> - a very low threshold
+          that activates the natural scroll-in effect with minimal scroll speed.
+          Even gentle scrolling will trigger the header to appear from above the
+          viewport.
+        </p>
+
+        <div
+          style="
+            background: #e8f5e8;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #2e7d32">
+            💡 <strong>Try this:</strong> Scroll down normally, then scroll up
+            very slowly. Notice how the header appears from above even with
+            gentle scrolling motions.
+          </p>
+        </div>
+
+        <p>
+          <strong>Perfect for:</strong> Responsive interfaces where you want
+          maximum accessibility and easy header access with minimal effort.
+        </p>
+
+        <h3>🎯 How Low Threshold Works</h3>
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// Low threshold configuration
+naturalStickyTop(header, { 
+  scrollThreshold: 2,
+  snapEagerness: 1 
+});
+
+// This means:
+// - Header activates when upward scroll speed ≥ 2px per scroll event
+// - Very responsive to user input
+// - Great for accessibility and ease of use
+// - Minimal scroll effort required</code></pre>
+        </div>
+
+        <p>
+          The scrollThreshold parameter controls when the natural scroll-in
+          effect activates. With a low threshold like 2, the header will
+          position itself above the viewport and scroll into view naturally even
+          with gentle upward scrolling.
+        </p>
+
+        <p>Keep scrolling to understand the behavior patterns...</p>
+
+        <h3>🔍 Implementation Details</h3>
+        <p>Here's what happens with <code>scrollThreshold: 2</code>:</p>
+        <ul style="color: #2e7d32">
+          <li>✅ Activates on slow, gentle scroll motions</li>
+          <li>✅ Excellent accessibility for users with limited mobility</li>
+          <li>✅ Works well with trackpad scroll gestures</li>
+          <li>✅ Responsive to precise scroll wheel movements</li>
+          <li>✅ Great for desktop users who prefer subtle interactions</li>
+        </ul>
+
+        <h3>📊 Scroll Speed Analysis</h3>
+        <p>
+          Low threshold values work by measuring the pixel difference between
+          scroll positions. When you scroll up and the speed is ≥2 pixels per
+          scroll event, the header moves above the viewport to naturally scroll
+          back into view.
+        </p>
+
+        <div
+          style="
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+          "
+        >
+          <p style="margin: 0; color: #856404">
+            ⚡ <strong>Performance note:</strong> Low thresholds are more
+            responsive but may activate more frequently. This is usually
+            desirable for accessibility and user experience.
+          </p>
+        </div>
+
+        <h3>🎨 User Experience Characteristics</h3>
+        <p>Low threshold creates a more responsive, accessible experience:</p>
+        <ul>
+          <li>
+            <strong>Gentle Activation:</strong> Header appears with minimal
+            scroll effort
+          </li>
+          <li>
+            <strong>Accessibility:</strong> Works well for users with motor
+            impairments
+          </li>
+          <li>
+            <strong>Desktop Friendly:</strong> Responds to precise mouse wheel
+            movements
+          </li>
+          <li>
+            <strong>Predictable:</strong> Users can easily trigger header
+            appearance
+          </li>
+          <li>
+            <strong>Forgiving:</strong> Small scroll movements still activate
+            the effect
+          </li>
+        </ul>
+
+        <p>
+          Try different scrolling patterns: gentle mouse wheel movements,
+          trackpad gestures, and keyboard navigation. Notice how the header
+          responds consistently to even small upward scroll motions.
+        </p>
+
+        <p>
+          This low threshold configuration is ideal for content-heavy sites,
+          documentation, blogs, or any interface where easy header access is
+          important for navigation and user experience.
+        </p>
+
+        <p>
+          The beauty of the natural approach is that it feels intuitive
+          regardless of the threshold - the header movement always matches your
+          scroll speed and direction perfectly.
+        </p>
+      </div>
+    </main>
+
+    <!-- Natural Sticky Demo Script -->
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('.sticky-header');
+        if (header && window.naturalStickyTop) {
+          window.naturalStickyTop(header, {
+            scrollThreshold: 2,
+            snapEagerness: 1,
+          });
+        }
+      });
+    </script>
+
+    <!-- Drag-to-scroll functionality for demo purposes -->
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>

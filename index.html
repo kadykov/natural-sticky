@@ -351,6 +351,22 @@
           >
             🎯 Separate Demos Comparison →
           </a>
+          <a
+            href="demo/scroll-threshold-demo.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.75rem 1.5rem;
+              margin: 1rem;
+              background: #fd7e14;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              font-weight: 500;
+            "
+          >
+            🎚️ ScrollThreshold Comparison →
+          </a>
         </div>
       </div>
 
@@ -369,7 +385,14 @@
 &lt;script&gt;
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.my-header');
+    // Default behavior
     window.naturalStickyTop(header);
+    
+    // Or customize with scrollThreshold
+    window.naturalStickyTop(header, {
+      snapEagerness: 2.0,
+      scrollThreshold: 10  // Only activate on medium-speed scrolling
+    });
   });
 &lt;/script&gt;</pre
           >
@@ -386,9 +409,10 @@ const headerInstance = naturalStickyTop(document.querySelector('.header'));
 // For footers  
 const footerInstance = naturalStickyBottom(document.querySelector('.footer'));
 
-// Fine-tune snap behavior with snapEagerness (0.0-3.0+)
+// Fine-tune snap behavior and scroll activation with new scrollThreshold
 const eagerHeader = naturalStickyTop(document.querySelector('.header'), {
-  snapEagerness: 2.0  // More eager snapping to prevent visual gaps
+  snapEagerness: 2.0,   // More eager snapping to prevent visual gaps
+  scrollThreshold: 15   // Only activate on moderate to fast scrolling
 });
 
 // Clean up when needed
@@ -446,6 +470,32 @@ footerInstance.destroy();</pre
             behavior
           </li>
         </ul>
+
+        <h3>Controlling activation with scrollThreshold</h3>
+        <p>
+          The new <code>scrollThreshold</code> parameter (default: 0) controls
+          when the natural scroll-in effect activates based on scroll speed:
+        </p>
+        <ul>
+          <li><strong>0</strong> - Always activate (current behavior)</li>
+          <li>
+            <strong>5-10</strong> - Gentle threshold, filters out very slow
+            scrolling
+          </li>
+          <li>
+            <strong>15-20</strong> - Moderate threshold, requires deliberate
+            scrolling
+          </li>
+          <li>
+            <strong>25-30+</strong> - High threshold, only fast scrolling
+            activates
+          </li>
+        </ul>
+        <p>
+          Perfect for creating more intentional user interactions. Headers might
+          use lower thresholds (always accessible), while footers might use
+          higher thresholds (only appear during deliberate navigation).
+        </p>
 
         <a
           href="https://github.com/kadykov/natural-sticky"

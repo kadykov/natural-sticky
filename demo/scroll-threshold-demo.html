@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrollThreshold Demo - Natural Sticky</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      .demo-info {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      .demo-info h1 {
+        margin: 0 0 20px 0;
+        font-size: 2.5rem;
+      }
+
+      .demo-info p {
+        margin: 0 0 30px 0;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .threshold-demos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2rem;
+        padding: 40px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .demo-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .demo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .demo-card h3 {
+        margin: 0;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #eee;
+        color: #333;
+        font-size: 1.25rem;
+        text-align: center;
+      }
+
+      .demo-card iframe {
+        width: 100%;
+        height: 350px;
+        border: none;
+        display: block;
+      }
+
+      .demo-card .demo-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        text-align: center;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+
+      .demo-card .demo-link:hover {
+        background: #0056b3;
+      }
+
+      .instructions {
+        background: #f8f9fa;
+        border-left: 4px solid #4285f4;
+        padding: 30px;
+        margin: 40px 20px;
+        border-radius: 0 8px 8px 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .instructions h2 {
+        color: #1a73e8;
+        margin-top: 0;
+      }
+
+      .instructions ul {
+        padding-left: 20px;
+      }
+
+      .instructions li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-info">
+      <h1>ScrollThreshold Demo</h1>
+      <p>
+        Compare different scrollThreshold values to see how they affect when the
+        natural scroll-in effect activates. Lower values make the effect more
+        sensitive to slow scrolling, while higher values require faster
+        scrolling to trigger.
+      </p>
+    </div>
+
+    <div class="instructions">
+      <h2>How to Test</h2>
+      <ul>
+        <li>
+          <strong>Scroll slowly:</strong> Notice how different threshold values
+          respond to gentle scrolling
+        </li>
+        <li>
+          <strong>Scroll quickly:</strong> All versions should activate the
+          natural scroll-in effect
+        </li>
+        <li>
+          <strong>Compare behavior:</strong> Lower thresholds are more
+          responsive, higher thresholds require more deliberate scrolling
+        </li>
+        <li>
+          <strong>Watch the headers:</strong> See how they transition between
+          sticky and natural positions
+        </li>
+      </ul>
+    </div>
+
+    <div class="threshold-demos">
+      <div class="demo-card">
+        <h3>No Threshold (0)</h3>
+        <iframe src="header-only.html"></iframe>
+        <a href="header-only.html" target="_blank" class="demo-link"
+          >Open Full Demo →</a
+        >
+      </div>
+
+      <div class="demo-card">
+        <h3>Low Threshold (2)</h3>
+        <iframe src="threshold-low.html"></iframe>
+        <a href="threshold-low.html" target="_blank" class="demo-link"
+          >Open Full Demo →</a
+        >
+      </div>
+
+      <div class="demo-card">
+        <h3>Medium Threshold (10)</h3>
+        <iframe src="threshold-medium.html"></iframe>
+        <a href="threshold-medium.html" target="_blank" class="demo-link"
+          >Open Full Demo →</a
+        >
+      </div>
+
+      <div class="demo-card">
+        <h3>High Threshold (25)</h3>
+        <iframe src="threshold-high.html"></iframe>
+        <a href="threshold-high.html" target="_blank" class="demo-link"
+          >Open Full Demo →</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

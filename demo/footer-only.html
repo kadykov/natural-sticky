@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Footer Only Demo - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-footer {
+        background: linear-gradient(
+          135deg,
+          #17a2b8 0%,
+          #6f42c1 100%
+        ) !important;
+      }
+    </style>
   </head>
   <body>
     <main>
@@ -32,7 +41,9 @@
         </div>
 
         <p>
-          <strong>Lightweight champion:</strong> This footer script is only
+          <strong>Lightweight champion:</strong> This footer uses the default
+          settings: <code>snapEagerness: 1.0</code> and
+          <code>scrollThreshold: 0</code>. This footer script is only
           <strong>1.2KB minified</strong> with
           <strong>zero dependencies</strong>. Pure TypeScript power!
         </p>
@@ -203,6 +214,39 @@ export function naturalStickyBottom(element: HTMLElement) {
           </li>
           <li><strong>Shopping cart summaries</strong> in e-commerce sites</li>
         </ul>
+
+        <h3>🎚️ ScrollThreshold for Footers</h3>
+        <p>
+          This footer demo uses <code>scrollThreshold: 0</code>, meaning it
+          activates at any scroll speed. For footers, you might want to use
+          higher thresholds to create more intentional interactions:
+        </p>
+        <ul>
+          <li>
+            <strong>scrollThreshold: 0</strong> - Always activate (current demo
+            behavior)
+          </li>
+          <li>
+            <strong>scrollThreshold: 10-15</strong> - Good for general footer
+            use
+          </li>
+          <li>
+            <strong>scrollThreshold: 20-25</strong> - More intentional, appears
+            only during deliberate scrolling
+          </li>
+        </ul>
+        <p>
+          Check out our
+          <a href="footer-threshold.html" target="_blank"
+            >Footer Threshold Test Demo</a
+          >
+          to see how a footer behaves with <code>scrollThreshold: 10</code>, or
+          visit the
+          <a href="scroll-threshold-demo.html" target="_blank"
+            >ScrollThreshold Comparison</a
+          >
+          to compare different values side-by-side.
+        </p>
 
         <h3>🎭 The Three Scenarios Explained</h3>
         <p>The footer operates through three distinct scenarios:</p>
