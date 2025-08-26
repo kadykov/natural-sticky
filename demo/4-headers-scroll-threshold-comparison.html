@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4-Header ScrollThreshold Comparison - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background: #fafafa;
+      }
+
+      /* 
+       * Special positioning for 4-header comparison:
+       * We use absolute/fixed positioning instead of relative/sticky to avoid document flow conflicts.
+       * When placing multiple headers side-by-side, we don't want them to reserve space in the layout.
+       * This allows all 4 headers to coexist at the same vertical position.
+       */
+      .sticky-header {
+        padding: 0.75rem 1rem;
+        margin: 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        width: 25%;
+        box-sizing: border-box; /* Include padding in width calculation */
+        position: absolute; /* Remove from document flow entirely */
+        top: 0; /* All start at same top position */
+      }
+
+      .sticky-header h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        flex: 1;
+      }
+
+      .sticky-header .value {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: 0.8rem;
+        opacity: 0.9;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .header-always {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        left: 0;
+      }
+
+      .header-low {
+        background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+        color: white;
+        left: 25%;
+      }
+
+      .header-medium {
+        background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        color: #000;
+        left: 50%;
+      }
+
+      .header-high {
+        background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        color: white;
+        left: 75%;
+      }
+
+      .intro-section {
+        background: white;
+        padding: 2rem;
+        margin: 6rem auto 2rem; /* Add top margin to avoid being covered by headers */
+        max-width: 800px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .intro-section h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .intro-section p {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .instructions {
+        background: #e3f2fd;
+        padding: 1rem;
+        border-radius: 8px;
+        border-left: 4px solid #2196f3;
+        margin: 1.5rem 0;
+      }
+
+      .instructions p {
+        margin: 0;
+        color: #1565c0;
+        text-align: left;
+      }
+
+      section.demo-content {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+        padding: 0 1rem;
+      }
+
+      .comparison-guide {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .guide-item {
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .guide-item.always {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        color: #155724;
+      }
+
+      .guide-item.low {
+        background: #cce7ff;
+        border-left: 4px solid #007bff;
+        color: #004085;
+      }
+
+      .guide-item.medium {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        color: #856404;
+      }
+
+      .guide-item.high {
+        background: #f5c6cb;
+        border-left: 4px solid #dc3545;
+        color: #721c24;
+      }
+
+      .guide-item strong {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .sticky-header {
+          font-size: 0.8rem;
+          padding: 0.5rem;
+        }
+
+        .sticky-header h1 {
+          font-size: 0.9rem;
+        }
+
+        .value,
+        .sticky-header h1 .long-label {
+          display: none; /* Hide long labels on mobile */
+        }
+
+        .sticky-header .value {
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header header-always" id="header-always">
+      <h1><span class="long-label">🚀 Always </span>(0)</h1>
+      <span class="value">0</span>
+    </header>
+
+    <header class="sticky-header header-low" id="header-low">
+      <h1><span class="long-label">🎯 Low </span>(2)</h1>
+      <span class="value">2</span>
+    </header>
+
+    <header class="sticky-header header-medium" id="header-medium">
+      <h1><span class="long-label">⚖️ Medium </span>(10)</h1>
+      <span class="value">10</span>
+    </header>
+
+    <header class="sticky-header header-high" id="header-high">
+      <h1><span class="long-label">⚡ High </span>(25)</h1>
+      <span class="value">25</span>
+    </header>
+
+    <main>
+      <div class="intro-section">
+        <h1>Live 4-Header ScrollThreshold Comparison</h1>
+        <p>
+          All four headers are active simultaneously! Scroll at different speeds
+          to see how scrollThreshold values control when the natural scroll-in
+          effect activates.
+        </p>
+
+        <div class="instructions">
+          <p>
+            <strong>💡 How to test:</strong> Try scrolling up at different
+            speeds. Slow scrolling will only activate headers with low
+            thresholds, while fast scrolling activates all headers.
+          </p>
+        </div>
+
+        <div class="comparison-guide">
+          <div class="guide-item always">
+            <strong>Always (0)</strong>
+            Activates at any scroll speed
+          </div>
+          <div class="guide-item low">
+            <strong>Low (2)</strong>
+            Gentle threshold for responsiveness
+          </div>
+          <div class="guide-item medium">
+            <strong>Medium (10)</strong>
+            Balanced intentional activation
+          </div>
+          <div class="guide-item high">
+            <strong>High (25)</strong>
+            Fast scrolling required
+          </div>
+        </div>
+      </div>
+
+      <section class="demo-content">
+        <h2>🔍 What to Observe While Scrolling</h2>
+
+        <h3>1. Always Active (0) - Green Header</h3>
+        <p>
+          This header activates the scroll-in effect at any scroll speed, even
+          the gentlest upward movement. It provides maximum responsiveness and
+          accessibility.
+        </p>
+        <ul>
+          <li>
+            <strong>Pros:</strong> Most responsive and accessible for all users
+          </li>
+          <li>
+            <strong>Cons:</strong> May activate during accidental tiny scroll
+            movements
+          </li>
+          <li>
+            <strong>Best for:</strong> General-purpose headers, maximum
+            accessibility
+          </li>
+        </ul>
+
+        <h3>2. Low Threshold (2) - Blue Header</h3>
+        <p>
+          Requires minimal scroll speed to activate. Still very responsive but
+          filters out the tiniest movements.
+        </p>
+        <ul>
+          <li>
+            <strong>Pros:</strong> Responsive while filtering micro-movements
+          </li>
+          <li>
+            <strong>Cons:</strong> Slight reduction in activation sensitivity
+          </li>
+          <li>
+            <strong>Best for:</strong> Desktop interfaces, content-heavy sites
+          </li>
+        </ul>
+
+        <h3>3. Medium Threshold (10) - Orange Header</h3>
+        <p>
+          Requires moderate scroll speed for activation. Creates more
+          intentional user interaction patterns.
+        </p>
+        <ul>
+          <li>
+            <strong>Pros:</strong> Prevents accidental activation, intentional
+            interactions
+          </li>
+          <li>
+            <strong>Cons:</strong> Less responsive to slow, gentle scrolling
+          </li>
+          <li>
+            <strong>Best for:</strong> Professional sites, focused reading
+            experiences
+          </li>
+        </ul>
+
+        <h3>4. High Threshold (25) - Red Header</h3>
+        <p>
+          Only activates during fast, deliberate scroll movements. Creates a
+          minimalist, distraction-free experience.
+        </p>
+        <ul>
+          <li>
+            <strong>Pros:</strong> Completely distraction-free, only appears
+            when truly needed
+          </li>
+          <li><strong>Cons:</strong> May be less accessible for some users</li>
+          <li>
+            <strong>Best for:</strong> Immersive content, portfolio sites,
+            minimal interfaces
+          </li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <h2>🧪 Try These Scroll Speed Tests</h2>
+        <p>
+          <strong>Ultra-slow scrolling:</strong> Only the green (0) and possibly
+          blue (2) headers should activate.
+        </p>
+        <p>
+          <strong>Gentle scrolling:</strong> Green (0) and blue (2) headers
+          activate, orange (10) might not.
+        </p>
+        <p>
+          <strong>Moderate scrolling:</strong> Green (0), blue (2), and orange
+          (10) headers should activate.
+        </p>
+        <p>
+          <strong>Fast scrolling:</strong> All headers including red (25) should
+          activate the scroll-in effect.
+        </p>
+        <p>
+          <strong>Mouse wheel vs trackpad:</strong> Notice how different input
+          methods affect activation.
+        </p>
+
+        <div class="spacer"></div>
+
+        <h2>🎯 Understanding ScrollThreshold Behavior</h2>
+        <p>
+          The scrollThreshold parameter measures scroll speed in pixels per
+          scroll event:
+        </p>
+
+        <h3>How it works:</h3>
+        <ul>
+          <li>
+            When scrolling up, the script measures:
+            <code>-scrollStep >= scrollThreshold</code>
+          </li>
+          <li>
+            <code>scrollStep</code> = current scroll position - previous scroll
+            position
+          </li>
+          <li>
+            Higher threshold = more pixels required per scroll event = faster
+            scrolling needed
+          </li>
+          <li>
+            Once activated, headers position themselves above viewport to scroll
+            into view naturally
+          </li>
+        </ul>
+
+        <h3>Input method differences:</h3>
+        <ul>
+          <li>
+            <strong>Mouse wheel:</strong> Discrete scroll events, consistent
+            pixel amounts
+          </li>
+          <li>
+            <strong>Trackpad:</strong> More granular control, easier to hit
+            lower thresholds
+          </li>
+          <li>
+            <strong>Touch devices:</strong> Flick gestures can easily hit high
+            thresholds
+          </li>
+          <li>
+            <strong>Keyboard navigation:</strong> Page Up creates large scroll
+            steps
+          </li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <h2>🎨 Design Pattern Recommendations</h2>
+
+        <h3>Choose scrollThreshold: 0 when:</h3>
+        <ul>
+          <li>Accessibility is your top priority</li>
+          <li>Building interfaces for diverse user abilities</li>
+          <li>Header contains critical navigation elements</li>
+          <li>Users expect immediate responsiveness</li>
+        </ul>
+
+        <h3>Choose scrollThreshold: 2-5 when:</h3>
+        <ul>
+          <li>You want to filter out accidental micro-movements</li>
+          <li>Building desktop-focused applications</li>
+          <li>Header activation should feel slightly more deliberate</li>
+          <li>Balancing responsiveness with intentionality</li>
+        </ul>
+
+        <h3>Choose scrollThreshold: 10-15 when:</h3>
+        <ul>
+          <li>Creating more intentional user interaction patterns</li>
+          <li>Building professional or corporate websites</li>
+          <li>Header should only appear during active navigation</li>
+          <li>Reducing visual distractions during content consumption</li>
+        </ul>
+
+        <h3>Choose scrollThreshold: 20-30+ when:</h3>
+        <ul>
+          <li>Designing immersive, distraction-free experiences</li>
+          <li>Building portfolio or gallery websites</li>
+          <li>Header should only appear with clear navigational intent</li>
+          <li>Minimalist design philosophy where less is more</li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <h2>📝 Implementation</h2>
+        <p>Setting scrollThreshold is straightforward:</p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+          "
+        >
+          <pre><code>// Always activate (maximum responsiveness)
+naturalStickyTop(element, { scrollThreshold: 0 });
+
+// Low threshold (gentle filtering)
+naturalStickyTop(element, { scrollThreshold: 2 });
+
+// Medium threshold (balanced approach)
+naturalStickyTop(element, { scrollThreshold: 10 });
+
+// High threshold (intentional activation only)
+naturalStickyTop(element, { scrollThreshold: 25 });
+
+// Combine with snapEagerness for full control
+naturalStickyTop(element, { 
+  scrollThreshold: 10,  // Moderate activation requirement
+  snapEagerness: 1.5    // Slightly eager gap prevention
+});</code></pre>
+        </div>
+
+        <div class="spacer"></div>
+
+        <h2>🔄 Comparing with SnapEagerness</h2>
+        <p>
+          Understanding how scrollThreshold and snapEagerness work together:
+        </p>
+
+        <ul>
+          <li>
+            <strong>scrollThreshold</strong> controls <em>when</em> the
+            scroll-in effect activates
+          </li>
+          <li>
+            <strong>snapEagerness</strong> controls <em>how</em> the element
+            transitions to sticky positioning
+          </li>
+          <li>
+            Both parameters work together to create the complete user experience
+          </li>
+          <li>
+            You can mix and match: high threshold + low eagerness, or low
+            threshold + high eagerness
+          </li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <p>
+          <strong
+            >Continue scrolling to keep testing all four threshold behaviors
+            simultaneously!</strong
+          >
+        </p>
+        <p>
+          This unified scrolling experience makes it immediately clear how
+          different scrollThreshold values respond to your actual scrolling
+          patterns. No need to test each demo separately!
+        </p>
+
+        <div class="spacer"></div>
+      </section>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!window.naturalStickyTop) {
+          console.error('Natural Sticky library not loaded');
+          return;
+        }
+
+        // Initialize all four headers with different scrollThreshold values
+        const headers = [
+          { id: 'header-always', scrollThreshold: 0 },
+          { id: 'header-low', scrollThreshold: 2 },
+          { id: 'header-medium', scrollThreshold: 10 },
+          { id: 'header-high', scrollThreshold: 25 },
+        ];
+
+        headers.forEach(({ id, scrollThreshold }) => {
+          const header = document.getElementById(id);
+          if (header) {
+            // Use the individual positioning approach
+            customNaturalStickyTop(header, { scrollThreshold });
+          }
+        });
+
+        // Custom implementation that maintains individual positioning for scrollThreshold testing
+        function customNaturalStickyTop(element, options = {}) {
+          const { scrollThreshold = 0, snapEagerness = 1.0 } = options;
+          let lastScrollY = window.scrollY;
+          let isSticky = false;
+          let isHeaderAtTop = true;
+
+          // Store the original left position for all positioning modes
+          const computedStyle = window.getComputedStyle(element);
+          const originalLeft = computedStyle.left;
+
+          const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const scrollStep = currentScrollY - lastScrollY;
+            const elementHeight = element.offsetHeight;
+            const elementRect = element.getBoundingClientRect();
+            const isElementVisible =
+              elementRect.bottom > 0 && elementRect.top < window.innerHeight;
+
+            // Handle all relative mode logic first
+            if (!isSticky) {
+              // First priority: Check if element should switch to sticky
+              // Predict where element will be on next scroll event to avoid visual gaps
+              if (elementRect.top - snapEagerness * scrollStep >= 0) {
+                isSticky = true;
+                isHeaderAtTop = false;
+                element.style.position = 'fixed';
+                element.style.top = '0';
+                element.style.left = originalLeft;
+              }
+              // Second priority: If scrolling up with sufficient speed and element is not visible, position above viewport
+              else if (-scrollStep >= scrollThreshold && !isElementVisible) {
+                isHeaderAtTop = false;
+                element.style.position = 'absolute';
+                element.style.top = `${currentScrollY - elementHeight}px`;
+                element.style.left = originalLeft;
+              }
+              // Third priority: When header becomes invisible, move it to top of page
+              else if (!isHeaderAtTop && !isElementVisible) {
+                isHeaderAtTop = true;
+                element.style.position = 'absolute';
+                element.style.top = '0px';
+                element.style.left = originalLeft;
+              }
+            }
+            // Handle sticky mode logic - release from sticky when scrolling down
+            else if (scrollStep > 0) {
+              isSticky = false;
+              element.style.position = 'absolute';
+              element.style.top = `${currentScrollY}px`;
+              element.style.left = originalLeft;
+            }
+
+            lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+          };
+
+          // Initial state
+          handleScroll();
+          window.addEventListener('scroll', handleScroll, { passive: true });
+
+          return {
+            destroy: () => {
+              window.removeEventListener('scroll', handleScroll);
+            },
+          };
+        }
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
