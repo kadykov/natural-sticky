@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/kadykov/natural-sticky/compare/v1.1.0...v1.2.0) (2025-08-26)
+
+### Features
+
+- add scrollThreshold parameter with comprehensive demos and optimizations ([b605302](https://github.com/kadykov/natural-sticky/commit/b605302f12c0eab014864a76ed34b411dfc981d7))
+
 # [1.1.0](https://github.com/kadykov/natural-sticky/compare/v1.0.1...v1.1.0) (2025-08-23)
 
 ### Features
