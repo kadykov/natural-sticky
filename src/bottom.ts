@@ -23,8 +23,9 @@
  *   - Higher: Strong snap effect, immediate attraction to edge
  * @param options.scrollThreshold - Minimum scroll speed (pixels/event) to trigger natural scroll-in effect (default: 0)
  *   - 0: Always activate scroll-in effect (current behavior)
- *   - 5-15: Activate only on medium-speed scrolling
- *   - 20+: Activate only on fast scrolling
+ *   - 2: Low threshold for gentle filtering
+ *   - 10: Medium threshold for deliberate scrolling
+ *   - 25: High threshold for fast scrolling only
  */
 export function naturalStickyBottom(
   element: HTMLElement,
