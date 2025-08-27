@@ -128,7 +128,9 @@ Controls when the scroll-in effect activates based on scroll speed:
 - [4-Headers SnapEagerness](https://github.kadykov.com/natural-sticky/demo/multi-header-snap.html) - Live side-by-side comparison
 - [SnapEagerness Demos](https://github.kadykov.com/natural-sticky/demo/comparison-snap.html) - Individual iframe comparisons
 - [4-Headers ScrollThreshold](https://github.kadykov.com/natural-sticky/demo/multi-header-threshold.html) - Live side-by-side comparison
-- [ScrollThreshold Demos](https://github.kadykov.com/natural-sticky/demo/comparison-threshold.html) - Individual iframe comparisons## How It Works
+- [ScrollThreshold Demos](https://github.kadykov.com/natural-sticky/demo/comparison-threshold.html) - Individual iframe comparisons
+
+## How It Works
 
 The core insight: avoid animations entirely.
 
