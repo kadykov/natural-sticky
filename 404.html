@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - Natural Sticky</title>
+    <meta
+      name="description"
+      content="The page you're looking for might have been renamed or moved. Find all Natural Sticky demos and documentation here."
+    />
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background: #fafafa;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .error-hero {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .error-hero h1 {
+        font-size: 4rem;
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+        opacity: 0.9;
+      }
+
+      .error-hero h2 {
+        font-size: 2rem;
+        margin: 0 0 1rem 0;
+        font-weight: 500;
+      }
+
+      .error-hero p {
+        font-size: 1.1rem;
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      .navigation-section {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navigation-section h3 {
+        color: #333;
+        margin: 0 0 1.5rem 0;
+        font-size: 1.5rem;
+      }
+
+      .quick-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .quick-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        background: #f8f9fa;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .quick-link:hover {
+        background: #e9ecef;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .quick-link .icon {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+      }
+
+      .demo-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+      }
+
+      .demo-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        background: #e3f2fd;
+        color: #1565c0;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .demo-link:hover {
+        background: #bbdefb;
+        color: #0d47a1;
+      }
+
+      .main-cta {
+        text-align: center;
+        margin: 2rem 0;
+      }
+
+      .main-cta a {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      .main-cta a:hover {
+        background: #218838;
+      }
+
+      .help-section {
+        background: #fff3cd;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        margin-top: 2rem;
+      }
+
+      .help-section h4 {
+        color: #856404;
+        margin: 0 0 1rem 0;
+      }
+
+      .help-section p {
+        color: #856404;
+        margin: 0 0 1rem 0;
+      }
+
+      .help-section ul {
+        color: #856404;
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+
+      .breadcrumb {
+        background: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        color: #666;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .breadcrumb a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .error-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .error-hero h2 {
+          font-size: 1.5rem;
+        }
+
+        .quick-links {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Natural Sticky</a> / Page Not Found
+      </div>
+
+      <div class="error-hero">
+        <h1>404</h1>
+        <h2>Demo Page Not Found</h2>
+        <p>
+          Our demo files use a structured naming convention for better
+          organization. The page you're looking for might have a different name
+          or location.
+        </p>
+      </div>
+
+      <div class="navigation-section">
+        <h3>🚀 Popular Demos</h3>
+        <p>Looking for a specific demo? Here are the most popular ones:</p>
+
+        <div class="quick-links">
+          <a href="/demo/basic-header.html" class="quick-link">
+            <span class="icon">📱</span>
+            Basic Header Demo
+          </a>
+          <a href="/demo/basic-footer.html" class="quick-link">
+            <span class="icon">📄</span>
+            Basic Footer Demo
+          </a>
+          <a href="/demo/multi-header-snap.html" class="quick-link">
+            <span class="icon">🚀</span>
+            Live 4-Headers Comparison
+          </a>
+          <a href="/demo/multi-header-threshold.html" class="quick-link">
+            <span class="icon">🎚️</span>
+            ScrollThreshold Comparison
+          </a>
+        </div>
+      </div>
+
+      <div class="navigation-section">
+        <h3>🎯 All Available Demos</h3>
+        <p>Browse all our demos organized by category:</p>
+
+        <h4 style="margin-top: 1.5rem; color: #495057">Basic Demos</h4>
+        <div class="demo-links">
+          <a href="/demo/basic-header.html" class="demo-link"
+            >Header (Default)</a
+          >
+          <a href="/demo/basic-footer.html" class="demo-link"
+            >Footer (Default)</a
+          >
+          <a href="/demo/basic-both.html" class="demo-link"
+            >Both Header & Footer</a
+          >
+          <a href="/demo/basic-header-natural.html" class="demo-link"
+            >Header Natural (0.0)</a
+          >
+          <a href="/demo/basic-header-magnetic.html" class="demo-link"
+            >Header Magnetic (3.0)</a
+          >
+        </div>
+
+        <h4 style="margin-top: 1.5rem; color: #495057">Comparison Pages</h4>
+        <div class="demo-links">
+          <a href="/demo/comparison-snap.html" class="demo-link"
+            >SnapEagerness Comparison</a
+          >
+          <a href="/demo/comparison-threshold.html" class="demo-link"
+            >ScrollThreshold Comparison</a
+          >
+        </div>
+
+        <h4 style="margin-top: 1.5rem; color: #495057">
+          Live Multi-Header Demos
+        </h4>
+        <div class="demo-links">
+          <a href="/demo/multi-header-snap.html" class="demo-link"
+            >4-Headers SnapEagerness</a
+          >
+          <a href="/demo/multi-header-threshold.html" class="demo-link"
+            >4-Headers ScrollThreshold</a
+          >
+        </div>
+
+        <h4 style="margin-top: 1.5rem; color: #495057">
+          Parameter-Specific Demos
+        </h4>
+        <div class="demo-links">
+          <a href="/demo/snap-natural.html" class="demo-link">Natural (0.0)</a>
+          <a href="/demo/snap-balanced.html" class="demo-link"
+            >Balanced (1.0)</a
+          >
+          <a href="/demo/snap-eager.html" class="demo-link">Eager (2.0)</a>
+          <a href="/demo/snap-magnetic.html" class="demo-link"
+            >Magnetic (3.0)</a
+          >
+          <a href="/demo/threshold-low.html" class="demo-link"
+            >Low Threshold (2)</a
+          >
+          <a href="/demo/threshold-medium.html" class="demo-link"
+            >Medium Threshold (10)</a
+          >
+          <a href="/demo/threshold-high.html" class="demo-link"
+            >High Threshold (25)</a
+          >
+        </div>
+      </div>
+
+      <div class="main-cta">
+        <a href="/">← Back to Main Page</a>
+      </div>
+
+      <div class="help-section">
+        <h4>🔍 Looking for something specific?</h4>
+        <p>Our demo files follow a structured naming convention:</p>
+        <ul>
+          <li><strong>basic-*</strong> - Single-feature demonstrations</li>
+          <li><strong>comparison-*</strong> - Multi-iframe comparison grids</li>
+          <li><strong>multi-*</strong> - Live side-by-side demonstrations</li>
+          <li>
+            <strong>Individual parameters</strong> - threshold-*, snap-* with
+            descriptive names
+          </li>
+        </ul>
+        <p>
+          If you have a specific demo in mind, try looking for the equivalent in
+          the lists above, or <a href="/">return to the main page</a> to explore
+          all available demos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Add some basic analytics if the page is accessed -->
+    <script>
+      // Log 404 access for potential link fixing
+      if (window.console) {
+        console.log('404 Page accessed from:', document.referrer || 'direct');
+        console.log('Requested URL:', window.location.href);
+      }
+
+      // Simple redirect logic for common old URLs
+      const currentPath = window.location.pathname.toLowerCase();
+      const redirectMap = {
+        '/demo/header-only.html': '/demo/basic-header.html',
+        '/demo/footer-only.html': '/demo/basic-footer.html',
+        '/demo/both.html': '/demo/basic-both.html',
+        '/demo/header-natural.html': '/demo/basic-header-natural.html',
+        '/demo/header-magnetic.html': '/demo/basic-header-magnetic.html',
+        '/demo/4-headers-comparison.html': '/demo/multi-header-snap.html',
+        '/demo/4-headers-scroll-threshold-comparison.html':
+          '/demo/multi-header-threshold.html',
+        '/demo/snap-comparison.html': '/demo/comparison-snap.html',
+        '/demo/scroll-threshold-demo.html': '/demo/comparison-threshold.html',
+        '/demo/snap-demo-0.html': '/demo/snap-natural.html',
+        '/demo/snap-demo-1.html': '/demo/snap-balanced.html',
+        '/demo/snap-demo-2.html': '/demo/snap-eager.html',
+        '/demo/snap-demo-3.html': '/demo/snap-magnetic.html',
+      };
+
+      if (redirectMap[currentPath]) {
+        // Show a brief message before redirecting
+        const redirectUrl = redirectMap[currentPath];
+        const notice = document.createElement('div');
+        notice.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #28a745;
+          color: white;
+          padding: 1rem;
+          border-radius: 8px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          z-index: 1000;
+          font-weight: 500;
+        `;
+        notice.textContent = `Redirecting to the new location...`;
+        document.body.appendChild(notice);
+
+        setTimeout(() => {
+          window.location.replace(redirectUrl);
+        }, 1500);
+      }
+    </script>
+  </body>
+</html>
