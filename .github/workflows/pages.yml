@@ -56,6 +56,7 @@ jobs:
 
           # Copy only the files and directories we want to keep
           cp index.html /tmp/pages-content/ 2>/dev/null || true
+          cp 404.html /tmp/pages-content/ 2>/dev/null || true
           cp -r demo /tmp/pages-content/ 2>/dev/null || true
           cp -r dist /tmp/pages-content/ 2>/dev/null || true
 
