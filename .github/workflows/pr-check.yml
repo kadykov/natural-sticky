@@ -36,7 +36,7 @@ jobs:
 
       # Dry run semantic-release to validate the next version
       - name: Semantic Release (Dry Run)
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v5
         with:
           semantic_version: 24
           dry_run: true
