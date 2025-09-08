@@ -106,7 +106,7 @@ export function naturalStickyBottom(
       element.style.bottom = `${viewportBottomOffset}px`;
     }
 
-    lastScrollY = currentScrollY;
+    lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
   };
 
   // Run once on load to set the initial state correctly.

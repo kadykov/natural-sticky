@@ -100,7 +100,7 @@ export function naturalStickyTop(
       element.style.top = `${currentScrollY}px`;
     }
 
-    lastScrollY = currentScrollY;
+    lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
   };
 
   // Run once on load to set the initial state correctly.
