@@ -24,7 +24,7 @@ A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
 **Key Benefits:**
 
-- **🪶 Ultra Lightweight:** 1.1KB (header) / 1.2KB (footer) - no dependencies
+- **🎈 Ultra Lightweight:** 1.1KB (header) / 1.2KB (footer) - no dependencies
 - **🌊 Natural Movement:** Flows with your scroll speed, no artificial animations or distracting effects
 - **🤹 Multiple Elements:** Animate multiple headers, footers, and floating elements without conflicts
 - **♟️ Smart Positioning:** Predictive gap elimination and flexible document flow control
