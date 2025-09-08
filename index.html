@@ -209,48 +209,50 @@
       <div class="hero">
         <h1>Natural Sticky</h1>
         <p>
-          Lightweight, framework-agnostic hide-on-scroll effects that feel
-          completely natural
+          Hide-on-scroll that flows naturally with your scroll speed - no
+          jarring animations
         </p>
         <p>
-          <span class="highlight">Only 1.0KB</span> •
-          <span class="highlight">Zero Dependencies</span> •
-          <span class="highlight">Pure TypeScript</span>
+          <span class="highlight">Only 1.1KB</span> •
+          <span class="highlight">Zero Animations</span> •
+          <span class="highlight">Multiple Elements</span>
         </p>
       </div>
 
       <div class="features">
         <div class="feature">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon">🪶</div>
           <h3>Ultra Lightweight</h3>
           <p>
-            Just 1.0KB minified for top headers, 1.2KB for bottom footers. No
-            bloat, maximum performance.
+            Just 1.1KB minified for headers, 1.2KB for footers. 4x smaller than
+            Headroom.js with zero dependencies and maximum performance.
           </p>
         </div>
         <div class="feature">
-          <div class="feature-icon">🚫</div>
-          <h3>Zero Dependencies</h3>
+          <div class="feature-icon">🤹</div>
+          <h3>Multiple Elements</h3>
           <p>
-            Pure TypeScript that compiles to vanilla JavaScript. No external
-            libraries, no version conflicts.
+            Animate multiple headers, footers, and floating elements
+            simultaneously without conflicts. Traditional sticky or floating
+            modes for maximum flexibility.
           </p>
         </div>
         <div class="feature">
-          <div class="feature-icon">🎯</div>
+          <div class="feature-icon">🌊</div>
           <h3>Natural Movement</h3>
           <p>
-            No jarring animations or sudden pop-ins. Elements move naturally
-            with your scroll speed, creating a seamless, non-distracting
-            experience.
+            No jarring animations or sudden pop-ins. Elements flow naturally
+            with your scroll speed, creating seamless movement that doesn't
+            break focus.
           </p>
         </div>
         <div class="feature">
-          <div class="feature-icon">🔧</div>
-          <h3>Framework Agnostic</h3>
+          <div class="feature-icon">🎛️</div>
+          <h3>Fine-Tunable</h3>
           <p>
-            Works with React, Vue, Angular, or vanilla JavaScript. Use it
-            anywhere, with anything.
+            Three precise parameters control natural feel, activation timing,
+            and gap prevention. From pure natural movement to magnetic snapping,
+            perfect for any use case.
           </p>
         </div>
       </div>
@@ -282,24 +284,13 @@
           </div>
 
           <div class="demo-card">
-            <h3>📄 Footer (Default)</h3>
+            <h3>🤹 Multiple Elements</h3>
             <iframe
-              src="demo/basic-footer.html"
-              title="Footer Default Demo"
-            ></iframe>
-            <a href="demo/basic-footer.html" target="_blank" class="demo-link"
-              >Open Full Demo →</a
-            >
-          </div>
-
-          <div class="demo-card">
-            <h3>🌿 Header Natural (0.0)</h3>
-            <iframe
-              src="demo/basic-header-natural.html"
-              title="Header Natural Movement Demo"
+              src="demo/basic-floating-elements.html"
+              title="Multiple Elements Demo"
             ></iframe>
             <a
-              href="demo/basic-header-natural.html"
+              href="demo/basic-floating-elements.html"
               target="_blank"
               class="demo-link"
               >Open Full Demo →</a
@@ -307,13 +298,27 @@
           </div>
 
           <div class="demo-card">
-            <h3>🧲 Header Magnetic (3.0)</h3>
+            <h3>⚡ ScrollThreshold Comparison</h3>
             <iframe
-              src="demo/basic-header-magnetic.html"
-              title="Header Magnetic Effect Demo"
+              src="demo/multi-header-threshold.html"
+              title="ScrollThreshold Parameter Demo"
             ></iframe>
             <a
-              href="demo/basic-header-magnetic.html"
+              href="demo/multi-header-threshold.html"
+              target="_blank"
+              class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+
+          <div class="demo-card">
+            <h3>🧲 SnapEagerness Comparison</h3>
+            <iframe
+              src="demo/multi-header-snap.html"
+              title="SnapEagerness Parameter Demo"
+            ></iframe>
+            <a
+              href="demo/multi-header-snap.html"
               target="_blank"
               class="demo-link"
               >Open Full Demo →</a
@@ -322,21 +327,27 @@
         </div>
 
         <div style="text-align: center; margin-top: 2rem">
+          <h3 style="color: #666; margin-bottom: 1.5rem">Additional Demos</h3>
+
+          <!-- Main comparison demos - most valuable -->
           <a
-            href="demo/multi-header-snap.html"
+            href="demo/comparison-threshold.html"
             target="_blank"
             style="
               display: inline-block;
               padding: 0.75rem 1.5rem;
-              margin: 1rem;
-              background: #28a745;
+              margin: 0.5rem;
+              background: #fd7e14;
               color: white;
               text-decoration: none;
               border-radius: 6px;
               font-weight: 500;
+              transition: background-color 0.3s ease;
             "
+            onmouseover="this.style.backgroundColor='#e63600'"
+            onmouseout="this.style.backgroundColor='#fd7e14'"
           >
-            🚀 Live 4-Headers Comparison →
+            ⚡ ScrollThreshold Side-by-Side →
           </a>
           <a
             href="demo/comparison-snap.html"
@@ -344,47 +355,157 @@
             style="
               display: inline-block;
               padding: 0.75rem 1.5rem;
-              margin: 1rem;
+              margin: 0.5rem;
               background: #667eea;
               color: white;
               text-decoration: none;
               border-radius: 6px;
               font-weight: 500;
+              transition: background-color 0.3s ease;
             "
+            onmouseover="this.style.backgroundColor='#4c63d2'"
+            onmouseout="this.style.backgroundColor='#667eea'"
           >
-            🎯 Separate Demos Comparison →
+            🎯 SnapEagerness Side-by-Side →
           </a>
+          <br />
+
+          <!-- Basic usage demos -->
           <a
-            href="demo/comparison-threshold.html"
+            href="demo/basic-both.html"
             target="_blank"
             style="
               display: inline-block;
               padding: 0.75rem 1.5rem;
-              margin: 1rem;
-              background: #fd7e14;
+              margin: 0.5rem;
+              background: #28a745;
               color: white;
               text-decoration: none;
               border-radius: 6px;
               font-weight: 500;
+              transition: background-color 0.3s ease;
             "
+            onmouseover="this.style.backgroundColor='#1e7e34'"
+            onmouseout="this.style.backgroundColor='#28a745'"
           >
-            🎚️ ScrollThreshold Comparison →
+            🏢 Header + Footer Together →
           </a>
           <a
-            href="demo/multi-header-threshold.html"
+            href="demo/basic-footer.html"
             target="_blank"
             style="
               display: inline-block;
               padding: 0.75rem 1.5rem;
-              margin: 1rem;
-              background: #6f42c1;
+              margin: 0.5rem;
+              background: #17a2b8;
               color: white;
               text-decoration: none;
               border-radius: 6px;
               font-weight: 500;
+              transition: background-color 0.3s ease;
             "
+            onmouseover="this.style.backgroundColor='#117a8b'"
+            onmouseout="this.style.backgroundColor='#17a2b8'"
           >
-            🚀 Live 4-Headers ScrollThreshold →
+            📄 Basic Footer Only →
+          </a>
+        </div>
+
+        <!-- Minimal Examples Section -->
+        <div
+          style="
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+          "
+        >
+          <h4 style="color: #666; margin-bottom: 1rem">
+            Code Examples (Minimal Styling)
+          </h4>
+          <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem">
+            Stripped-down demos focusing on implementation details
+          </p>
+
+          <a
+            href="demo/minimal-header.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #f8f9fa;
+              color: #495057;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #dee2e6;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#e9ecef'; this.style.borderColor='#adb5bd'"
+            onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#dee2e6'"
+          >
+            📋 Minimal Header
+          </a>
+          <a
+            href="demo/minimal-footer.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #f8f9fa;
+              color: #495057;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #dee2e6;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#e9ecef'; this.style.borderColor='#adb5bd'"
+            onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#dee2e6'"
+          >
+            📋 Minimal Footer
+          </a>
+          <a
+            href="demo/minimal-header-floating.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #f8f9fa;
+              color: #495057;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #dee2e6;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#e9ecef'; this.style.borderColor='#adb5bd'"
+            onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#dee2e6'"
+          >
+            📋 Minimal Floating Header
+          </a>
+          <a
+            href="demo/minimal-footer-floating.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #f8f9fa;
+              color: #495057;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #dee2e6;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#e9ecef'; this.style.borderColor='#adb5bd'"
+            onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.borderColor='#dee2e6'"
+          >
+            📋 Minimal Floating Footer
           </a>
         </div>
       </div>
@@ -404,13 +525,17 @@
 &lt;script&gt;
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.my-header');
-    // Default behavior
+    // Default behavior (traditional sticky)
     window.naturalStickyTop(header);
     
-    // Or customize with scrollThreshold
+    // Floating elements mode
+    window.naturalStickyTop(header, { reserveSpace: false });
+    
+    // Fine-tune with scrollThreshold and snapEagerness
     window.naturalStickyTop(header, {
       snapEagerness: 2.0,
-      scrollThreshold: 10  // Only activate on medium-speed scrolling
+      scrollThreshold: 10,  // Only activate on medium-speed scrolling
+      reserveSpace: true    // Traditional sticky (default)
     });
   });
 &lt;/script&gt;</pre
@@ -422,16 +547,19 @@
           <pre>
 import { naturalStickyTop, naturalStickyBottom } from 'natural-sticky';
 
-// For headers
+// For headers (traditional sticky by default)
 const headerInstance = naturalStickyTop(document.querySelector('.header'));
 
-// For footers  
-const footerInstance = naturalStickyBottom(document.querySelector('.footer'));
+// For footers with floating elements mode
+const footerInstance = naturalStickyBottom(document.querySelector('.footer'), {
+  reserveSpace: false
+});
 
-// Fine-tune snap behavior and scroll activation with new scrollThreshold
-const eagerHeader = naturalStickyTop(document.querySelector('.header'), {
+// Fine-tune all parameters
+const customHeader = naturalStickyTop(document.querySelector('.header'), {
   snapEagerness: 2.0,   // More eager snapping to prevent visual gaps
-  scrollThreshold: 15   // Only activate on moderate to fast scrolling
+  scrollThreshold: 15,  // Only activate on moderate to fast scrolling
+  reserveSpace: true    // Traditional sticky (default)
 });
 
 // Clean up when needed
@@ -468,9 +596,27 @@ footerInstance.destroy();</pre
 
         <p>
           The secret is in switching between <code>position: sticky</code> and
-          <code>position: relative</code> at exactly the right moments, letting
-          the browser's native scrolling handle all the movement naturally.
+          <code>position: relative</code> (or <code>position: fixed</code> and
+          <code>position: absolute</code> for floating elements) at exactly the
+          right moments, letting the browser's native scrolling handle all the
+          movement naturally.
         </p>
+
+        <h3>Choose your positioning style</h3>
+        <p>
+          The <code>reserveSpace</code> parameter (default: true) controls how
+          elements behave:
+        </p>
+        <ul>
+          <li>
+            <strong>true (default)</strong> - Traditional sticky behavior that
+            preserves layout space
+          </li>
+          <li>
+            <strong>false</strong> - Floating elements that don't take up layout
+            space when hidden
+          </li>
+        </ul>
 
         <h3>Fine-tuning with snapEagerness</h3>
         <p>

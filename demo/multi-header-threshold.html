@@ -521,77 +521,10 @@ naturalStickyTop(element, {
         headers.forEach(({ id, scrollThreshold }) => {
           const header = document.getElementById(id);
           if (header) {
-            // Use the individual positioning approach
-            customNaturalStickyTop(header, { scrollThreshold });
+            // Use production script with reserveSpace: false for floating positioning
+            naturalStickyTop(header, { scrollThreshold, reserveSpace: false });
           }
         });
-
-        // Custom implementation that maintains individual positioning for scrollThreshold testing
-        function customNaturalStickyTop(element, options = {}) {
-          const { scrollThreshold = 0, snapEagerness = 1.0 } = options;
-          let lastScrollY = window.scrollY;
-          let isSticky = false;
-          let isHeaderAtTop = true;
-
-          // Store the original left position for all positioning modes
-          const computedStyle = window.getComputedStyle(element);
-          const originalLeft = computedStyle.left;
-
-          const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            const scrollStep = currentScrollY - lastScrollY;
-            const elementHeight = element.offsetHeight;
-            const elementRect = element.getBoundingClientRect();
-            const isElementVisible =
-              elementRect.bottom > 0 && elementRect.top < window.innerHeight;
-
-            // Handle all relative mode logic first
-            if (!isSticky) {
-              // First priority: Check if element should switch to sticky
-              // Predict where element will be on next scroll event to avoid visual gaps
-              if (elementRect.top - snapEagerness * scrollStep >= 0) {
-                isSticky = true;
-                isHeaderAtTop = false;
-                element.style.position = 'fixed';
-                element.style.top = '0';
-                element.style.left = originalLeft;
-              }
-              // Second priority: If scrolling up with sufficient speed and element is not visible, position above viewport
-              else if (-scrollStep >= scrollThreshold && !isElementVisible) {
-                isHeaderAtTop = false;
-                element.style.position = 'absolute';
-                element.style.top = `${currentScrollY - elementHeight}px`;
-                element.style.left = originalLeft;
-              }
-              // Third priority: When header becomes invisible, move it to top of page
-              else if (!isHeaderAtTop && !isElementVisible) {
-                isHeaderAtTop = true;
-                element.style.position = 'absolute';
-                element.style.top = '0px';
-                element.style.left = originalLeft;
-              }
-            }
-            // Handle sticky mode logic - release from sticky when scrolling down
-            else if (scrollStep > 0) {
-              isSticky = false;
-              element.style.position = 'absolute';
-              element.style.top = `${currentScrollY}px`;
-              element.style.left = originalLeft;
-            }
-
-            lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
-          };
-
-          // Initial state
-          handleScroll();
-          window.addEventListener('scroll', handleScroll, { passive: true });
-
-          return {
-            destroy: () => {
-              window.removeEventListener('scroll', handleScroll);
-            },
-          };
-        }
       });
     </script>
     <script src="drag-scroll.js"></script>

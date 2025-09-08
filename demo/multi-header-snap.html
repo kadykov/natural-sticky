@@ -111,6 +111,12 @@
         text-align: left;
       }
 
+      section.demo-content {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+        padding: 0 1rem;
+      }
+
       .comparison-guide {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -423,64 +429,10 @@ naturalStickyTop(element, { snapEagerness: 3.0 });</code></pre>
         headers.forEach(({ id, snapEagerness }) => {
           const header = document.getElementById(id);
           if (header) {
-            // Use the individual positioning approach
-            customNaturalStickyTop(header, { snapEagerness });
+            // Use production script with reserveSpace: false for floating positioning
+            naturalStickyTop(header, { snapEagerness, reserveSpace: false });
           }
         });
-
-        // Custom implementation that maintains individual positioning
-        function customNaturalStickyTop(element, options = {}) {
-          const { snapEagerness = 1.0 } = options;
-          let lastScrollY = window.scrollY;
-          let isSticky = false;
-
-          // Store the original left position for all positioning modes
-          const computedStyle = window.getComputedStyle(element);
-          const originalLeft = computedStyle.left;
-
-          const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            const scrollingDown = currentScrollY > lastScrollY;
-            const scrollingUp = currentScrollY < lastScrollY;
-            const elementHeight = element.offsetHeight;
-            const elementRect = element.getBoundingClientRect();
-            const isElementVisible =
-              elementRect.bottom > 0 && elementRect.top < window.innerHeight;
-
-            // Scroll speed prediction for snapEagerness
-            const scrollSpeed = currentScrollY - lastScrollY;
-            const shouldBecomeSticky =
-              elementRect.top - snapEagerness * scrollSpeed >= 0;
-
-            if (isSticky && scrollingDown) {
-              isSticky = false;
-              element.style.position = 'absolute';
-              element.style.top = `${currentScrollY}px`;
-              element.style.left = originalLeft;
-            } else if (!isSticky && scrollingUp && !isElementVisible) {
-              element.style.position = 'absolute';
-              element.style.top = `${currentScrollY - elementHeight}px`;
-              element.style.left = originalLeft;
-            } else if (!isSticky && shouldBecomeSticky) {
-              isSticky = true;
-              element.style.position = 'fixed';
-              element.style.top = '0';
-              element.style.left = originalLeft;
-            }
-
-            lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
-          };
-
-          // Initial state
-          handleScroll();
-          window.addEventListener('scroll', handleScroll, { passive: true });
-
-          return {
-            destroy: () => {
-              window.removeEventListener('scroll', handleScroll);
-            },
-          };
-        }
       });
     </script>
     <script src="drag-scroll.js"></script>
