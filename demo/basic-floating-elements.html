@@ -6,6 +6,13 @@
     <title>Basic Floating Elements - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
     <style>
+      /* CSS Custom Properties for maintainable spacing */
+      :root {
+        --floating-gap: 20px;
+        /* button-offset will be calculated dynamically by JavaScript */
+        --button-offset: 140px; /* fallback value, will be updated by JS */
+      }
+
       /* IMPORTANT: Body must have position: relative for bottom script to work correctly
        Bottom script uses absolute positioning with bottom coordinates, which are calculated
        from document bottom (with body position: relative) vs viewport bottom (ICB default).
@@ -36,7 +43,9 @@
       }
 
       .button-container {
-        padding-top: 175px; /* Push below header (155px) + gap (20px) */
+        padding-top: var(
+          --button-offset
+        ); /* Dynamically calculated: header height + gap */
         display: flex;
         justify-content: flex-end; /* Align button to the right */
       }
@@ -233,8 +242,9 @@
             top)
           </li>
           <li>
-            Button container: <code>padding-top: 155px</code> (below header
-            including padding)
+            Button container:
+            <code>padding-top: var(--button-offset)</code> (dynamically
+            calculated by JavaScript: actual header height + gap)
           </li>
           <li>
             Status container: <code>padding-bottom: 20px</code> (above screen
@@ -433,6 +443,10 @@
 
     <script src="../dist/natural-sticky.top.min.js"></script>
     <script src="../dist/natural-sticky.bottom.min.js"></script>
+
+    <!-- 
+      REQUIRED: Natural Sticky initialization - this is the minimal code needed to use the library
+    -->
     <script>
       // Main header with document space reservation (traditional sticky behavior)
       naturalStickyTop(document.getElementById('mainHeader'), {
@@ -455,6 +469,54 @@
       // Status indicator using bottom script for bottom-left positioning
       naturalStickyBottom(document.getElementById('statusIndicatorContainer'), {
         reserveSpace: false, // No document flow space - floats above content
+      });
+    </script>
+
+    <!-- 
+      OPTIONAL: Demo enhancement - dynamic positioning calculation
+      This is NOT required for Natural Sticky to work - it's just for this demo's visual layout
+    -->
+    <script>
+      // Dynamically calculate header height and update CSS custom property
+      // This ensures the floating button is always positioned correctly relative to the header
+      function updateButtonOffset() {
+        const header = document.getElementById('mainHeader');
+        const headerHeight = header.offsetHeight;
+        const floatingGap = 20; // matches CSS --floating-gap
+        const buttonOffset = headerHeight + floatingGap;
+
+        // Update CSS custom property with actual measured height
+        document.documentElement.style.setProperty(
+          '--button-offset',
+          `${buttonOffset}px`
+        );
+      }
+
+      // Adjust header padding to account for floating notification overlay
+      // This ensures the visible header content remains visually balanced
+      function adjustHeaderPadding() {
+        const header = document.getElementById('mainHeader');
+        const notification = document.querySelector('.floating-notification');
+
+        if (header && notification) {
+          const notificationHeight = notification.offsetHeight;
+          const basePadding = 20; // original header padding
+
+          // Add notification height to top padding to maintain visual balance
+          header.style.paddingTop = `${basePadding + notificationHeight}px`;
+          header.style.paddingBottom = `${basePadding}px`; // keep bottom padding consistent
+        }
+      }
+
+      // Update on load and resize for responsive behavior
+      window.addEventListener('load', function () {
+        adjustHeaderPadding(); // First: adjust header padding
+        updateButtonOffset(); // Then: calculate button position based on new header size
+      });
+
+      window.addEventListener('resize', function () {
+        adjustHeaderPadding(); // First: adjust header padding
+        updateButtonOffset(); // Then: calculate button position based on new header size
       });
     </script>
     <script src="drag-scroll.js"></script>
