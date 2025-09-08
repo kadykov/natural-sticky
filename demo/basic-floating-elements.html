@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Floating Elements - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* IMPORTANT: Body must have position: relative for bottom script to work correctly
+       Bottom script uses absolute positioning with bottom coordinates, which are calculated
+       from document bottom (with body position: relative) vs viewport bottom (ICB default).
+       Top script works fine either way since document top = ICB top. */
+      body {
+        position: relative;
+      }
+
+      /* Main header that reserves space */
+      .main-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+
+      /* Floating element containers with offset control */
+      .floating-container {
+        position: relative;
+        width: 100%;
+        z-index: 999;
+      }
+
+      .notification-container {
+        padding-top: 0; /* Flush to top of screen */
+      }
+
+      .button-container {
+        padding-top: 175px; /* Push below header (155px) + gap (20px) */
+        display: flex;
+        justify-content: flex-end; /* Align button to the right */
+      }
+
+      .status-container {
+        padding-bottom: 20px; /* Push above bottom edge with gap */
+        display: flex;
+        justify-content: flex-start; /* Align status to the left */
+      }
+
+      /* Floating element styling */
+      .floating-notification {
+        background: #4ecdc4;
+        color: white;
+        padding: 15px 20px;
+        box-shadow: 0 2px 15px rgba(78, 205, 196, 0.3);
+        text-align: center;
+        font-weight: 500;
+      }
+
+      .floating-button {
+        width: 60px;
+        height: 60px;
+        background: #ff6b6b;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+        transition: transform 0.2s;
+        margin-right: 30px; /* Distance from right edge */
+      }
+
+      .floating-button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Content sections */
+      .content-section {
+        padding: 60px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .content-section:nth-child(even) {
+        background: #f8f9fa;
+      }
+
+      .content-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      /* Demo controls */
+      .demo-controls {
+        position: fixed;
+        bottom: 20px;
+        right: 20px; /* Moved to right side */
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        z-index: 300;
+      }
+
+      .demo-controls button {
+        margin: 5px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #667eea;
+        color: white;
+      }
+
+      .demo-controls button:hover {
+        background: #5a67d8;
+      }
+
+      /* Hide demo controls on mobile devices since touch scrolling is natural */
+      @media (max-width: 768px) {
+        .demo-controls {
+          display: none;
+        }
+      }
+
+      /* Status indicator */
+      .status-indicator {
+        background: #ffd93d;
+        color: #333;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        box-shadow: 0 2px 10px rgba(255, 217, 61, 0.3);
+        text-align: center;
+        margin-left: 30px; /* Distance from left edge */
+        white-space: nowrap; /* Prevent text wrapping */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main header that reserves document space -->
+    <header class="main-header" id="mainHeader">
+      <h1>🌊 Natural Sticky Demo</h1>
+      <p>Floating Elements with Mixed Positioning</p>
+    </header>
+
+    <!-- Floating elements wrapped in containers for offset control -->
+    <div
+      class="floating-container notification-container"
+      id="floatingNotificationContainer"
+    >
+      <div class="floating-notification">
+        📢 This is a floating notification banner!
+      </div>
+    </div>
+
+    <div
+      class="floating-container button-container"
+      id="floatingButtonContainer"
+    >
+      <button
+        class="floating-button"
+        id="floatingButton"
+        title="Floating Action Button"
+      >
+        ⭐
+      </button>
+    </div>
+
+    <div
+      class="floating-container status-container"
+      id="statusIndicatorContainer"
+    >
+      <div class="status-indicator">🎯 Status: Active</div>
+    </div>
+
+    <!-- Main content -->
+    <main>
+      <section class="content-section">
+        <h2>🚀 Mixed Positioning Demo</h2>
+        <p>
+          This demo showcases the new <code>reserveSpace</code> feature of
+          Natural Sticky. The main header above reserves document space (uses
+          sticky/relative positioning), while the floating elements don't
+          reserve space (use fixed/absolute positioning).
+        </p>
+        <p>
+          <strong
+            >Try scrolling up and down to see how different elements
+            behave:</strong
+          >
+        </p>
+        <ul>
+          <li>
+            <strong>Main Header:</strong> Behaves like a traditional sticky
+            header, reserving document flow space
+          </li>
+          <li>
+            <strong>Notification Stripe (top):</strong> Uses top script, flush
+            to screen top with <code>padding-top: 0</code>
+          </li>
+          <li>
+            <strong>Floating Button (top-right):</strong> Uses top script,
+            positioned with margin, doesn't affect document flow
+          </li>
+          <li>
+            <strong>Status Indicator (bottom-left):</strong> Uses bottom script,
+            demonstrates mixed top/bottom behavior
+          </li>
+        </ul>
+        <p>
+          <strong>⚠️ Critical Requirement:</strong> The
+          <code>body</code> element must have <code>position: relative</code>
+          for the bottom script to work correctly. Bottom script uses absolute
+          positioning with bottom coordinates, which are calculated from
+          document bottom (with body relative) vs viewport bottom (Initial
+          Containing Block default). Top script works fine either way since
+          document top = ICB top.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>🎯 Container-Based Positioning</h2>
+        <p>
+          Each floating element is wrapped in a container that controls
+          positioning and offsets:
+        </p>
+        <ul>
+          <li>
+            Notification container: <code>padding-top: 0</code> (flush to screen
+            top)
+          </li>
+          <li>
+            Button container: <code>padding-top: 155px</code> (below header
+            including padding)
+          </li>
+          <li>
+            Status container: <code>padding-bottom: 20px</code> (above screen
+            bottom with gap)
+          </li>
+        </ul>
+        <p>
+          <strong>Key Insight:</strong> Apply Natural Sticky to containers, not
+          inner elements. The containers position at <code>top: 0px</code> (top
+          script) or <code>bottom: 0px</code> (bottom script) when sticky, and
+          use padding/flexbox to control inner element placement.
+        </p>
+        <p>
+          <strong>⚠️ Important:</strong> Don't use any positioning (<code
+            >position: absolute/fixed/relative/sticky</code
+          >) on inner elements, as it conflicts with the container's positioning
+          changes. Let inner elements follow the container's positioning
+          naturally.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>📱 Responsive Design</h2>
+        <p>
+          The floating elements maintain their behavior across different screen
+          sizes. The main header continues to work as expected with document
+          flow, while floating elements operate independently.
+        </p>
+        <p>
+          This allows for complex layouts where you can have multiple sticky
+          elements without worrying about document flow conflicts.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>⚡ Performance Benefits</h2>
+        <p>
+          By using <code>reserveSpace: false</code> for floating elements, you
+          avoid document reflow issues that can occur with multiple sticky
+          elements. This results in smoother animations and better performance.
+        </p>
+        <p>
+          The floating elements can overlap content or each other as needed,
+          giving you full control over the visual hierarchy with z-index.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>🛠️ Implementation Details</h2>
+        <p>
+          The main header uses:
+          <code>naturalStickyTop(element, { reserveSpace: true })</code>
+        </p>
+        <p>
+          Top floating elements use:
+          <code>naturalStickyTop(element, { reserveSpace: false })</code>
+        </p>
+        <p>
+          Bottom floating elements use:
+          <code>naturalStickyBottom(element, { reserveSpace: false })</code>
+        </p>
+        <p>
+          This gives you the flexibility to mix different positioning modes and
+          directions on the same page according to your design needs.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>💡 Best Practices</h2>
+        <p>
+          <strong>Container-Based Approach:</strong>
+        </p>
+        <ul>
+          <li>Wrap floating elements in container divs</li>
+          <li>Apply Natural Sticky to containers, not inner elements</li>
+          <li>
+            Use <code>padding-top</code> on top-script containers to control
+            vertical positioning from top
+          </li>
+          <li>
+            Use <code>padding-bottom</code> on bottom-script containers to
+            control vertical positioning from bottom
+          </li>
+          <li>
+            Use flexbox (<code>justify-content: flex-end</code>) only when you
+            need right alignment
+          </li>
+          <li>
+            For left alignment, no flexbox needed - elements align left by
+            default
+          </li>
+          <li>
+            Use <code>margin</code> on inner elements for fine spacing control
+          </li>
+          <li>
+            <strong
+              >⚠️ Set <code>body { position: relative; }</code> - mandatory for
+              bottom script with <code>reserveSpace: false</code></strong
+            >
+          </li>
+        </ul>
+        <p>
+          <strong>⚠️ Avoid These Patterns:</strong>
+        </p>
+        <ul>
+          <li>
+            Don't use any positioning (<code
+              >position: absolute/fixed/relative</code
+            >) on inner elements
+          </li>
+          <li>
+            Don't rely on <code>top/right/bottom/left</code> for inner elements
+          </li>
+          <li>
+            Don't expect <code>offsetHeight</code> calculations to include
+            container margins
+          </li>
+        </ul>
+      </section>
+
+      <!-- More content for scrolling -->
+      <section class="content-section">
+        <h2>🌊 Scroll Testing Area</h2>
+        <p>This section provides more content for testing scroll behavior.</p>
+        <p>
+          Keep scrolling to see how all elements behave during different scroll
+          directions and speeds.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>📊 Advanced Usage</h2>
+        <p>
+          You can combine this with other options like
+          <code>snapEagerness</code> and <code>scrollThreshold</code> for
+          fine-tuned control over the animation behavior.
+        </p>
+        <p>
+          Each element can have its own configuration, allowing for diverse
+          behaviors within the same page layout.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>🎨 Design Possibilities</h2>
+        <p>With floating elements, you can create:</p>
+        <ul>
+          <li>
+            Floating action buttons that don't interfere with content flow
+          </li>
+          <li>Overlay notifications that appear and hide naturally</li>
+          <li>Multiple headers or toolbars without layout conflicts</li>
+          <li>Status indicators that float above content</li>
+          <li>Social media sharing buttons that follow scroll behavior</li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2>🔄 Interactive Elements</h2>
+        <p>
+          All floating elements remain interactive throughout their animations.
+          Try clicking the floating button or interacting with other elements
+          while scrolling to see how they maintain their functionality.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>✨ Final Section</h2>
+        <p>
+          This demonstrates a complete implementation of mixed positioning modes
+          in Natural Sticky. The library now supports both traditional sticky
+          behavior and modern floating element patterns.
+        </p>
+        <p>Scroll back up to see all the behaviors in reverse!</p>
+      </section>
+    </main>
+
+    <!-- Demo controls -->
+    <div class="demo-controls">
+      <div><strong>Demo Controls:</strong></div>
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑ Top
+      </button>
+      <button
+        onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"
+      >
+        ↓ Bottom
+      </button>
+      <button onclick="window.scrollBy({top: 500, behavior: 'smooth'})">
+        ⬇ Scroll Down
+      </button>
+      <button onclick="window.scrollBy({top: -500, behavior: 'smooth'})">
+        ⬆ Scroll Up
+      </button>
+    </div>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script>
+      // Main header with document space reservation (traditional sticky behavior)
+      naturalStickyTop(document.getElementById('mainHeader'), {
+        reserveSpace: true, // Reserves document flow space
+      });
+
+      // Floating containers without space reservation - now positioned at top: 0px
+      // and use padding to create proper offsets
+      naturalStickyTop(
+        document.getElementById('floatingNotificationContainer'),
+        {
+          reserveSpace: false, // No document flow space - floats above content
+        }
+      );
+
+      naturalStickyTop(document.getElementById('floatingButtonContainer'), {
+        reserveSpace: false, // No document flow space - floats independently
+      });
+
+      // Status indicator using bottom script for bottom-left positioning
+      naturalStickyBottom(document.getElementById('statusIndicatorContainer'), {
+        reserveSpace: false, // No document flow space - floats above content
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
