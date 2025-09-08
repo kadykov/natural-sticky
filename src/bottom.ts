@@ -86,7 +86,7 @@ export function naturalStickyBottom(
         element.style.position = movePosition;
         // Position just below viewport: viewportBottomOffset - elementHeight
         // elementHeight = elementBottom - elementTop
-        element.style.bottom = `${viewportBottomOffset - (elementBottom - elementTop)}px`;
+        element.style.bottom = `${viewportBottomOffset - elementBottom + elementTop}px`;
       }
       // Third priority: When footer is hidden and not at document bottom, move it to document bottom
       // Prevents footer from being stuck in middle when user scrolls down slowly
