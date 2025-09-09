@@ -8,11 +8,18 @@
 
 [Live Demo](https://github.kadykov.com/natural-sticky/) | [CodePen Examples](https://codepen.io/collection/YwWpVY)
 
+[![License](https://img.shields.io/npm/l/natural-sticky)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/natural-sticky.svg)](https://badge.fury.io/js/natural-sticky)
 [![NPM Downloads](https://img.shields.io/npm/dw/natural-sticky)](https://badge.fury.io/js/natural-sticky)
-[![License](https://img.shields.io/npm/l/natural-sticky)](https://opensource.org/licenses/MIT)
-[![Gzip Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
+[![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/npm/hm/natural-sticky)](https://www.jsdelivr.com/package/npm/natural-sticky)
+
 [![Minified Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
+[![Gzip Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
+[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - natural-sticky.top.min.js
+
+[![Minified Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
+[![Gzip Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
+[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - natural-sticky.bottom.min.js
 
 A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
