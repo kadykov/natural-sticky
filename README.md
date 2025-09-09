@@ -15,11 +15,11 @@
 
 [![Minified Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
 [![Gzip Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
-[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - natural-sticky.top.min.js
+[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - [natural-sticky.top.min.js](https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js)
 
 [![Minified Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
 [![Gzip Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js?compression=gzip)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/)
-[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - natural-sticky.bottom.min.js
+[![Brotli Size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js?compression=brotli)](https://cdn.jsdelivr.net/npm/natural-sticky/dist/) - [natural-sticky.bottom.min.js](https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js)
 
 A lightweight, framework-agnostic package for natural hide-on-scroll effects.
 
