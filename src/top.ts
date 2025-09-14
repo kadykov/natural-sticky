@@ -15,6 +15,11 @@
  * - When moving above viewport on scroll up, positions element just above viewport
  * - Transitions using scroll step prediction to avoid visual gaps (predicted elementRect.top >= 0)
  *
+ * The script dispatches a `natural-sticky:change` event with the following states in `event.detail.state`:
+ * - 'sticky': The element is stuck to the top of the viewport.
+ * - 'home': The element is at its original position at the top of the document.
+ * - 'relative': The element is scrolling with the page content.
+ *
  * @param element - The HTML element to make naturally sticky
  * @param options - Configuration options
  * @param options.snapEagerness - How eagerly the element snaps into sticky position (default: 1)
@@ -39,15 +44,37 @@ export function naturalStickyTop(
     reserveSpace?: boolean;
   }
 ) {
+  // Define constants for states to improve minification
+  const STATE_STICKY = 'sticky';
+  const STATE_HOME = 'home';
+  const STATE_RELATIVE = 'relative';
+
+  // Define the possible states for the element
+  type StickyState =
+    | typeof STATE_STICKY
+    | typeof STATE_HOME
+    | typeof STATE_RELATIVE;
+
   let lastScrollY = window.scrollY;
-  let isSticky = false; // Start in relative/absolute mode
-  let isHeaderNotAtTop = false; // Track if header is NOT positioned at top of document (top: 0px)
+  let currentState: StickyState = STATE_HOME; // Initial state
   const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
   const scrollThreshold = options?.scrollThreshold ?? 0; // Default to always activate
   const reserveSpace = options?.reserveSpace ?? true; // Default to reserving space (sticky/relative)
 
   // Determine move positioning mode based on reserveSpace setting
-  const movePosition = reserveSpace ? 'relative' : 'absolute';
+  const movePosition = reserveSpace ? STATE_RELATIVE : 'absolute';
+
+  // Function to update state and dispatch event if changed
+  const setState = (newState: StickyState) => {
+    if (currentState !== newState) {
+      currentState = newState;
+      element.dispatchEvent(
+        new CustomEvent('natural-sticky', {
+          detail: currentState,
+        })
+      );
+    }
+  };
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -57,47 +84,41 @@ export function naturalStickyTop(
     // Extract element position coordinates once for efficiency
     const elementTop = elementRect.top;
     const elementBottom = elementRect.bottom;
-
-    // Check if element has scrolled above viewport (only care about top edge for headers)
     const isElementHidden = elementBottom <= 0;
 
-    // Handle all move mode logic first (relative/absolute)
-    if (!isSticky) {
-      // First priority: Check if element should switch to top position (sticky/fixed)
-      // Predict where element top will be after next scroll to prevent visual gaps
-      // If elementTop - snapEagerness * scrollStep >= 0, element will be visible at viewport top
-      if (elementTop - snapEagerness * scrollStep >= 0) {
-        // Element will reach viewport top on next scroll - make it sticky/fixed now
-        isSticky = true;
-        isHeaderNotAtTop = true; // Element is no longer at document top
-        element.style.position = reserveSpace ? 'sticky' : 'fixed';
+    // Priority 1: Handle all cases that should result in the 'home' state.
+    if (
+      currentScrollY <= 0 ||
+      (isElementHidden && currentState === STATE_RELATIVE)
+    ) {
+      element.style.position = movePosition;
+      element.style.top = '0';
+      setState(STATE_HOME);
+    }
+    // Priority 2: Handle scrolling UP logic.
+    else if (scrollStep < 0) {
+      // First, check if it should become sticky. This is prioritized to prevent visual gaps.
+      if (
+        elementTop - snapEagerness * scrollStep >= 0 &&
+        currentState === STATE_RELATIVE
+      ) {
+        element.style.position = reserveSpace ? STATE_STICKY : 'fixed';
         element.style.top = '0';
+        setState(STATE_STICKY);
       }
-      // Second priority: If scrolling up fast enough and element is hidden, position above viewport
+      // If not becoming sticky, check if we need to release it above the viewport.
       else if (-scrollStep >= scrollThreshold && isElementHidden) {
-        // Reveal header above viewport so it scrolls into view naturally
-        isHeaderNotAtTop = true; // Element positioned above viewport, not at document top
         element.style.position = movePosition;
-        // Position just above viewport: currentScrollY - elementHeight
-        // elementHeight = elementBottom - elementTop, so: currentScrollY - (elementBottom - elementTop)
         element.style.top = `${currentScrollY - elementBottom + elementTop}px`;
-      }
-      // Third priority: When header is hidden and not at document top, move it to document top
-      // Prevents header from being stuck in middle when user scrolls up slowly
-      else if (isHeaderNotAtTop && isElementHidden) {
-        // Move header to document top for next reveal opportunity
-        isHeaderNotAtTop = false; // Now positioned at document top
-        element.style.position = movePosition;
-        element.style.top = '0'; // Position at document top
+        setState(STATE_RELATIVE);
       }
     }
-    // Handle sticky/fixed mode logic - release when scrolling down
-    else if (scrollStep > 0) {
-      // Release from sticky/fixed position to allow natural hiding
-      isSticky = false;
+    // Priority 3: Handle scrolling DOWN logic.
+    else if (scrollStep > 0 && currentState === STATE_STICKY) {
       element.style.position = movePosition;
       // Position at current scroll position so element moves naturally with content
       element.style.top = `${currentScrollY}px`;
+      setState(STATE_RELATIVE);
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

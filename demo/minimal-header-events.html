@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Header Events Test</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
+        margin-top: 0;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      /* State-specific styles */
+      header.home {
+        background-color: #4a90e2; /* Blue */
+      }
+      header.sticky {
+        background-color: #50e3c2; /* Teal */
+      }
+      header.relative {
+        background-color: #f5a623; /* Orange */
+      }
+
+      main {
+        height: 2000px; /* Long content for scrolling */
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">State: home</header>
+
+    <main>
+      <h1>Scroll Test Content</h1>
+      <p>Scroll down and up to test the header behavior and events.</p>
+      <p>The header will change color and text based on its state.</p>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      const header = document.getElementById('header');
+
+      // Initialize the header script
+      naturalStickyTop(header, { scrollThreshold: 10 });
+
+      // Listen for state changes
+      header.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        console.log('State changed to:', state);
+
+        // Update text content
+        header.textContent = `State: ${state}`;
+
+        // Update class for styling
+        header.classList.remove('home', 'sticky', 'relative');
+        header.classList.add(state);
+      });
+
+      // Set initial state on load
+      header.classList.add('home');
+    </script>
+  </body>
+</html>
