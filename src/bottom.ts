@@ -38,15 +38,37 @@ export function naturalStickyBottom(
     reserveSpace?: boolean;
   }
 ) {
+  // Define constants for states to improve minification
+  const STATE_STICKY = 'sticky';
+  const STATE_HOME = 'home';
+  const STATE_RELATIVE = 'relative';
+
+  // Define the possible states for the element
+  type StickyState =
+    | typeof STATE_STICKY
+    | typeof STATE_HOME
+    | typeof STATE_RELATIVE;
+
   let lastScrollY = window.scrollY;
-  let isSticky = false; // Start in relative/absolute mode
-  let isFooterNotAtBottom = false; // Track if footer is NOT positioned at bottom of document
+  let currentState: StickyState = STATE_HOME; // Initial state
   const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
   const scrollThreshold = options?.scrollThreshold ?? 0; // Default to always activate
   const reserveSpace = options?.reserveSpace ?? true; // Default to reserving space (sticky/relative)
 
   // Determine move positioning mode based on reserveSpace setting
-  const movePosition = reserveSpace ? 'relative' : 'absolute';
+  const movePosition = reserveSpace ? STATE_RELATIVE : 'absolute';
+
+  // Function to update state and dispatch event if changed
+  const setState = (newState: StickyState) => {
+    if (currentState !== newState) {
+      currentState = newState;
+      element.dispatchEvent(
+        new CustomEvent('natural-sticky', {
+          detail: currentState,
+        })
+      );
+    }
+  };
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -58,52 +80,49 @@ export function naturalStickyBottom(
     // Extract element position coordinates once for efficiency
     const elementTop = elementRect.top;
     const elementBottom = elementRect.bottom;
-
-    // Check if element has scrolled below viewport (only care about bottom edge for footers)
     const isElementHidden = elementTop >= viewportHeight;
 
     // Pre-calculate viewport bottom offset for positioning calculations
-    // This represents distance from viewport bottom to document bottom
     const viewportBottomOffset =
       documentHeight - currentScrollY - viewportHeight;
 
-    // Handle all move mode logic first (relative/absolute)
-    if (!isSticky) {
-      // First priority: Check if element should switch to sticky/fixed position
-      // Predict where element bottom will be after next scroll to prevent visual gaps
-      // If elementBottom - snapEagerness * scrollStep <= viewportHeight, element will reach viewport bottom
-      if (elementBottom - snapEagerness * scrollStep <= viewportHeight) {
-        // Element will reach viewport bottom on next scroll - make it sticky/fixed now
-        isSticky = true;
-        isFooterNotAtBottom = true; // Element is no longer at document bottom
-        element.style.position = reserveSpace ? 'sticky' : 'fixed';
+    // Priority 1: Handle all cases that should result in the 'home' state.
+    // The check for reaching the document bottom includes a 1px tolerance. This is to prevent issues
+    // where browser floating-point inaccuracies in height/scroll calculations can result in a value
+    // like `total_scroll_height - 0.0000000001`, which would fail a strict equality check.
+    if (
+      currentScrollY + viewportHeight >= documentHeight - 1 ||
+      (isElementHidden && currentState === STATE_RELATIVE)
+    ) {
+      element.style.position = movePosition;
+      element.style.bottom = '0';
+      setState(STATE_HOME);
+    }
+    // Priority 2: Handle scrolling DOWN logic.
+    else if (scrollStep > 0) {
+      // First, check if it should become sticky. This is prioritized to prevent visual gaps.
+      if (
+        elementBottom - snapEagerness * scrollStep <= viewportHeight &&
+        currentState === STATE_RELATIVE
+      ) {
+        element.style.position = reserveSpace ? STATE_STICKY : 'fixed';
         element.style.bottom = '0';
+        setState(STATE_STICKY);
       }
-      // Second priority: If scrolling down fast enough and element is hidden, position below viewport
+      // If not becoming sticky, check if we need to release it below the viewport.
       else if (scrollStep >= scrollThreshold && isElementHidden) {
-        // Reveal footer below viewport so it scrolls into view naturally
-        isFooterNotAtBottom = true; // Element positioned below viewport, not at document bottom
         element.style.position = movePosition;
-        // Position just below viewport: viewportBottomOffset - elementHeight
-        // elementHeight = elementBottom - elementTop
-        element.style.bottom = `${viewportBottomOffset - elementBottom + elementTop}px`;
-      }
-      // Third priority: When footer is hidden and not at document bottom, move it to document bottom
-      // Prevents footer from being stuck in middle when user scrolls down slowly
-      else if (isFooterNotAtBottom && isElementHidden) {
-        // Move footer to document bottom for next reveal opportunity
-        isFooterNotAtBottom = false; // Now positioned at document bottom
-        element.style.position = movePosition;
-        element.style.bottom = '0'; // Position at document bottom
+        element.style.bottom = `${
+          viewportBottomOffset - (elementBottom - elementTop)
+        }px`;
+        setState(STATE_RELATIVE);
       }
     }
-    // Handle sticky/fixed mode logic - release when scrolling up
-    else if (scrollStep < 0) {
-      // Release from sticky/fixed position to allow natural hiding
-      isSticky = false;
+    // Priority 3: Handle scrolling UP logic.
+    else if (scrollStep < 0 && currentState === STATE_STICKY) {
       element.style.position = movePosition;
-      // Maintain visual continuity by positioning at current viewport bottom offset
       element.style.bottom = `${viewportBottomOffset}px`;
+      setState(STATE_RELATIVE);
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

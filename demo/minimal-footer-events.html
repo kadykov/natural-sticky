@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Footer Events Test</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      main {
+        height: 2000px; /* Long content for scrolling */
+        padding: 20px;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
+        margin-bottom: 0;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      /* State-specific styles */
+      footer.home {
+        background-color: #4a90e2; /* Blue */
+      }
+      footer.sticky {
+        background-color: #50e3c2; /* Teal */
+      }
+      footer.relative {
+        background-color: #f5a623; /* Orange */
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Scroll Test Content</h1>
+      <p>Scroll down and up to test the footer behavior and events.</p>
+      <p>The footer will change color and text based on its state.</p>
+    </main>
+
+    <footer id="footer">State: home</footer>
+
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script>
+      const footer = document.getElementById('footer');
+
+      // Initialize the footer script
+      naturalStickyBottom(footer, { scrollThreshold: 10 });
+
+      // Listen for state changes
+      footer.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        console.log('State changed to:', state);
+
+        // Update text content
+        footer.textContent = `State: ${state}`;
+
+        // Update class for styling
+        footer.classList.remove('home', 'sticky', 'relative');
+        footer.classList.add(state);
+      });
+
+      // Set initial state on load
+      footer.classList.add('home');
+    </script>
+  </body>
+</html>
