@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Footer Floating Events Test</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        /* REQUIRED: position: relative is mandatory for bottom script floating elements (reserveSpace: false) */
+        position: relative;
+      }
+
+      main {
+        height: 2000px;
+        padding: 20px;
+      }
+
+      /* Main footer that reserves space */
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Floating action button container */
+      .action-container {
+        padding-bottom: 80px; /* Above footer */
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        bottom: 0;
+      }
+
+      .floating-action {
+        width: 120px; /* Wider to show text */
+        height: 60px;
+        background: #667eea;
+        border-radius: 30px; /* Pill shape */
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 30px;
+        z-index: 1000;
+        transition: background-color 0.3s ease;
+      }
+
+      /* State-specific styles for floating button */
+      .floating-action.home {
+        background-color: #4a90e2; /* Blue */
+      }
+      .floating-action.sticky {
+        background-color: #50e3c2; /* Teal */
+      }
+      .floating-action.relative {
+        background-color: #f5a623; /* Orange */
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Scroll Test Content</h1>
+      <p>
+        Tests a floating button (reserveSpace: false) with the new event system.
+      </p>
+      <p>Scroll down to see footer, then up to test hiding...</p>
+    </main>
+
+    <!-- Floating action button with reserveSpace: false -->
+    <div class="action-container" id="actionContainer">
+      <button class="floating-action" id="floatingAction">State: home</button>
+    </div>
+
+    <!-- Main footer with reserveSpace: true -->
+    <footer id="footer">Main Footer</footer>
+
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script>
+      // Main footer - reserves space (standard behavior)
+      naturalStickyBottom(document.getElementById('footer'));
+
+      // Floating action button - no space reserved
+      const actionContainer = document.getElementById('actionContainer');
+      const floatingAction = document.getElementById('floatingAction');
+      naturalStickyBottom(actionContainer, {
+        reserveSpace: false,
+      });
+
+      // Listen for state changes on the floating button's container
+      actionContainer.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        console.log('Floating action state changed to:', state);
+
+        // Update text content
+        floatingAction.textContent = `State: ${state}`;
+
+        // Update class for styling
+        floatingAction.classList.remove('home', 'sticky', 'relative');
+        floatingAction.classList.add(state);
+      });
+
+      // Set initial state on load
+      floatingAction.classList.add('home');
+    </script>
+  </body>
+</html>
