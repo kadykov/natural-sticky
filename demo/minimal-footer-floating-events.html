@@ -26,6 +26,9 @@
       }
 
       /* Floating action button container */
+      /* IMPORTANT: For reliable initialization with reserveSpace: false, the container for a bottom
+       * element must be positioned at the bottom of its parent. Using 'position: absolute' and
+       * 'bottom: 0' ensures the script can correctly locate and manage the element from page load. */
       .action-container {
         padding-bottom: 80px; /* Above footer */
         width: 100%;
