@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How It Works - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        transition: background 0.3s ease-in-out;
+        flex-direction: column;
+        gap: 10px;
+        height: auto; /* Override fixed height for two-line layout */
+        padding: 15px 10px; /* Add padding for proper spacing */
+      }
+      .sticky-header h1 {
+        margin: 0; /* Remove default h1 margins */
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .state-indicator {
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <h1>How It Works</h1>
+      <div class="state-indicator">Current State: home</div>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>Understanding the Three-State System</h2>
+        <p>
+          Traditional sticky elements are binary - they're either sticky or not.
+          But Natural Sticky uses a more sophisticated three-state system that
+          creates fluid, natural-feeling animations. The header above
+          demonstrates this system in real-time as you scroll.
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 2rem 0;
+          "
+        >
+          <p style="margin: 0; color: #1565c0; font-weight: bold">
+            💡 <strong>Watch the header subtitle change as you scroll!</strong>
+            This real-time feedback shows exactly which state the header is in
+            at any moment, making the underlying logic crystal clear.
+          </p>
+        </div>
+
+        <h3>🏠 State 1: Home</h3>
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
+            margin: 1.5rem 0;
+          "
+        >
+          <strong>When:</strong> You're at the very top of the page (scrollY ≤
+          0) or the element has scrolled completely off-screen and returns to
+          its natural position.<br /><br />
+          <strong>Behavior:</strong> The element is positioned at its original
+          location in the document flow using
+          <code>position: relative; top: 0</code>.<br /><br />
+          <strong>Why it matters:</strong> This is the "resting" state. The
+          element behaves like normal page content, taking up space in the
+          document flow without any special positioning.
+        </div>
+
+        <p>
+          The <strong>home</strong> state is crucial for maintaining proper
+          document flow. When the page loads or when you scroll back to the top,
+          the element returns to this natural state, ensuring your page layout
+          remains predictable and accessible.
+        </p>
+
+        <h3>📱 State 2: Relative</h3>
+        <div
+          style="
+            background: #fff9c4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f5a623;
+            margin: 1.5rem 0;
+          "
+        >
+          <strong>When:</strong> The element is either scrolling naturally with
+          the page content (when scrolling down) or positioned just above the
+          viewport (when scrolling up fast enough).<br /><br />
+          <strong>Behavior:</strong> Uses <code>position: relative</code> with
+          calculated <code>top</code> values to position the element exactly
+          where it needs to be for natural scrolling.<br /><br />
+          <strong>Why it matters:</strong> This state creates the "natural"
+          feeling. Instead of jarring animations, the element flows with your
+          scroll, matching your exact scroll speed and direction.
+        </div>
+
+        <p>
+          The <strong>relative</strong> state is where the magic happens. When
+          you scroll down, the element "releases" from the sticky position and
+          flows naturally with the content. When you scroll back up quickly, the
+          element positions itself just above the viewport, ready to scroll into
+          view naturally as you continue scrolling up.
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0">🔍 Technical Deep Dive: Relative State</h4>
+          <p>
+            The relative state uses two different positioning strategies
+            depending on scroll direction:
+          </p>
+          <ul>
+            <li>
+              <strong>Scrolling down:</strong>
+              <code>top: currentScrollY</code> - Positions the element at the
+              current scroll position so it moves with the content
+            </li>
+            <li>
+              <strong>Scrolling up (fast):</strong>
+              <code>top: currentScrollY - elementHeight</code> - Positions the
+              element just above the viewport for natural reveal
+            </li>
+          </ul>
+          <p>
+            This dual approach ensures the element always feels like it's part
+            of the natural scroll flow, never like a separate animation.
+          </p>
+        </div>
+
+        <h3>📌 State 3: Sticky</h3>
+        <div
+          style="
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #50e3c2;
+            margin: 1.5rem 0;
+          "
+        >
+          <strong>When:</strong> The element has scrolled into view and reached
+          the top of the viewport during upward scrolling, or when actively
+          sticking to the top while scrolling through content below.<br /><br />
+          <strong>Behavior:</strong> Uses the browser's native
+          <code>position: sticky; top: 0</code> for optimal performance and
+          smooth scrolling.<br /><br />
+          <strong>Why it matters:</strong> This provides the traditional sticky
+          behavior users expect, but only when it makes sense contextually.
+        </div>
+
+        <p>
+          The <strong>sticky</strong> state leverages the browser's optimized
+          sticky positioning. Once the element reaches this state, it stays
+          anchored to the top of the viewport as you scroll through the content
+          below it, providing easy access to navigation or key actions.
+        </p>
+
+        <h3>🔄 State Transitions: The Flow</h3>
+        <p>
+          Understanding how states transition is key to understanding why
+          Natural Sticky feels so natural. Here's the complete flow:
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+          "
+        >
+          <div
+            style="
+              background: #e3f2fd;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #2196f3;
+            "
+          >
+            <h4 style="margin-top: 0; color: #1565c0">Initial Load</h4>
+            <p style="margin: 0">
+              <strong>home</strong> → The element starts in its natural document
+              position
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #fff9c4;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #ff9800;
+            "
+          >
+            <h4 style="margin-top: 0; color: #e65100">Scroll Down</h4>
+            <p style="margin: 0">
+              <strong>home → relative</strong> → Element releases and flows with
+              content
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #f3e5f5;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #9c27b0;
+            "
+          >
+            <h4 style="margin-top: 0; color: #7b1fa2">Scroll Up Fast</h4>
+            <p style="margin: 0">
+              <strong>relative → relative</strong> → Element positions above
+              viewport for natural reveal
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #e8f5e9;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #4caf50;
+            "
+          >
+            <h4 style="margin-top: 0; color: #388e3c">Reach Top</h4>
+            <p style="margin: 0">
+              <strong>relative → sticky</strong> → Element becomes sticky at
+              viewport top
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #ffebee;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #f44336;
+            "
+          >
+            <h4 style="margin-top: 0; color: #d32f2f">Scroll Down Again</h4>
+            <p style="margin: 0">
+              <strong>sticky → relative</strong> → Element releases from sticky
+              position
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #e0f2f1;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #00695c;
+            "
+          >
+            <h4 style="margin-top: 0; color: #00695c">Scroll Off-Screen</h4>
+            <p style="margin: 0">
+              <strong>relative → home</strong> → Element returns to natural
+              position when scrolled completely off-screen
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #e8eaf6;
+              padding: 1.5rem;
+              border-radius: 8px;
+              border-left: 4px solid #3f51b5;
+            "
+          >
+            <h4 style="margin-top: 0; color: #303f9f">Scroll to Top</h4>
+            <p style="margin: 0">
+              <strong>sticky → home</strong> → Element returns to natural
+              position when user scrolls back to very top (scrollY ≤ 0)
+            </p>
+          </div>
+        </div>
+
+        <h3>⚡ Why Three States Beat Two States</h3>
+        <p>
+          Traditional sticky implementations use just two states: sticky and
+          not-sticky. This binary approach creates several problems that the
+          three-state system solves:
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+          "
+        >
+          <div>
+            <h4 style="color: #dc3545">❌ Two-State Problems</h4>
+            <ul style="color: #6c757d; line-height: 1.8">
+              <li>Jarring snap-in/snap-out animations</li>
+              <li>Fixed animation timing that doesn't match scroll speed</li>
+              <li>Elements appear "disconnected" from scroll flow</li>
+              <li>Poor user experience on mobile devices</li>
+              <li>Difficult to customize or theme</li>
+              <li>Often requires heavy animation libraries</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color: #28a745">✅ Three-State Benefits</h4>
+            <ul style="color: #6c757d; line-height: 1.8">
+              <li>Smooth, natural-feeling animations</li>
+              <li>Animation speed matches user scroll speed exactly</li>
+              <li>Elements feel integrated with page content</li>
+              <li>Excellent mobile touch scrolling experience</li>
+              <li>Easy to theme and customize with events</li>
+              <li>Lightweight - only 1KB minified</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>🎯 The Event System Advantage</h3>
+        <p>
+          The event system makes these states even more powerful by letting your
+          application respond to state changes in real-time. Here's what you can
+          do:
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">📝 Basic Event Listener Setup</h4>
+          <pre
+            style="
+              background: #343a40;
+              color: #f8f9fa;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+            "
+          ><code>// Initialize Natural Sticky
+naturalStickyTop(headerElement);
+
+// Listen for state changes
+headerElement.addEventListener('natural-sticky', (event) => {
+  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  
+  // Apply different styles based on state
+  headerElement.classList.remove('state-home', 'state-sticky', 'state-relative');
+  headerElement.classList.add(`state-${currentState}`);
+  
+  // Trigger other actions
+  switch(currentState) {
+    case 'home':
+      // Element at natural position - maybe show full branding
+      break;
+    case 'sticky':  
+      // Element is sticky - maybe show compact navigation
+      break;
+    case 'relative':
+      // Element is transitioning - maybe show loading indicator
+      break;
+  }
+});</code></pre>
+        </div>
+
+        <h3>🎨 Creative Applications</h3>
+        <p>
+          With the event system, you can create sophisticated interactions that
+          were previously impossible or very complex:
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+          "
+        >
+          <div
+            style="
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🎭 Dynamic Theming</h4>
+            <p style="margin: 0; opacity: 0.9">
+              Change colors, sizes, or layouts based on header state for
+              contextual visual feedback
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">📊 Analytics Tracking</h4>
+            <p style="margin: 0; opacity: 0.9">
+              Track how users interact with sticky elements and optimize based
+              on state transitions
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🔄 Content Adaptation</h4>
+            <p style="margin: 0; opacity: 0.9">
+              Show different content or navigation options based on whether the
+              header is home, sticky, or transitioning
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🎪 Animation Coordination</h4>
+            <p style="margin: 0; opacity: 0.9">
+              Synchronize other page elements to animate in harmony with header
+              state changes
+            </p>
+          </div>
+        </div>
+
+        <h3>🔧 Implementation Best Practices</h3>
+        <p>
+          To get the most out of the three-state system and event integration:
+        </p>
+
+        <div
+          style="
+            background: #d4edda;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #155724">✅ Do These Things</h4>
+          <ul style="color: #155724; margin: 0">
+            <li>
+              Use CSS transitions for smooth visual changes between states
+            </li>
+            <li>
+              Keep event handlers lightweight to maintain 60fps performance
+            </li>
+            <li>
+              Test your implementation across different scroll speeds and
+              devices
+            </li>
+            <li>
+              Consider accessibility - ensure keyboard navigation still works
+            </li>
+            <li>
+              Use semantic state names in your CSS classes for maintainability
+            </li>
+          </ul>
+        </div>
+
+        <div
+          style="
+            background: #f8d7da;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #721c24">❌ Avoid These Pitfalls</h4>
+          <ul style="color: #721c24; margin: 0">
+            <li>
+              Don't perform heavy computations in event handlers (debounce if
+              needed)
+            </li>
+            <li>
+              Don't override the element's positioning styles outside of the
+              event system
+            </li>
+            <li>
+              Don't assume state changes happen in a specific order or frequency
+            </li>
+            <li>
+              Don't use the events for functionality critical to basic usability
+            </li>
+          </ul>
+        </div>
+
+        <h3>📱 Mobile and Touch Considerations</h3>
+        <p>
+          The three-state system excels on mobile devices because it respects
+          the natural physics of touch scrolling:
+        </p>
+
+        <ul style="line-height: 1.8; color: #6c757d">
+          <li>
+            <strong>Momentum scrolling:</strong> Elements continue to feel
+            natural during iOS/Android momentum scrolling phases
+          </li>
+          <li>
+            <strong>Variable scroll speeds:</strong> Touch scrolling varies
+            greatly in speed - the system adapts perfectly
+          </li>
+          <li>
+            <strong>Scroll direction changes:</strong> Users frequently change
+            direction mid-scroll on mobile - transitions remain smooth
+          </li>
+          <li>
+            <strong>Bounce scrolling:</strong> On iOS, the system handles bounce
+            scrolling at page boundaries gracefully
+          </li>
+        </ul>
+
+        <h3>🌐 Browser Performance</h3>
+        <p>
+          The three-state approach is optimized for modern browser rendering
+          engines:
+        </p>
+
+        <div
+          style="
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #856404">⚡ Performance Features</h4>
+          <ul style="color: #856404; margin: 0; line-height: 1.8">
+            <li>
+              <strong>Passive event listeners</strong> for smooth scrolling
+              without blocking
+            </li>
+            <li>
+              <strong>Native sticky positioning</strong> leverages browser
+              optimizations when possible
+            </li>
+            <li>
+              <strong>Minimal DOM queries</strong> - calculations cached and
+              reused efficiently
+            </li>
+            <li>
+              <strong>No forced reflows</strong> - positioning changes don't
+              trigger expensive layout recalculations
+            </li>
+            <li>
+              <strong>Sub-pixel precision</strong> works correctly with high-DPI
+              displays
+            </li>
+          </ul>
+        </div>
+
+        <p>
+          Try scrolling this page at different speeds, in different directions,
+          and notice how the header above responds. The state indicator shows
+          you exactly what's happening under the hood, making the system's logic
+          transparent and predictable.
+        </p>
+
+        <p>
+          This three-state approach, combined with the event system, gives you
+          unprecedented control over sticky element behavior while maintaining
+          the natural, unobtrusive feel that makes Natural Sticky special.
+        </p>
+      </div>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      const header = document.querySelector('.sticky-header');
+      const stateIndicator = document.querySelector('.state-indicator');
+
+      naturalStickyTop(header, { scrollThreshold: 10 });
+
+      header.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        stateIndicator.textContent = `Current State: ${state}`;
+      });
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>

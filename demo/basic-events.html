@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events Demo - Natural Sticky</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .sticky-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition:
+          background 0.3s ease-in-out,
+          box-shadow 0.3s ease-in-out;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Base shadow */
+      }
+
+      /* State-specific styles */
+      .sticky-header.home {
+        background: linear-gradient(135deg, #4a90e2 0%, #2e67a2 100%);
+        box-shadow: 0 2px 10px rgba(74, 144, 226, 0.2);
+      }
+      .sticky-header.sticky {
+        background: linear-gradient(135deg, #50e3c2 0%, #34a891 100%);
+        box-shadow: 0 4px 20px rgba(80, 227, 194, 0.4);
+      }
+      .sticky-header.relative {
+        background: linear-gradient(135deg, #f5a623 0%, #c5841d 100%);
+        box-shadow: 0 3px 15px rgba(245, 166, 35, 0.3);
+      }
+
+      .state-display {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <div class="state-display">State: home</div>
+    </header>
+
+    <main>
+      <div class="content">
+        <h2>🎉 Natural Sticky Event System</h2>
+        <p>
+          Events change everything. Instead of just having a sticky element that
+          works in isolation, you now have a
+          <strong>state-aware component</strong>
+          that your entire application can respond to. The header above
+          demonstrates this perfectly - it changes not just color, but also
+          shadow effects based on its current state.
+        </p>
+
+        <div
+          style="
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 2rem 0;
+          "
+        >
+          <p style="margin: 0; color: #1565c0; font-weight: bold">
+            💡 <strong>Watch the header as you scroll!</strong> Notice how it
+            doesn't just change color - it also transitions shadow effects. This
+            demonstrates the power of CSS combined with event-driven state
+            changes.
+          </p>
+        </div>
+
+        <h3>🚀 What Makes Events Game-Changing</h3>
+        <p>
+          Before the event system, sticky elements were "black boxes". You could
+          make them stick, but you couldn't easily react to <em>how</em> or
+          <em>when</em> they were sticking. Now, every state transition is an
+          opportunity to create richer, more responsive interfaces.
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+          "
+        >
+          <div
+            style="
+              background: linear-gradient(135deg, #4a90e2 0%, #2e67a2 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🏠 HOME State</h4>
+            <p style="margin: 0; opacity: 0.9">
+              <strong>Blue with Subtle Shadow:</strong> The element is at its
+              natural position. Perfect for showing full branding, complete
+              navigation menus, or detailed information.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #f5a623 0%, #c5841d 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🔄 RELATIVE State</h4>
+            <p style="margin: 0; opacity: 0.9">
+              <strong>Orange with Enhanced Shadow:</strong> The element is in
+              transition. Great for loading indicators, progress bars, or
+              attention-grabbing animations.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #50e3c2 0%, #34a891 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">📌 STICKY State</h4>
+            <p style="margin: 0; opacity: 0.9">
+              <strong>Teal with Prominent Glow:</strong> The element is actively
+              sticky. Ideal for condensed navigation, key actions, or status
+              indicators.
+            </p>
+          </div>
+        </div>
+
+        <h3>📝 The Complete Implementation Guide</h3>
+        <p>
+          Let's walk through exactly how to implement the event system, from
+          basic setup to advanced customizations. The beauty is in its
+          simplicity - just a few lines of code unlock powerful capabilities.
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">🔧 Step 1: Basic Setup</h4>
+          <pre
+            style="
+              background: #343a40;
+              color: #f8f9fa;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+            "
+          ><code>&lt;!-- Your HTML --&gt;
+&lt;header id="myHeader"&gt;
+  &lt;h1&gt;My Awesome Header&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;script src="natural-sticky.top.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// Initialize with Natural Sticky
+const header = document.getElementById('myHeader');
+naturalStickyTop(header, {
+  scrollThreshold: 10,  // Optional: minimum scroll speed
+  snapEagerness: 1      // Optional: how eagerly it snaps to sticky
+});
+&lt;/script&gt;</code></pre>
+        </div>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">🎨 Step 2: Add Event Listener</h4>
+          <pre
+            style="
+              background: #343a40;
+              color: #f8f9fa;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+            "
+          ><code>// Listen for state changes
+header.addEventListener('natural-sticky', (event) =&gt; {
+  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  
+  console.log(`Header changed to: ${currentState}`);
+  
+  // Remove previous state classes
+  header.classList.remove('state-home', 'state-sticky', 'state-relative');
+  
+  // Add current state class
+  header.classList.add(`state-${currentState}`);
+  
+  // Update text content
+  const statusElement = header.querySelector('.status');
+  if (statusElement) {
+    statusElement.textContent = `Current: ${currentState.toUpperCase()}`;
+  }
+});</code></pre>
+        </div>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">🎭 Step 3: Style the States</h4>
+          <pre
+            style="
+              background: #343a40;
+              color: #f8f9fa;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+            "
+          ><code>/* CSS for different states */
+#myHeader {
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Base shadow for all states */
+}
+
+/* Home state - natural position */
+#myHeader.state-home {
+  background: linear-gradient(135deg, #4a90e2 0%, #2e67a2 100%);
+  padding: 20px;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(74, 144, 226, 0.2);
+}
+
+/* Sticky state - compact and functional */
+#myHeader.state-sticky {
+  background: linear-gradient(135deg, #50e3c2 0%, #34a891 100%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  box-shadow: 0 4px 20px rgba(80, 227, 194, 0.4);
+}
+
+/* Relative state - transitioning */
+#myHeader.state-relative {
+  background: linear-gradient(135deg, #f5a623 0%, #c5841d 100%);
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 15px rgba(245, 166, 35, 0.3);
+}</code></pre>
+        </div>
+
+        <h3>🔥 Advanced Event Applications</h3>
+        <p>
+          Once you understand the basics, the possibilities are endless. Here
+          are some advanced patterns that showcase the true power of
+          state-driven design:
+        </p>
+
+        <div
+          style="
+            background: #fff9c4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #e65100">📊 Analytics & Tracking</h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>header.addEventListener('natural-sticky', (event) =&gt; {
+  const state = event.detail;
+  
+  // Track user engagement with header states
+  analytics.track('header_state_change', {
+    state: state,
+    timestamp: Date.now(),
+    scrollPosition: window.scrollY,
+    userAgent: navigator.userAgent
+  });
+  
+  // A/B test different sticky behaviors
+  if (isExperimentGroup('sticky-timing')) {
+    // Apply different transition timing for test group
+    header.style.transitionDuration = state === 'sticky' ? '0.1s' : '0.3s';
+  }
+});</code></pre>
+        </div>
+
+        <div
+          style="
+            background: #f3e5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #7b1fa2">
+            🔄 Dynamic Content Loading
+          </h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>header.addEventListener('natural-sticky', (event) =&gt; {
+  const state = event.detail;
+  const nav = header.querySelector('.navigation');
+  
+  switch(state) {
+    case 'home':
+      // Show full navigation with descriptions
+      nav.innerHTML = `
+        &lt;a href="/about"&gt;About Us&lt;span&gt;Learn our story&lt;/span&gt;&lt;/a&gt;
+        &lt;a href="/products"&gt;Products&lt;span&gt;Browse catalog&lt;/span&gt;&lt;/a&gt;
+        &lt;a href="/contact"&gt;Contact&lt;span&gt;Get in touch&lt;/span&gt;&lt;/a&gt;
+      `;
+      break;
+      
+    case 'sticky':
+      // Show compact navigation with icons
+      nav.innerHTML = `
+        &lt;a href="/about"&gt;📖&lt;/a&gt;
+        &lt;a href="/products"&gt;🛍️&lt;/a&gt;
+        &lt;a href="/contact"&gt;💬&lt;/a&gt;
+      `;
+      break;
+      
+    case 'relative':
+      // Show loading state during transition
+      nav.innerHTML = '&lt;div class="loading-dots"&gt;•••&lt;/div&gt;';
+      break;
+  }
+});</code></pre>
+        </div>
+
+        <div
+          style="
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #2e7d32">
+            🎪 Coordinated Animations
+          </h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>header.addEventListener('natural-sticky', (event) =&gt; {
+  const state = event.detail;
+  
+  // Animate other page elements based on header state
+  const sidebar = document.querySelector('.sidebar');
+  const mainContent = document.querySelector('.main-content');
+  
+  if (state === 'sticky') {
+    // Adjust layout when header becomes compact
+    sidebar.style.transform = 'translateX(0)';
+    mainContent.style.paddingLeft = '250px';
+    
+    // Trigger a subtle glow animation
+    header.animate([
+      { boxShadow: '0 4px 20px rgba(80, 227, 194, 0.4)' },
+      { boxShadow: '0 4px 25px rgba(80, 227, 194, 0.6)' },
+      { boxShadow: '0 4px 20px rgba(80, 227, 194, 0.4)' }
+    ], {
+      duration: 300,
+      easing: 'ease-in-out'
+    });
+  } else {
+    sidebar.style.transform = 'translateX(-100%)';
+    mainContent.style.paddingLeft = '0';
+  }
+});</code></pre>
+        </div>
+
+        <h3>🎯 Special Considerations for Bottom Elements</h3>
+        <p>
+          While this demo focuses on top headers, the event system works
+          identically for bottom elements (footers, action bars, etc.). However,
+          there are some important implementation details to be aware of:
+        </p>
+
+        <div
+          style="
+            background: #ffebee;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f44336;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #c62828">
+            ⚠️ Critical: Floating Bottom Elements
+          </h4>
+          <p style="color: #c62828; margin-bottom: 1rem">
+            When using <code>naturalStickyBottom</code> with
+            <code>reserveSpace: false</code> (floating elements), you
+            <strong>must</strong> ensure proper CSS initialization:
+          </p>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>/* REQUIRED for floating bottom elements */
+body {
+  position: relative; /* Essential for bottom positioning calculations */
+}
+
+.floating-bottom-container {
+  position: absolute;  /* Required for proper initialization */
+  bottom: 0;          /* Required for proper initialization */
+  width: 100%;
+}</code></pre>
+          <p style="color: #c62828; margin-top: 1rem; margin-bottom: 0">
+            <strong>Why this matters:</strong> Without proper CSS positioning,
+            the bottom script cannot determine the element's initial location,
+            causing it to render incorrectly until the user scrolls to the very
+            bottom of the page. This requirement doesn't apply to top elements
+            or bottom elements with <code>reserveSpace: true</code>.
+          </p>
+        </div>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">📝 Example: Floating Footer with Events</h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>&lt;!-- HTML --&gt;
+&lt;body style="position: relative;"&gt;
+  &lt;main&gt;Your page content...&lt;/main&gt;
+  
+  &lt;div class="floating-footer-container" id="floatingFooter"&gt;
+    &lt;footer class="footer-content"&gt;
+      &lt;span class="footer-text"&gt;State: home&lt;/span&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+
+&lt;style&gt;
+.floating-footer-container {
+  position: absolute;  /* Critical for initialization */
+  bottom: 0;          /* Critical for initialization */
+  width: 100%;
+  padding-bottom: 20px;  /* Gap from bottom edge */
+}
+
+.footer-content {
+  background: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.footer-content.state-sticky {
+  background: #50e3c2;
+  transform: scale(0.95);
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+const footerContainer = document.getElementById('floatingFooter');
+const footerText = document.querySelector('.footer-text');
+
+// Initialize floating bottom element
+naturalStickyBottom(footerContainer, {
+  reserveSpace: false  // Floating mode
+});
+
+// Listen for state changes
+footerContainer.addEventListener('natural-sticky', (event) =&gt; {
+  const state = event.detail;
+  footerText.textContent = `State: ${state}`;
+  
+  const footer = footerContainer.querySelector('.footer-content');
+  footer.classList.remove('state-home', 'state-sticky', 'state-relative');
+  footer.classList.add(`state-${state}`);
+});
+&lt;/script&gt;</code></pre>
+        </div>
+
+        <h3>🔍 Debugging and Development Tips</h3>
+        <p>
+          Working with events makes development much easier because you can see
+          exactly what's happening in real-time. Here are some tips for getting
+          the most out of the system:
+        </p>
+
+        <div
+          style="
+            background: #d1ecf1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+            margin: 2rem 0;
+          "
+        >
+          <h4 style="margin-top: 0; color: #0c5460">🛠️ Development Mode</h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>// Add comprehensive logging for development
+header.addEventListener('natural-sticky', (event) =&gt; {
+  const state = event.detail;
+  
+  console.group(`🔄 Header State Change: ${state}`);
+  console.log('Timestamp:', new Date().toLocaleTimeString());
+  console.log('Scroll Position:', window.scrollY);
+  console.log('Element Bounds:', header.getBoundingClientRect());
+  console.log('Viewport Height:', window.innerHeight);
+  console.groupEnd();
+  
+  // Visual debug overlay
+  if (window.debugMode) {
+    const debugPanel = document.getElementById('debug-panel');
+    debugPanel.innerHTML = `
+      &lt;div&gt;State: ${state}&lt;/div&gt;
+      &lt;div&gt;ScrollY: ${window.scrollY}&lt;/div&gt;
+      &lt;div&gt;Element Top: ${header.getBoundingClientRect().top}&lt;/div&gt;
+    `;
+  }
+});</code></pre>
+        </div>
+
+        <h3>🚀 Performance Optimization</h3>
+        <p>
+          The event system is designed to be lightweight, but when building
+          complex interactions, it's important to follow performance best
+          practices:
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+          "
+        >
+          <div>
+            <h4 style="color: #28a745">✅ Performance Do's</h4>
+            <ul style="color: #6c757d; line-height: 1.8">
+              <li>
+                Use specific CSS transitions (background, box-shadow, opacity)
+              </li>
+              <li>
+                Avoid <code>transition: all</code> as it can break positioning
+              </li>
+              <li>Debounce expensive operations in event handlers</li>
+              <li>Cache DOM queries outside of event handlers</li>
+              <li>Use opacity and color changes for smooth animations</li>
+              <li>Keep event handlers as lightweight as possible</li>
+              <li>
+                Use <code>requestAnimationFrame</code> for complex animations
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color: #dc3545">❌ Performance Don'ts</h4>
+            <ul style="color: #6c757d; line-height: 1.8">
+              <li>
+                Don't use <code>transition: all</code> with positioned elements
+              </li>
+              <li>Don't perform heavy calculations in event handlers</li>
+              <li>Don't trigger layout thrashing with frequent DOM changes</li>
+              <li>Don't use synchronous AJAX calls in event handlers</li>
+              <li>Don't scale full-width elements (edge-to-edge headers)</li>
+              <li>Don't create new DOM elements on every state change</li>
+              <li>Don't override Natural Sticky's positioning styles</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>🌟 Real-World Use Cases</h3>
+        <p>
+          To give you inspiration for your own projects, here are some
+          real-world scenarios where the event system shines:
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+          "
+        >
+          <div
+            style="
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🛒 E-commerce Sites</h4>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.9rem">
+              Shopping cart summary that expands in home state, shows item count
+              when sticky, and displays checkout progress when transitioning
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">📰 News Sites</h4>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.9rem">
+              Navigation that shows full categories when home, article progress
+              when sticky, and social sharing options when transitioning
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">💼 SaaS Applications</h4>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.9rem">
+              Toolbar that shows full feature set when home, quick actions when
+              sticky, and context-sensitive help when transitioning
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🎓 Educational Platforms</h4>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.9rem">
+              Course navigation that shows module descriptions when home,
+              current lesson when sticky, and progress indicators when
+              transitioning
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+              color: #333;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🎮 Gaming Sites</h4>
+            <p style="margin: 0; opacity: 0.8; font-size: 0.9rem">
+              Player stats that show detailed info when home, current game when
+              sticky, and loading animations when transitioning between matches
+            </p>
+          </div>
+
+          <div
+            style="
+              background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+              color: #333;
+              padding: 1.5rem;
+              border-radius: 8px;
+            "
+          >
+            <h4 style="margin-top: 0">🍕 Restaurant Sites</h4>
+            <p style="margin: 0; opacity: 0.8; font-size: 0.9rem">
+              Menu navigation that shows food categories when home, cart summary
+              when sticky, and order status when transitioning
+            </p>
+          </div>
+        </div>
+
+        <h3>🎨 CSS Architecture for Scalable State Management</h3>
+        <p>
+          As your application grows, you'll want to organize your state-based
+          CSS in a maintainable way. Here's a recommended approach:
+        </p>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #343a40;
+            margin: 2rem 0;
+            overflow-x: auto;
+          "
+        >
+          <h4 style="margin-top: 0">📁 Organized CSS Structure</h4>
+          <pre
+            style="
+              background: #2d3748;
+              color: #e2e8f0;
+              padding: 1rem;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 1rem 0;
+              font-size: 0.9rem;
+            "
+          ><code>/* Base header styles (state-independent) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Base shadow */
+}
+
+/* State-specific variations */
+.header--home {
+  /* Styles when at natural position */
+  background: var(--header-home-bg);
+  padding: var(--header-home-padding);
+  box-shadow: var(--header-home-shadow);
+}
+
+.header--sticky {
+  /* Styles when sticky at top */
+  background: var(--header-sticky-bg);
+  padding: var(--header-sticky-padding);
+  box-shadow: var(--header-sticky-shadow);
+}
+
+.header--relative {
+  /* Styles when transitioning */
+  background: var(--header-relative-bg);
+  padding: var(--header-relative-padding);
+  box-shadow: var(--header-relative-shadow);
+}
+
+/* CSS Custom Properties for easy theming */
+:root {
+  --header-home-bg: linear-gradient(135deg, #4a90e2 0%, #2e67a2 100%);
+  --header-home-padding: 20px 40px;
+  --header-home-shadow: 0 2px 10px rgba(74, 144, 226, 0.2);
+  
+  --header-sticky-bg: linear-gradient(135deg, #50e3c2 0%, #34a891 100%);
+  --header-sticky-padding: 10px 40px;
+  --header-sticky-shadow: 0 4px 20px rgba(80, 227, 194, 0.4);
+  
+  --header-relative-bg: linear-gradient(135deg, #f5a623 0%, #c5841d 100%);
+  --header-relative-padding: 15px 40px;
+  --header-relative-shadow: 0 3px 15px rgba(245, 166, 35, 0.3);
+}
+
+/* Dark mode variations */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-home-bg: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    --header-sticky-bg: linear-gradient(135deg, #2b6cb0 0%, #2c5282 100%);
+    --header-relative-bg: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%);
+  }
+}</code></pre>
+        </div>
+
+        <h3>🔮 Future Possibilities</h3>
+        <p>
+          The event system opens up possibilities that we're only beginning to
+          explore. Here are some advanced concepts you might consider for future
+          projects:
+        </p>
+
+        <ul style="line-height: 2; color: #6c757d; margin: 2rem 0">
+          <li>
+            <strong>Machine Learning Integration:</strong> Use state transition
+            data to predict user behavior and pre-load relevant content
+          </li>
+          <li>
+            <strong>Accessibility Enhancements:</strong> Announce state changes
+            to screen readers for improved navigation feedback
+          </li>
+          <li>
+            <strong>Multi-Element Coordination:</strong> Synchronize multiple
+            sticky elements to create complex, coordinated interfaces
+          </li>
+          <li>
+            <strong>Performance Analytics:</strong> Track which states correlate
+            with higher user engagement or conversion rates
+          </li>
+          <li>
+            <strong>Dynamic A/B Testing:</strong> Test different behaviors by
+            modifying state transition logic in real-time
+          </li>
+          <li>
+            <strong>Progressive Web App Integration:</strong> Use state changes
+            to trigger service worker updates or cache optimizations
+          </li>
+        </ul>
+
+        <p>
+          The event system transforms Natural Sticky from a simple animation
+          library into a foundation for building sophisticated, state-aware user
+          interfaces. Whether you're creating simple visual feedback or complex
+          application logic, events give you the tools to build exactly what
+          your users need.
+        </p>
+
+        <div
+          style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 3rem 0;
+          "
+        >
+          <h3 style="margin-top: 0; font-size: 1.5rem">
+            🚀 Ready to Build Something Amazing?
+          </h3>
+          <p style="margin-bottom: 0; opacity: 0.9; font-size: 1.1rem">
+            The event system puts unprecedented power in your hands. Start with
+            simple state-based styling, then gradually build more complex
+            interactions as your application grows. The only limit is your
+            imagination!
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      const header = document.querySelector('.sticky-header');
+      const stateDisplay = document.querySelector('.state-display');
+
+      naturalStickyTop(header, { scrollThreshold: 10 });
+
+      header.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        stateDisplay.textContent = `State: ${state}`;
+        header.classList.remove('home', 'sticky', 'relative');
+        header.classList.add(state);
+      });
+
+      // Set initial state
+      header.classList.add('home');
+    </script>
+    <script src="drag-scroll.js"></script>
+  </body>
+</html>
