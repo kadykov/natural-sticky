@@ -213,8 +213,9 @@
           jarring animations
         </p>
         <p>
-          <span class="highlight">Only 1.1KB</span> •
+          <span class="highlight">Only 1.2KB</span> •
           <span class="highlight">Zero Animations</span> •
+          <span class="highlight">Event-Driven</span> •
           <span class="highlight">Multiple Elements</span>
         </p>
       </div>
@@ -224,8 +225,8 @@
           <div class="feature-icon">🎈</div>
           <h3>Ultra Lightweight</h3>
           <p>
-            Just 1.1KB minified for headers, 1.2KB for footers. 4x smaller than
-            Headroom.js with zero dependencies and maximum performance.
+            Just 1.2KB minified for headers, 1.3KB for footers. 3.6x smaller
+            than Headroom.js with zero dependencies and maximum performance.
           </p>
         </div>
         <div class="feature">
@@ -248,11 +249,11 @@
         </div>
         <div class="feature">
           <div class="feature-icon">🎛️</div>
-          <h3>Fine-Tunable</h3>
+          <h3>Highly Customizable</h3>
           <p>
-            Three precise parameters control natural feel, activation timing,
-            and gap prevention. From pure natural movement to magnetic snapping,
-            perfect for any use case.
+            Fine-tune behavior with precise parameters for snapping and
+            activation, or build dynamic UIs with a powerful event system that
+            reports state changes.
           </p>
         </div>
       </div>
@@ -273,12 +274,15 @@
 
         <div class="demo-grid">
           <div class="demo-card">
-            <h3>⬆️ Header (Default)</h3>
+            <h3>🧠 How It Works</h3>
             <iframe
-              src="demo/basic-header.html"
-              title="Header Default Demo"
+              src="demo/basic-how-it-works.html"
+              title="How It Works Demo"
             ></iframe>
-            <a href="demo/basic-header.html" target="_blank" class="demo-link"
+            <a
+              href="demo/basic-how-it-works.html"
+              target="_blank"
+              class="demo-link"
               >Open Full Demo →</a
             >
           </div>
@@ -321,6 +325,17 @@
               href="demo/multi-header-snap.html"
               target="_blank"
               class="demo-link"
+              >Open Full Demo →</a
+            >
+          </div>
+
+          <div class="demo-card">
+            <h3>📡 Events System</h3>
+            <iframe
+              src="demo/basic-events.html"
+              title="Events System Demo"
+            ></iframe>
+            <a href="demo/basic-events.html" target="_blank" class="demo-link"
               >Open Full Demo →</a
             >
           </div>
@@ -371,6 +386,25 @@
           <br />
 
           <!-- Basic usage demos -->
+          <a
+            href="demo/basic-header.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.75rem 1.5rem;
+              margin: 0.5rem;
+              background: #6c757d;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              font-weight: 500;
+              transition: background-color 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#545b62'"
+            onmouseout="this.style.backgroundColor='#6c757d'"
+          >
+            ⬆️ Basic Header Only →
+          </a>
           <a
             href="demo/basic-both.html"
             target="_blank"
@@ -507,24 +541,106 @@
           >
             📋 Minimal Floating Footer
           </a>
+          <br />
+          <a
+            href="demo/minimal-header-events.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #fff3cd;
+              color: #856404;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #ffeaa7;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffeaa7'; this.style.borderColor='#ffdd85'"
+            onmouseout="this.style.backgroundColor='#fff3cd'; this.style.borderColor='#ffeaa7'"
+          >
+            📡 Minimal Header Events
+          </a>
+          <a
+            href="demo/minimal-footer-events.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #fff3cd;
+              color: #856404;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #ffeaa7;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffeaa7'; this.style.borderColor='#ffdd85'"
+            onmouseout="this.style.backgroundColor='#fff3cd'; this.style.borderColor='#ffeaa7'"
+          >
+            📡 Minimal Footer Events
+          </a>
+          <a
+            href="demo/minimal-header-floating-events.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #fff3cd;
+              color: #856404;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #ffeaa7;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffeaa7'; this.style.borderColor='#ffdd85'"
+            onmouseout="this.style.backgroundColor='#fff3cd'; this.style.borderColor='#ffeaa7'"
+          >
+            📡 Minimal Floating Header Events
+          </a>
+          <a
+            href="demo/minimal-footer-floating-events.html"
+            target="_blank"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              margin: 0.25rem;
+              background: #fff3cd;
+              color: #856404;
+              text-decoration: none;
+              border-radius: 4px;
+              font-size: 0.85rem;
+              border: 1px solid #ffeaa7;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffeaa7'; this.style.borderColor='#ffdd85'"
+            onmouseout="this.style.backgroundColor='#fff3cd'; this.style.borderColor='#ffeaa7'"
+          >
+            📡 Minimal Floating Footer Events
+          </a>
         </div>
       </div>
 
       <div class="installation">
         <h2>Quick Start</h2>
 
-        <h3>Install via NPM</h3>
-        <div class="code-block">
-          <pre>npm install natural-sticky</pre>
-        </div>
-
-        <h3>Or use via CDN (just 1.0KB!)</h3>
+        <h3>Option 1: CDN Usage</h3>
         <div class="code-block">
           <pre>
+&lt;!-- For headers (1.2KB minified) --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- For footers (1.3KB minified) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js"&gt;&lt;/script&gt;
+
 &lt;script&gt;
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.my-header');
+    
     // Default behavior (traditional sticky)
     window.naturalStickyTop(header);
     
@@ -542,7 +658,10 @@
           >
         </div>
 
-        <h3>With a bundler</h3>
+        <h3>Option 2: Install and Import</h3>
+        <div class="code-block">
+          <pre>npm install natural-sticky</pre>
+        </div>
         <div class="code-block">
           <pre>
 import { naturalStickyTop, naturalStickyBottom } from 'natural-sticky';
@@ -568,45 +687,10 @@ footerInstance.destroy();</pre
           >
         </div>
 
-        <h2>Why Natural Sticky?</h2>
-        <p>
-          Traditional sticky headers use CSS transitions or JavaScript
-          animations that can feel jarring and disconnected from the user's
-          scroll behavior. Natural Sticky takes a different approach:
-        </p>
+        <h2>Configuration</h2>
 
-        <ul>
-          <li>
-            <strong>No animations</strong> - Elements move with the natural flow
-            of scrolling
-          </li>
-          <li>
-            <strong>Perfect synchronization</strong> - Movement speed matches
-            scroll speed exactly
-          </li>
-          <li>
-            <strong>Minimal footprint</strong> - Less than 1.2KB total, zero
-            dependencies
-          </li>
-          <li>
-            <strong>Universal compatibility</strong> - Works everywhere modern
-            JavaScript runs
-          </li>
-        </ul>
-
-        <p>
-          The secret is in switching between <code>position: sticky</code> and
-          <code>position: relative</code> (or <code>position: fixed</code> and
-          <code>position: absolute</code> for floating elements) at exactly the
-          right moments, letting the browser's native scrolling handle all the
-          movement naturally.
-        </p>
-
-        <h3>Choose your positioning style</h3>
-        <p>
-          The <code>reserveSpace</code> parameter (default: true) controls how
-          elements behave:
-        </p>
+        <h3>reserveSpace (boolean, default: true)</h3>
+        <p>Controls positioning behavior:</p>
         <ul>
           <li>
             <strong>true (default)</strong> - Traditional sticky behavior that
@@ -617,12 +701,19 @@ footerInstance.destroy();</pre
             space when hidden
           </li>
         </ul>
-
-        <h3>Fine-tuning with snapEagerness</h3>
         <p>
-          The <code>snapEagerness</code> parameter (default: 1.0) lets you
-          balance between natural movement and gap prevention:
+          <strong>Live Demos:</strong>
+          <a href="demo/basic-floating-elements.html" target="_blank"
+            >Floating Elements Demo →</a
+          >
+          |
+          <a href="demo/minimal-header-floating.html" target="_blank"
+            >Minimal Floating Header →</a
+          >
         </p>
+
+        <h3>snapEagerness (number, default: 1.0)</h3>
+        <p>Balances natural movement vs gap prevention:</p>
         <ul>
           <li>
             <strong>0.0</strong> - Pure natural movement, may show gaps on fast
@@ -635,12 +726,19 @@ footerInstance.destroy();</pre
             behavior
           </li>
         </ul>
-
-        <h3>Controlling activation with scrollThreshold</h3>
         <p>
-          The new <code>scrollThreshold</code> parameter (default: 0) controls
-          when the natural scroll-in effect activates based on scroll speed:
+          <strong>Live Demos:</strong>
+          <a href="demo/comparison-snap.html" target="_blank"
+            >SnapEagerness Side-by-Side →</a
+          >
+          |
+          <a href="demo/multi-header-snap.html" target="_blank"
+            >SnapEagerness Comparison →</a
+          >
         </p>
+
+        <h3>scrollThreshold (number, default: 0)</h3>
+        <p>Controls activation based on scroll speed:</p>
         <ul>
           <li><strong>0</strong> - Always activate (current behavior)</li>
           <li>
@@ -661,6 +759,73 @@ footerInstance.destroy();</pre
           use lower thresholds (always accessible), while footers might use
           higher thresholds (only appear during deliberate navigation).
         </p>
+        <p>
+          <strong>Live Demos:</strong>
+          <a href="demo/comparison-threshold.html" target="_blank"
+            >ScrollThreshold Side-by-Side →</a
+          >
+          |
+          <a href="demo/multi-header-threshold.html" target="_blank"
+            >ScrollThreshold Comparison →</a
+          >
+        </p>
+
+        <h2>Events</h2>
+        <p>
+          Natural Sticky dispatches events when elements change state, enabling
+          dynamic interfaces that respond to scroll behavior:
+        </p>
+
+        <div class="code-block">
+          <pre>
+const header = document.querySelector('.header');
+naturalStickyTop(header);
+
+// Listen for state changes
+header.addEventListener('natural-sticky', (event) => {
+  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  
+  // Apply different styles based on state
+  header.classList.remove('state-home', 'state-sticky', 'state-relative');
+  header.classList.add(`state-${currentState}`);
+  
+  console.log(`Header is now: ${currentState}`);
+});</pre
+          >
+        </div>
+
+        <p>
+          <strong>Live Demo:</strong>
+          <a href="demo/basic-events.html" target="_blank"
+            >Event System Demo →</a
+          >
+        </p>
+
+        <h2>Why Natural Sticky?</h2>
+        <p>
+          Traditional sticky headers use CSS transitions or JavaScript
+          animations that can feel jarring and disconnected from the user's
+          scroll behavior. Natural Sticky takes a different approach:
+        </p>
+
+        <ul>
+          <li>
+            <strong>No animations</strong> - Elements move with the natural flow
+            of scrolling
+          </li>
+          <li>
+            <strong>Perfect synchronization</strong> - Movement speed matches
+            scroll speed exactly
+          </li>
+          <li>
+            <strong>Minimal footprint</strong> - 1.2KB for headers, 1.3KB for
+            footers, zero dependencies
+          </li>
+          <li>
+            <strong>Universal compatibility</strong> - Works everywhere modern
+            JavaScript runs
+          </li>
+        </ul>
 
         <a
           href="https://github.com/kadykov/natural-sticky"

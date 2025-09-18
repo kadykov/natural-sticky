@@ -355,8 +355,8 @@
           <h4 style="margin-top: 0">📝 Basic Event Listener Setup</h4>
           <pre
             style="
-              background: #343a40;
-              color: #f8f9fa;
+              background: #f8f9fa;
+              color: #343a40;
               padding: 1rem;
               border-radius: 4px;
               overflow-x: auto;
@@ -610,7 +610,7 @@ headerElement.addEventListener('natural-sticky', (event) => {
       const header = document.querySelector('.sticky-header');
       const stateIndicator = document.querySelector('.state-indicator');
 
-      naturalStickyTop(header, { scrollThreshold: 10 });
+      naturalStickyTop(header);
 
       header.addEventListener('natural-sticky', event => {
         const state = event.detail;
