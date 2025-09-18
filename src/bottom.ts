@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Attaches a natural hide/show behavior to a sticky element placed at the bottom.
  *
@@ -36,6 +37,7 @@ export function naturalStickyBottom(
     snapEagerness?: number;
     scrollThreshold?: number;
     reserveSpace?: boolean;
+    onScrolledStateChange?: (isScrolled: boolean) => void;
   }
 ) {
   let lastScrollY = window.scrollY;
@@ -49,6 +51,7 @@ export function naturalStickyBottom(
   const movePosition = reserveSpace ? 'relative' : 'absolute';
 
   const handleScroll = () => {
+    const previousIsFooterNotAtBottom = isFooterNotAtBottom;
     const currentScrollY = window.scrollY;
     const elementRect = element.getBoundingClientRect();
     const scrollStep = currentScrollY - lastScrollY;
@@ -104,6 +107,15 @@ export function naturalStickyBottom(
       element.style.position = movePosition;
       // Maintain visual continuity by positioning at current viewport bottom offset
       element.style.bottom = `${viewportBottomOffset}px`;
+    }
+
+    // If the footer isn't at the bottom of the document run the callback
+    isFooterNotAtBottom =
+      currentScrollY + viewportHeight <
+      documentHeight - (element.offsetHeight + 1);
+
+    if (previousIsFooterNotAtBottom !== isFooterNotAtBottom) {
+      options?.onScrolledStateChange?.(isFooterNotAtBottom);
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;

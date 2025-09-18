@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>onStateChange Demo</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* MINIMAL REQUIRED STYLING */
+      header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
+        margin-top: 0; /* REQUIRED: Reset top margin for proper edge alignment */
+        /* margin-bottom, margin-left, margin-right preserved */
+        transition: background-color 0.3s ease;
+      }
+
+      header.scrolled {
+        background-color: #c0392b;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
+        margin-bottom: 0; /* REQUIRED: Reset bottom margin for proper edge alignment */
+        transition: background-color 0.3s ease;
+      }
+
+      footer.scrolled {
+        background-color: #28a745; /* A different color for footer scrolled state */
+      }
+
+      main {
+        height: 2000px; /* Long content for scrolling */
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">Natural Sticky Header</header>
+
+    <main>
+      <h1>Scroll Test Content</h1>
+      <p>Scroll down and up to test the header behavior...</p>
+      <p>This content is 2000px tall to enable scrolling.</p>
+      <p>The header will change color when it becomes scrolled.</p>
+    </main>
+
+    <footer id="footer">Natural Sticky Footer</footer>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script>
+      const header = document.getElementById('header');
+      const footer = document.getElementById('footer');
+
+      naturalStickyTop(header, {
+        onScrolledStateChange: isScrolled => {
+          console.log('Header scrolled state changed:', isScrolled);
+          if (isScrolled) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        },
+      });
+
+      naturalStickyBottom(footer, {
+        onScrolledStateChange: isScrolled => {
+          console.log('Footer scrolled state changed:', isScrolled);
+          if (isScrolled) {
+            footer.classList.add('scrolled');
+          } else {
+            footer.classList.remove('scrolled');
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

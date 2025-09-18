@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * Attaches a natural hide/show behavior to a sticky element placed at the top.
  *
@@ -37,6 +38,7 @@ export function naturalStickyTop(
     snapEagerness?: number;
     scrollThreshold?: number;
     reserveSpace?: boolean;
+    onScrolledStateChange?: (isScrolled: boolean) => void;
   }
 ) {
   let lastScrollY = window.scrollY;
@@ -50,6 +52,7 @@ export function naturalStickyTop(
   const movePosition = reserveSpace ? 'relative' : 'absolute';
 
   const handleScroll = () => {
+    const previousIsHeaderNotAtTop = isHeaderNotAtTop;
     const currentScrollY = window.scrollY;
     const elementRect = element.getBoundingClientRect();
     const scrollStep = currentScrollY - lastScrollY;
@@ -98,6 +101,13 @@ export function naturalStickyTop(
       element.style.position = movePosition;
       // Position at current scroll position so element moves naturally with content
       element.style.top = `${currentScrollY}px`;
+    }
+
+    // If the header isn't at the top of the document run the callback
+    isHeaderNotAtTop = currentScrollY > element.offsetHeight + 1;
+
+    if (previousIsHeaderNotAtTop !== isHeaderNotAtTop) {
+      options?.onScrolledStateChange?.(isHeaderNotAtTop);
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
