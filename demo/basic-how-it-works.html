@@ -7,12 +7,25 @@
     <link rel="stylesheet" href="style.css" />
     <style>
       .sticky-header {
-        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-        transition: background 0.3s ease-in-out;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition:
+          background 0.3s ease-in-out,
+          opacity 0.3s ease-in-out;
         flex-direction: column;
         gap: 10px;
         height: auto; /* Override fixed height for two-line layout */
         padding: 15px 10px; /* Add padding for proper spacing */
+        opacity: 1; /* Default opaque */
+      }
+
+      /* State-specific opacity styling */
+      .sticky-header.state-home,
+      .sticky-header.state-sticky {
+        opacity: 1; /* Fully opaque when stable */
+      }
+
+      .sticky-header.state-relative {
+        opacity: 0.9; /* Semi-transparent during transitions */
       }
       .sticky-header h1 {
         margin: 0; /* Remove default h1 margins */
@@ -615,6 +628,10 @@ headerElement.addEventListener('natural-sticky', (event) => {
       header.addEventListener('natural-sticky', event => {
         const state = event.detail;
         stateIndicator.textContent = `Current State: ${state}`;
+
+        // Update class for opacity styling
+        header.classList.remove('state-home', 'state-sticky', 'state-relative');
+        header.classList.add(`state-${state}`);
       });
     </script>
     <script src="drag-scroll.js"></script>
