@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimal Header Style on Scroll</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 20px;
+        margin-top: 0;
+        transition: background-color 0.3s ease;
+      }
+
+      /* Home state: distinct styling */
+      header.home {
+        background-color: #333; /* Dark gray */
+      }
+
+      /* Scrolled states: same styling for both sticky and relative */
+      header.sticky,
+      header.relative {
+        background-color: #4a90e2; /* Blue */
+      }
+
+      main {
+        height: 2000px; /* Long content for scrolling */
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">Header at Top</header>
+
+    <main>
+      <h1>Common Use Case: Style on Scroll</h1>
+      <p>
+        Scroll down and up to test the header behavior. The header is dark when
+        at the top (home state) and blue when scrolled (sticky + relative states
+        styled the same).
+      </p>
+      <p>Keep scrolling to test the header behavior...</p>
+    </main>
+
+    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script>
+      const header = document.getElementById('header');
+
+      // Initialize the header script
+      naturalStickyTop(header);
+
+      // Listen for state changes
+      header.addEventListener('natural-sticky', event => {
+        const state = event.detail;
+        console.log('State changed to:', state);
+
+        // Update text content based on state
+        if (state === 'home') {
+          header.textContent = 'Header at Top';
+        } else {
+          header.textContent = 'Header Scrolled';
+        }
+
+        // Update class for styling
+        header.classList.remove('home', 'sticky', 'relative');
+        header.classList.add(state);
+      });
+
+      // Set initial state on load
+      header.classList.add('home');
+    </script>
+  </body>
+</html>
