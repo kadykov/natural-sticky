@@ -95,7 +95,7 @@
 
       // Listen for state changes on the floating button's container
       actionContainer.addEventListener('natural-sticky', event => {
-        const state = event.detail;
+        const state = event.detail.state;
         console.log('Floating action state changed to:', state);
 
         // Update text content

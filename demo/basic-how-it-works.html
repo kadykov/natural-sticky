@@ -379,7 +379,7 @@ naturalStickyTop(headerElement);
 
 // Listen for state changes
 headerElement.addEventListener('natural-sticky', (event) => {
-  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  const currentState = event.detail.state; // 'home', 'sticky', or 'relative'
   
   // Apply different styles based on state
   headerElement.classList.remove('state-home', 'state-sticky', 'state-relative');
@@ -626,7 +626,7 @@ headerElement.addEventListener('natural-sticky', (event) => {
       naturalStickyTop(header);
 
       header.addEventListener('natural-sticky', event => {
-        const state = event.detail;
+        const state = event.detail.state;
         stateIndicator.textContent = `Current State: ${state}`;
 
         // Update class for opacity styling

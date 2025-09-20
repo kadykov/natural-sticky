@@ -207,7 +207,7 @@ naturalStickyTop(header, {
             "
           ><code>// Listen for state changes
 header.addEventListener('natural-sticky', (event) =&gt; {
-  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  const currentState = event.detail.state; // 'home', 'sticky', or 'relative'
   
   console.log(`Header changed to: ${currentState}`);
   
@@ -307,7 +307,7 @@ header.addEventListener('natural-sticky', (event) =&gt; {
               font-size: 0.9rem;
             "
           ><code>header.addEventListener('natural-sticky', (event) =&gt; {
-  const state = event.detail;
+  const state = event.detail.state;
   
   // Track user engagement with header states
   analytics.track('header_state_change', {
@@ -348,7 +348,7 @@ header.addEventListener('natural-sticky', (event) =&gt; {
               font-size: 0.9rem;
             "
           ><code>header.addEventListener('natural-sticky', (event) =&gt; {
-  const state = event.detail;
+  const state = event.detail.state;
   const nav = header.querySelector('.navigation');
   
   switch(state) {
@@ -401,7 +401,7 @@ header.addEventListener('natural-sticky', (event) =&gt; {
               font-size: 0.9rem;
             "
           ><code>header.addEventListener('natural-sticky', (event) =&gt; {
-  const state = event.detail;
+  const state = event.detail.state;
   
   // Animate other page elements based on header state
   const sidebar = document.querySelector('.sidebar');
@@ -718,7 +718,7 @@ naturalStickyBottom(footerContainer, {
 
 // Listen for state changes
 footerContainer.addEventListener('natural-sticky', (event) =&gt; {
-  const state = event.detail;
+  const state = event.detail.state;
   footerText.textContent = `State: ${state}`;
   
   const footer = footerContainer.querySelector('.footer-content');
@@ -757,7 +757,7 @@ footerContainer.addEventListener('natural-sticky', (event) =&gt; {
             "
           ><code>// Add comprehensive logging for development
 header.addEventListener('natural-sticky', (event) =&gt; {
-  const state = event.detail;
+  const state = event.detail.state;
   
   console.group(`🔄 Header State Change: ${state}`);
   console.log('Timestamp:', new Date().toLocaleTimeString());
@@ -1091,7 +1091,7 @@ header.addEventListener('natural-sticky', (event) =&gt; {
       naturalStickyTop(header);
 
       header.addEventListener('natural-sticky', event => {
-        const state = event.detail;
+        const state = event.detail.state;
         stateDisplay.textContent = `State: ${state}`;
         header.classList.remove('home', 'sticky', 'relative');
         header.classList.add(state);

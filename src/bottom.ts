@@ -14,6 +14,11 @@
  * - Transitions to sticky using scroll step prediction to avoid visual gaps (predicted elementRect.bottom <= window.innerHeight)
  * - More complex positioning calculations due to bottom-anchored nature and document height considerations
  *
+ * The script dispatches a `natural-sticky` event with the following states in `event.detail.state`:
+ * - 'sticky': The element is stuck to the bottom of the viewport.
+ * - 'home': The element is at its original position at the bottom of the document.
+ * - 'relative': The element is scrolling with the page content.
+ *
  * @param element - The HTML element to make naturally sticky
  * @param options - Configuration options
  * @param options.snapEagerness - How eagerly the element snaps into sticky position (default: 1)
@@ -64,7 +69,7 @@ export function naturalStickyBottom(
       currentState = newState;
       element.dispatchEvent(
         new CustomEvent('natural-sticky', {
-          detail: currentState,
+          detail: { state: currentState },
         })
       );
     }

@@ -15,7 +15,7 @@
  * - When moving above viewport on scroll up, positions element just above viewport
  * - Transitions using scroll step prediction to avoid visual gaps (predicted elementRect.top >= 0)
  *
- * The script dispatches a `natural-sticky:change` event with the following states in `event.detail.state`:
+ * The script dispatches a `natural-sticky` event with the following states in `event.detail.state`:
  * - 'sticky': The element is stuck to the top of the viewport.
  * - 'home': The element is at its original position at the top of the document.
  * - 'relative': The element is scrolling with the page content.
@@ -70,7 +70,7 @@ export function naturalStickyTop(
       currentState = newState;
       element.dispatchEvent(
         new CustomEvent('natural-sticky', {
-          detail: currentState,
+          detail: { state: currentState },
         })
       );
     }
