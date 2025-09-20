@@ -60,7 +60,7 @@
 
       // Listen for state changes
       header.addEventListener('natural-sticky', event => {
-        const state = event.detail;
+        const state = event.detail.state;
         console.log('State changed to:', state);
 
         // Update text content based on state

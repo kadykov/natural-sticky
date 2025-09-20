@@ -152,7 +152,7 @@ naturalStickyTop(header);
 
 // Listen for state changes
 header.addEventListener('natural-sticky', event => {
-  const currentState = event.detail; // 'home', 'sticky', or 'relative'
+  const currentState = event.detail.state; // 'home', 'sticky', or 'relative'
 
   // Apply different styles based on state
   header.classList.remove('state-home', 'state-sticky', 'state-relative');
