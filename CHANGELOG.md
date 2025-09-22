@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/kadykov/natural-sticky/compare/v1.3.0...v1.4.0) (2025-09-22)
+
+### Bug Fixes
+
+- **demo:** ensure correct initialization for floating bottom elements ([dd32ffa](https://github.com/kadykov/natural-sticky/commit/dd32ffaa19d318c05ccf6d0282011d837ad86d7c))
+- **events:** align custom event detail with common patterns ([8436aea](https://github.com/kadykov/natural-sticky/commit/8436aea83568d1a2d78e54e26b164d1efab08d3f))
+
+### Features
+
+- **demo:** add 'style on scroll' demo and update landing page links ([b8bd02b](https://github.com/kadykov/natural-sticky/commit/b8bd02b66f3e7efd91ab09fc8248b36c8c5cf2fc))
+- **demo:** add demo pages for event system and three-state model ([548bdfd](https://github.com/kadykov/natural-sticky/commit/548bdfdfaae1fc90aab6887ee0aa56567f06705d))
+- implement event-based three-state system ([4732e11](https://github.com/kadykov/natural-sticky/commit/4732e11baeee1b743e9c467ef42055cd2770f692))
+
 # [1.3.0](https://github.com/kadykov/natural-sticky/compare/v1.2.0...v1.3.0) (2025-09-09)
 
 ### Bug Fixes
