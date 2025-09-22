@@ -163,6 +163,7 @@ header.addEventListener('natural-sticky', event => {
 ```
 
 **Live Demo:** [Event System Demo](https://github.kadykov.com/natural-sticky/demo/basic-events.html) - Interactive event system showcase
+**Minimal Demos:** [Header Events](https://github.kadykov.com/natural-sticky/demo/minimal-header-events.html) | [Footer Events](https://github.kadykov.com/natural-sticky/demo/minimal-footer-events.html) | [Style on Scroll](https://github.kadykov.com/natural-sticky/demo/minimal-header-style-on-scroll.html) - Basic event implementation and common styling patterns
 
 ## Configuration
 
@@ -194,6 +195,10 @@ Controls whether the element reserves space in document flow:
 **Live Demo:**
 
 - [Mixed Positioning Demo](https://github.kadykov.com/natural-sticky/demo/basic-floating-elements.html) - Traditional sticky vs floating elements
+
+**Minimal Demos:**
+
+- [Header Floating](https://github.kadykov.com/natural-sticky/demo/minimal-header-floating.html) | [Footer Floating](https://github.kadykov.com/natural-sticky/demo/minimal-footer-floating.html) - Basic floating implementation
 
 ### snapEagerness - Tuning Natural vs Gap-Free
 
