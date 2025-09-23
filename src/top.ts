@@ -64,6 +64,11 @@ export function naturalStickyTop(
   // Determine move positioning mode based on reserveSpace setting
   const movePosition = reserveSpace ? STATE_RELATIVE : 'absolute';
 
+  const setPositionAndTop = (position: string, top: string) => {
+    element.style.position = position;
+    element.style.top = top;
+  };
+
   // Function to update state and dispatch event if changed
   const setState = (newState: StickyState) => {
     if (currentState !== newState) {
@@ -91,8 +96,7 @@ export function naturalStickyTop(
       currentScrollY <= 0 ||
       (isElementHidden && currentState === STATE_RELATIVE)
     ) {
-      element.style.position = movePosition;
-      element.style.top = '0';
+      setPositionAndTop(movePosition, '0');
       setState(STATE_HOME);
     }
     // Priority 2: Handle scrolling UP logic.
@@ -102,22 +106,21 @@ export function naturalStickyTop(
         elementTop - snapEagerness * scrollStep >= 0 &&
         currentState === STATE_RELATIVE
       ) {
-        element.style.position = reserveSpace ? STATE_STICKY : 'fixed';
-        element.style.top = '0';
+        setPositionAndTop(reserveSpace ? STATE_STICKY : 'fixed', '0');
         setState(STATE_STICKY);
       }
       // If not becoming sticky, check if we need to release it above the viewport.
       else if (-scrollStep >= scrollThreshold && isElementHidden) {
-        element.style.position = movePosition;
-        element.style.top = `${currentScrollY - elementBottom + elementTop}px`;
+        setPositionAndTop(
+          movePosition,
+          `${currentScrollY - elementBottom + elementTop}px`
+        );
         setState(STATE_RELATIVE);
       }
     }
     // Priority 3: Handle scrolling DOWN logic.
     else if (scrollStep > 0 && currentState === STATE_STICKY) {
-      element.style.position = movePosition;
-      // Position at current scroll position so element moves naturally with content
-      element.style.top = `${currentScrollY}px`;
+      setPositionAndTop(movePosition, `${currentScrollY}px`);
       setState(STATE_RELATIVE);
     }
 

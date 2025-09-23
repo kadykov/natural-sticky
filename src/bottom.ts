@@ -63,6 +63,11 @@ export function naturalStickyBottom(
   // Determine move positioning mode based on reserveSpace setting
   const movePosition = reserveSpace ? STATE_RELATIVE : 'absolute';
 
+  const setPositionAndBottom = (position: string, bottom: string) => {
+    element.style.position = position;
+    element.style.bottom = bottom;
+  };
+
   // Function to update state and dispatch event if changed
   const setState = (newState: StickyState) => {
     if (currentState !== newState) {
@@ -99,8 +104,7 @@ export function naturalStickyBottom(
       currentScrollY + viewportHeight >= documentHeight - 1 ||
       (isElementHidden && currentState === STATE_RELATIVE)
     ) {
-      element.style.position = movePosition;
-      element.style.bottom = '0';
+      setPositionAndBottom(movePosition, '0');
       setState(STATE_HOME);
     }
     // Priority 2: Handle scrolling DOWN logic.
@@ -110,23 +114,21 @@ export function naturalStickyBottom(
         elementBottom - snapEagerness * scrollStep <= viewportHeight &&
         currentState === STATE_RELATIVE
       ) {
-        element.style.position = reserveSpace ? STATE_STICKY : 'fixed';
-        element.style.bottom = '0';
+        setPositionAndBottom(reserveSpace ? STATE_STICKY : 'fixed', '0');
         setState(STATE_STICKY);
       }
       // If not becoming sticky, check if we need to release it below the viewport.
       else if (scrollStep >= scrollThreshold && isElementHidden) {
-        element.style.position = movePosition;
-        element.style.bottom = `${
-          viewportBottomOffset - (elementBottom - elementTop)
-        }px`;
+        setPositionAndBottom(
+          movePosition,
+          `${viewportBottomOffset - (elementBottom - elementTop)}px`
+        );
         setState(STATE_RELATIVE);
       }
     }
     // Priority 3: Handle scrolling UP logic.
     else if (scrollStep < 0 && currentState === STATE_STICKY) {
-      element.style.position = movePosition;
-      element.style.bottom = `${viewportBottomOffset}px`;
+      setPositionAndBottom(movePosition, `${viewportBottomOffset}px`);
       setState(STATE_RELATIVE);
     }
 
