@@ -1,0 +1,60 @@
+# Natural Sticky
+
+> A lightweight, framework-agnostic NPM package for natural hide-on-scroll effects for headers, footers, or floating elements. It uses smart position switching instead of animations, so elements move naturally with the user's scroll speed.
+
+The package is ultra-lightweight (1.2-1.3KB), has no dependencies, and is event-driven for creating dynamic interfaces. It supports multiple elements on the same page without conflicts. Behavior can be fine-tuned with three parameters: `reserveSpace` (positioning mode), `snapEagerness` (gap prevention), and `scrollThreshold` (activation speed).
+
+## Basic Usage
+
+**1. Installation**
+
+```bash
+npm install natural-sticky
+```
+
+**2. Quick Start**
+
+You can either import it as a module or use the CDN.
+
+*NPM Module:*
+```javascript
+import { naturalStickyTop, naturalStickyBottom } from 'natural-sticky';
+
+const headerInstance = naturalStickyTop(document.querySelector('.header'));
+const footerInstance = naturalStickyBottom(document.querySelector('.footer'));
+
+// Clean up when the component unmounts
+// headerInstance.destroy();
+// footerInstance.destroy();
+```
+
+*CDN:*
+```html
+<!-- For headers -->
+<script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.top.min.js"></script>
+<script>
+  window.naturalStickyTop(document.querySelector('.header'));
+</script>
+
+<!-- For footers -->
+<script src="https://cdn.jsdelivr.net/npm/natural-sticky/dist/natural-sticky.bottom.min.js"></script>
+<script>
+  window.naturalStickyBottom(document.querySelector('.footer'));
+</script>
+```
+
+## Documentation
+
+- [README](https://github.com/kadykov/natural-sticky/blob/main/README.md): The main project documentation with detailed explanations of configuration, events, and CSS requirements.
+
+## Minimal Demos
+
+These demos showcase core features with minimal styling, intended for developer reference.
+
+- [Basic Header](https://github.kadykov.com/natural-sticky/demo/minimal-header.html): A simple sticky header.
+- [Header with Events](https://github.kadykov.com/natural-sticky/demo/minimal-header-events.html): A header that changes style based on scroll events.
+- [Floating Header](https://github.kadykov.com/natural-sticky/demo/minimal-header-floating.html): A header that does not affect the document flow.
+- [Basic Footer](https://github.kadykov.com/natural-sticky/demo/minimal-footer.html): A simple sticky footer.
+- [Footer with Events](https://github.kadykov.com/natural-sticky/demo/minimal-footer-events.html): A footer that responds to scroll events.
+- [Floating Footer](https://github.kadykov.com/natural-sticky/demo/minimal-footer-floating.html): A footer that floats over the content.
+- [Header Style on Scroll](https://github.kadykov.com/natural-sticky/demo/minimal-header-style-on-scroll.html): A header that changes style when scrolling down.
