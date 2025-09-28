@@ -58,8 +58,10 @@ jobs:
 
       - name: Replace local scripts with CDN links in demo pages
         run: |
-          find demo -name "*.html" -exec sed -i "s|\.\./dist/natural-sticky\.top\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.top.min.js|g" {} +
-          find demo -name "*.html" -exec sed -i "s|\.\./dist/natural-sticky\.bottom\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.bottom.min.js|g" {} +
+          find demo -name "*.html" -exec sed -i \
+            -e "s|\.\./dist/natural-sticky\.top\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.top.min.js|g" \
+            -e "s|\.\./dist/natural-sticky\.bottom\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.bottom.min.js|g" \
+            {} +
 
       - name: Clean up unnecessary files for GitHub Pages
         run: |
