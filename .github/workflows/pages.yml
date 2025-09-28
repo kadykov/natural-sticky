@@ -10,6 +10,9 @@ on:
       - 'package.json'
       - '.github/workflows/pages.yml'
       - 'index.html'
+      - '404.html'
+      - 'robots.txt'
+      - 'llms.txt'
   workflow_run:
     workflows: ['CI/CD']
     types:
