@@ -48,6 +48,11 @@
         letter-spacing: 1px;
       }
     </style>
+    <!-- https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- 180×180 -->
   </head>
   <body>
     <header class="sticky-header">
@@ -626,7 +631,7 @@ headerElement.addEventListener('natural-sticky', (event) => {
       </div>
     </main>
 
-    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="./dist/natural-sticky.top.min.js"></script>
     <script>
       const header = document.querySelector('.sticky-header');
       const stateIndicator = document.querySelector('.state-indicator');

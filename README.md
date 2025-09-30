@@ -1,9 +1,11 @@
 # Natural Sticky
 
 <div align="center">
-  <img src="https://github.kadykov.com/natural-sticky/demo/header-1080p.webp" alt="Natural Sticky Header Demo" width="540" />
+  <img src="https://github.kadykov.com/natural-sticky/icon.svg" alt="Natural Sticky Logo" width="200" />
   <br>
   <em>Natural hide-on-scroll effect - the header moves naturally with your scroll speed</em>
+  <br>
+  <img src="https://raw.githubusercontent.com/kadykov/natural-sticky/main/header-1080p.webp" alt="Natural Sticky Animation" width="540" />
 </div>
 
 [Live Demo](https://github.kadykov.com/natural-sticky/) | [CodePen Examples](https://codepen.io/collection/YwWpVY)

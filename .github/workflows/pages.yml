@@ -6,13 +6,6 @@ on:
       - main
     paths:
       - 'demo/**'
-      - 'src/**'
-      - 'package.json'
-      - '.github/workflows/pages.yml'
-      - 'index.html'
-      - '404.html'
-      - 'robots.txt'
-      - 'llms.txt'
   workflow_run:
     workflows: ['CI/CD']
     types:
@@ -59,39 +52,21 @@ jobs:
       - name: Replace local scripts with CDN links in demo pages
         run: |
           find demo -name "*.html" -exec sed -i \
-            -e "s|\.\./dist/natural-sticky\.top\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.top.min.js|g" \
-            -e "s|\.\./dist/natural-sticky\.bottom\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.bottom.min.js|g" \
+            -e "s|\./dist/natural-sticky\.top\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.top.min.js|g" \
+            -e "s|\./dist/natural-sticky\.bottom\.min\.js|https://cdn.jsdelivr.net/npm/natural-sticky@${{ steps.extract_version.outputs.version }}/dist/natural-sticky.bottom.min.js|g" \
             {} +
-
-      - name: Clean up unnecessary files for GitHub Pages
-        run: |
-          # Create a temporary directory for files we want to keep
-          mkdir -p /tmp/pages-content
-
-          # Copy only the files and directories we want to keep
-          cp index.html /tmp/pages-content/ 2>/dev/null || true
-          cp 404.html /tmp/pages-content/ 2>/dev/null || true
-          cp robots.txt /tmp/pages-content/ 2>/dev/null || true
-          cp llms.txt /tmp/pages-content/ 2>/dev/null || true
-          cp -r demo /tmp/pages-content/ 2>/dev/null || true
-          cp -r dist /tmp/pages-content/ 2>/dev/null || true
-
-          # Remove everything in current directory
-          rm -rf .* * 2>/dev/null || true
-
-          # Move back only what we want to keep
-          mv /tmp/pages-content/* . 2>/dev/null || true
-
-          # Clean up temp directory
-          rm -rf /tmp/pages-content
 
       - name: Generate sitemap
         id: sitemap
         uses: cicirello/generate-sitemap@v1
         with:
+          path-to-root: demo/
           base-url-path: https://github.kadykov.com/natural-sticky/
           include-html: true
           include-pdf: false
+
+      - name: Move sitemap to demo
+        run: mv sitemap.xml demo/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -99,7 +74,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4.0.0
         with:
-          path: .
+          path: demo/
 
       - name: Deploy to GitHub Pages
         id: deployment
