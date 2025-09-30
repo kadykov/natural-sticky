@@ -65,9 +65,6 @@ jobs:
           include-html: true
           include-pdf: false
 
-      - name: Move sitemap to demo
-        run: mv sitemap.xml demo/
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
