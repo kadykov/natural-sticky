@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Demonstration of the Natural Sticky event system. See how to listen for state changes ('home', 'sticky', 'relative') to create dynamic UIs."
+    />
+    <link
+      rel="canonical"
+      href="https://github.kadykov.com/natural-sticky/demo/basic-events.html"
+    />
     <title>Events Demo - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -42,9 +50,20 @@
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
       }
     </style>
+    <!-- https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs -->
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- 180×180 -->
   </head>
   <body>
     <header class="sticky-header">
+      <img
+        src="icon.svg"
+        alt="Natural Sticky Logo"
+        height="60"
+        style="vertical-align: middle; margin-right: 10px"
+      />
       <div class="state-display">State: home</div>
     </header>
 
@@ -1083,7 +1102,7 @@ header.addEventListener('natural-sticky', (event) =&gt; {
       </div>
     </main>
 
-    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="./dist/natural-sticky.top.min.js"></script>
     <script>
       const header = document.querySelector('.sticky-header');
       const stateDisplay = document.querySelector('.state-display');

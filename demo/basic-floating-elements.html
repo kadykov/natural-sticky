@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Demonstration of Natural Sticky with floating elements. See how to create non-layout-shifting sticky elements that float over content."
+    />
+    <link
+      rel="canonical"
+      href="https://github.kadykov.com/natural-sticky/demo/basic-floating-elements.html"
+    />
     <title>Basic Floating Elements - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -149,6 +157,11 @@
         white-space: nowrap; /* Prevent text wrapping */
       }
     </style>
+    <!-- https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs -->
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- 180×180 -->
   </head>
   <body>
     <!-- Main header that reserves document space -->
@@ -443,8 +456,8 @@
       </button>
     </div>
 
-    <script src="../dist/natural-sticky.top.min.js"></script>
-    <script src="../dist/natural-sticky.bottom.min.js"></script>
+    <script src="./dist/natural-sticky.top.min.js"></script>
+    <script src="./dist/natural-sticky.bottom.min.js"></script>
 
     <!-- 
       REQUIRED: Natural Sticky initialization - this is the minimal code needed to use the library

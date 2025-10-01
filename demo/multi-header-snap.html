@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A 4-header comparison of different snapEagerness values in Natural Sticky, showing how each value affects the header's snapping behavior."
+    />
+    <link
+      rel="canonical"
+      href="https://github.kadykov.com/natural-sticky/demo/multi-header-snap.html"
+    />
     <title>4-Header SnapEagerness Comparison - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -182,6 +190,11 @@
         }
       }
     </style>
+    <!-- https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs -->
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- 180×180 -->
   </head>
   <body>
     <header class="sticky-header header-natural" id="header-natural">
@@ -410,7 +423,7 @@ naturalStickyTop(element, { snapEagerness: 3.0 });</code></pre>
       </section>
     </main>
 
-    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="./dist/natural-sticky.top.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         if (!window.naturalStickyTop) {

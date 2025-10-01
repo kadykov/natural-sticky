@@ -20,10 +20,11 @@
     "clean": "rm -rf dist",
     "build:esm": "esbuild src/index.ts --bundle --platform=browser --outfile=dist/index.mjs --format=esm",
     "build:cjs": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --format=cjs",
-    "build:umd:top": "esbuild src/top.ts --bundle --platform=browser --outfile=dist/natural-sticky.top.min.js --format=iife --global-name=naturalStickyTop --minify --footer:js='naturalStickyTop = naturalStickyTop.default'",
-    "build:umd:bottom": "esbuild src/bottom.ts --bundle --platform=browser --outfile=dist/natural-sticky.bottom.min.js --format=iife --global-name=naturalStickyBottom --minify --footer:js='naturalStickyBottom = naturalStickyBottom.default'",
+    "build:umd:top": "esbuild src/top.ts --bundle --platform=browser --format=iife --global-name=naturalStickyTop --footer:js='naturalStickyTop = naturalStickyTop.default' --outfile=/dev/stdout | terser --compress --mangle -o dist/natural-sticky.top.min.js",
+    "build:umd:bottom": "esbuild src/bottom.ts --bundle --platform=browser --format=iife --global-name=naturalStickyBottom --footer:js='naturalStickyBottom = naturalStickyBottom.default' --outfile=/dev/stdout | terser --compress --mangle -o dist/natural-sticky.bottom.min.js",
     "build:types": "tsc --emitDeclarationOnly",
     "build": "npm run clean && npm run lint:check && npm run build:esm && npm run build:cjs && npm run build:umd:top && npm run build:umd:bottom && npm run build:types",
+    "build:dev": "npm run build && cpy \"dist/**/*\" demo/dist",
     "prepublishOnly": "npm run build",
     "prepare": "husky"
   },
@@ -56,12 +57,14 @@
     "@semantic-release/release-notes-generator": "^14.0.3",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
+    "cpy-cli": "^6.0.0",
     "esbuild": "^0.25.9",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "semantic-release": "^24.2.7",
+    "terser": "^5.44.0",
     "typescript": "^5.9.2"
   }
 }

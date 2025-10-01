@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A basic demonstration of a natural sticky header. See how the header hides on scroll down and reappears naturally on scroll up."
+    />
+    <link
+      rel="canonical"
+      href="https://github.kadykov.com/natural-sticky/demo/basic-header.html"
+    />
     <title>Header Only Demo - Natural Sticky</title>
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -14,9 +22,20 @@
         ) !important;
       }
     </style>
+    <!-- https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs -->
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!-- 180×180 -->
   </head>
   <body>
     <header class="sticky-header">
+      <img
+        src="icon.svg"
+        alt="Natural Sticky Logo"
+        height="60"
+        style="vertical-align: middle; margin-right: 10px"
+      />
       <h1>Natural Sticky Header</h1>
     </header>
 
@@ -260,7 +279,7 @@ export function naturalStickyTop(element: HTMLElement, options?: {
     </main>
 
     <!-- Natural Sticky Demo Script -->
-    <script src="../dist/natural-sticky.top.min.js"></script>
+    <script src="./dist/natural-sticky.top.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const header = document.querySelector('.sticky-header');
