@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/kadykov/natural-sticky/compare/v1.4.0...v1.4.1) (2025-10-01)
+
+### Performance Improvements
+
+- reduce bundle size by introducing style setter helpers ([c80f452](https://github.com/kadykov/natural-sticky/commit/c80f4520530900feaf742a519e8a3aab5b1595e8))
+
 # [1.4.0](https://github.com/kadykov/natural-sticky/compare/v1.3.0...v1.4.0) (2025-09-22)
 
 ### Bug Fixes
