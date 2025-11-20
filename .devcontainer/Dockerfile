@@ -1,3 +1,3 @@
-FROM node:24-alpine3.22
+FROM node:lts-alpine
 
 WORKDIR /workspaces/natural-sticky
