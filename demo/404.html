@@ -102,74 +102,6 @@
         margin-right: 0.5rem;
       }
 
-      .demo-links {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 0.75rem;
-        margin: 1.5rem 0;
-      }
-
-      .demo-link {
-        display: block;
-        padding: 0.75rem 1rem;
-        background: #e3f2fd;
-        color: #1565c0;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-      }
-
-      .demo-link:hover {
-        background: #bbdefb;
-        color: #0d47a1;
-      }
-
-      .main-cta {
-        text-align: center;
-        margin: 2rem 0;
-      }
-
-      .main-cta a {
-        display: inline-block;
-        padding: 1rem 2rem;
-        background: #28a745;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 1.1rem;
-        transition: background-color 0.3s ease;
-      }
-
-      .main-cta a:hover {
-        background: #218838;
-      }
-
-      .help-section {
-        background: #fff3cd;
-        padding: 1.5rem;
-        border-radius: 8px;
-        border-left: 4px solid #ffc107;
-        margin-top: 2rem;
-      }
-
-      .help-section h4 {
-        color: #856404;
-        margin: 0 0 1rem 0;
-      }
-
-      .help-section p {
-        color: #856404;
-        margin: 0 0 1rem 0;
-      }
-
-      .help-section ul {
-        color: #856404;
-        margin: 0;
-        padding-left: 1.5rem;
-      }
-
       .breadcrumb {
         background: white;
         padding: 1rem 1.5rem;
@@ -216,7 +148,8 @@
   <body>
     <div class="container">
       <div class="breadcrumb">
-        <a href="/">Natural Sticky</a> / Page Not Found
+        <a href="https://github.kadykov.com/natural-sticky/">Natural Sticky</a>
+        / Page Not Found
       </div>
 
       <div class="error-hero">
@@ -227,128 +160,39 @@
           style="vertical-align: middle; margin-right: 10px"
         />
         <h1>404</h1>
-        <h2>Demo Page Not Found</h2>
-        <p>
-          Our demo files use a structured naming convention for better
-          organization. The page you're looking for might have a different name
-          or location.
-        </p>
+        <h2>Page Not Found</h2>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
       </div>
 
       <div class="navigation-section">
-        <h3>🚀 Popular Demos</h3>
-        <p>Looking for a specific demo? Here are the most popular ones:</p>
+        <h3>Where to go from here?</h3>
+        <p>
+          You can return to the homepage or check out the project on GitHub.
+        </p>
 
         <div class="quick-links">
-          <a href="/demo/basic-header.html" class="quick-link">
-            <span class="icon">📱</span>
-            Basic Header Demo
+          <a
+            href="https://github.kadykov.com/natural-sticky/"
+            class="quick-link"
+          >
+            <span class="icon">🏠</span>
+            Return to Homepage
           </a>
-          <a href="/demo/basic-footer.html" class="quick-link">
-            <span class="icon">📄</span>
-            Basic Footer Demo
+          <a
+            href="https://github.com/kadykov/natural-sticky"
+            class="quick-link"
+          >
+            <span class="icon">📦</span>
+            GitHub Repository
           </a>
-          <a href="/demo/multi-header-snap.html" class="quick-link">
-            <span class="icon">🚀</span>
-            Live 4-Headers Comparison
+          <a
+            href="https://github.com/kadykov/natural-sticky/issues"
+            class="quick-link"
+          >
+            <span class="icon">🐛</span>
+            Report a Broken Link
           </a>
-          <a href="/demo/multi-header-threshold.html" class="quick-link">
-            <span class="icon">🎚️</span>
-            ScrollThreshold Comparison
-          </a>
         </div>
-      </div>
-
-      <div class="navigation-section">
-        <h3>🎯 All Available Demos</h3>
-        <p>Browse all our demos organized by category:</p>
-
-        <h4 style="margin-top: 1.5rem; color: #495057">Basic Demos</h4>
-        <div class="demo-links">
-          <a href="/demo/basic-header.html" class="demo-link"
-            >Header (Default)</a
-          >
-          <a href="/demo/basic-footer.html" class="demo-link"
-            >Footer (Default)</a
-          >
-          <a href="/demo/basic-both.html" class="demo-link"
-            >Both Header & Footer</a
-          >
-          <a href="/demo/basic-header-natural.html" class="demo-link"
-            >Header Natural (0.0)</a
-          >
-          <a href="/demo/basic-header-magnetic.html" class="demo-link"
-            >Header Magnetic (3.0)</a
-          >
-        </div>
-
-        <h4 style="margin-top: 1.5rem; color: #495057">Comparison Pages</h4>
-        <div class="demo-links">
-          <a href="/demo/comparison-snap.html" class="demo-link"
-            >SnapEagerness Comparison</a
-          >
-          <a href="/demo/comparison-threshold.html" class="demo-link"
-            >ScrollThreshold Comparison</a
-          >
-        </div>
-
-        <h4 style="margin-top: 1.5rem; color: #495057">
-          Live Multi-Header Demos
-        </h4>
-        <div class="demo-links">
-          <a href="/demo/multi-header-snap.html" class="demo-link"
-            >4-Headers SnapEagerness</a
-          >
-          <a href="/demo/multi-header-threshold.html" class="demo-link"
-            >4-Headers ScrollThreshold</a
-          >
-        </div>
-
-        <h4 style="margin-top: 1.5rem; color: #495057">
-          Parameter-Specific Demos
-        </h4>
-        <div class="demo-links">
-          <a href="/demo/snap-natural.html" class="demo-link">Natural (0.0)</a>
-          <a href="/demo/snap-balanced.html" class="demo-link"
-            >Balanced (1.0)</a
-          >
-          <a href="/demo/snap-eager.html" class="demo-link">Eager (2.0)</a>
-          <a href="/demo/snap-magnetic.html" class="demo-link"
-            >Magnetic (3.0)</a
-          >
-          <a href="/demo/threshold-low.html" class="demo-link"
-            >Low Threshold (2)</a
-          >
-          <a href="/demo/threshold-medium.html" class="demo-link"
-            >Medium Threshold (10)</a
-          >
-          <a href="/demo/threshold-high.html" class="demo-link"
-            >High Threshold (25)</a
-          >
-        </div>
-      </div>
-
-      <div class="main-cta">
-        <a href="/">← Back to Main Page</a>
-      </div>
-
-      <div class="help-section">
-        <h4>🔍 Looking for something specific?</h4>
-        <p>Our demo files follow a structured naming convention:</p>
-        <ul>
-          <li><strong>basic-*</strong> - Single-feature demonstrations</li>
-          <li><strong>comparison-*</strong> - Multi-iframe comparison grids</li>
-          <li><strong>multi-*</strong> - Live side-by-side demonstrations</li>
-          <li>
-            <strong>Individual parameters</strong> - threshold-*, snap-* with
-            descriptive names
-          </li>
-        </ul>
-        <p>
-          If you have a specific demo in mind, try looking for the equivalent in
-          the lists above, or <a href="/">return to the main page</a> to explore
-          all available demos.
-        </p>
       </div>
     </div>
 
