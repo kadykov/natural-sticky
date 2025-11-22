@@ -55,6 +55,7 @@ export function naturalStickyBottom(
     | typeof STATE_RELATIVE;
 
   let lastScrollY = window.scrollY;
+  let lastScrollStep = 0;
   let currentState: StickyState = STATE_HOME; // Initial state
   const snapEagerness = options?.snapEagerness ?? 1; // Default to balanced behavior
   const scrollThreshold = options?.scrollThreshold ?? 0; // Default to always activate
@@ -118,7 +119,13 @@ export function naturalStickyBottom(
         setState(STATE_STICKY);
       }
       // If not becoming sticky, check if we need to release it below the viewport.
-      else if (scrollStep >= scrollThreshold && isElementHidden) {
+      else if (
+        isElementHidden &&
+        // Check if decelerating (scrollStep <= lastScrollStep) AND speed is above threshold (scrollStep >= scrollThreshold)
+        // Effectively: scrollThreshold <= scrollStep <= lastScrollStep
+        scrollThreshold <= scrollStep &&
+        scrollStep <= lastScrollStep
+      ) {
         setPositionAndBottom(
           movePosition,
           `${viewportBottomOffset - (elementBottom - elementTop)}px`
@@ -133,6 +140,7 @@ export function naturalStickyBottom(
     }
 
     lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+    lastScrollStep = scrollStep;
   };
 
   // Run once on load to set the initial state correctly.

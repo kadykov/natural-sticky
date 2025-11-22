@@ -255,6 +255,162 @@
       </div>
 
       <section class="demo-content">
+        <div
+          id="visual-gap-explanation"
+          class="gap-explanation"
+          style="
+            background: #fff3cd;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border-left: 6px solid #ffc107;
+          "
+        >
+          <h2 style="margin-top: 0; color: #856404">
+            🤔 The Story of the "Visual Gap"
+          </h2>
+          <p style="color: #856404; font-size: 1.1rem">
+            Natural Sticky works by switching between <code>relative</code> and
+            <code>sticky</code> positioning at the perfect moment. But finding
+            that "perfect moment" is harder than it looks.
+          </p>
+
+          <h3 style="color: #856404">Act 1: The Perfect World</h3>
+          <p>
+            Imagine a header that is <strong>100px tall</strong>, positioned
+            just above the viewport (at -100px). In a perfect world, the user
+            scrolls at a constant speed of <strong>50px per frame</strong>.
+          </p>
+          <ul
+            style="
+              line-height: 1.6;
+              list-style-type: none;
+              padding-left: 1rem;
+              border-left: 3px solid #28a745;
+            "
+          >
+            <li><strong>Frame 1:</strong> Position is -100px. Hidden.</li>
+            <li><strong>Frame 2:</strong> Position is -50px. Half visible.</li>
+            <li>
+              <strong>Frame 3:</strong> Position is 0px.
+              <strong>Perfect!</strong> We switch to sticky mode.
+            </li>
+          </ul>
+
+          <h3 style="color: #856404">Act 2: The Conflict (Overshooting)</h3>
+          <p>
+            But users don't scroll perfectly. What if they scroll faster, say at
+            <strong>60px per frame</strong>?
+          </p>
+          <ul
+            style="
+              line-height: 1.6;
+              list-style-type: none;
+              padding-left: 1rem;
+              border-left: 3px solid #dc3545;
+            "
+          >
+            <li><strong>Frame 1:</strong> Position is -100px. Hidden.</li>
+            <li>
+              <strong>Frame 2:</strong> Position is -40px. Mostly visible.
+            </li>
+            <li>
+              <strong>Frame 3:</strong> Position is +20px.
+              <strong>Oops!</strong> We wanted 0px, but we're already 20px down.
+              That 20px space is a <strong>Visual Gap</strong>.
+            </li>
+          </ul>
+
+          <h3 style="color: #856404">Act 3: The Prediction (SnapEagerness)</h3>
+          <p>
+            To fix this, we decided to look into the future. We calculate where
+            the header <em>will be</em> in the next frame.
+          </p>
+          <ul
+            style="
+              line-height: 1.6;
+              list-style-type: none;
+              padding-left: 1rem;
+              border-left: 3px solid #007bff;
+            "
+          >
+            <li>
+              <strong>Frame 2:</strong> Position is -40px. We predict next frame
+              will be +20px.
+            </li>
+            <li>
+              <strong>Decision:</strong> "It's going to overshoot! Switch to
+              sticky mode <strong>NOW</strong>."
+            </li>
+            <li>
+              <strong>Result:</strong> The header sticks at 0px before the gap
+              can happen.
+            </li>
+          </ul>
+          <p>
+            This is what <code>snapEagerness</code> controls: how far into the
+            future we look.
+          </p>
+
+          <h3 style="color: #856404">Act 4: The Plot Twist (Acceleration)</h3>
+          <p>But what if the user <em>accelerates</em>?</p>
+          <ul
+            style="
+              line-height: 1.6;
+              list-style-type: none;
+              padding-left: 1rem;
+              border-left: 3px solid #fd7e14;
+            "
+          >
+            <li>
+              <strong>Frame 1:</strong> Position is -100px. Speed is 50px per
+              frame. We predict next frame is fine.
+            </li>
+            <li>
+              <strong>Frame 2:</strong> Position is -50px. We predict next frame
+              will be 0px, nothing to worry about. But... User suddenly flicks
+              their finger! Speed jumps to 60px per frame.
+            </li>
+            <li>
+              <strong>Result:</strong> Next frame the position will be at 10px
+              and not 0px. Our prediction was wrong. We overshoot again.
+            </li>
+          </ul>
+          <p>
+            We could try to predict acceleration (calculating the derivative of
+            speed), or even the rate of change of acceleration (jerk). But human
+            input is unpredictable. A user might flick their finger at any
+            moment.
+          </p>
+
+          <h3 style="color: #856404">Act 5: The Resolution (Deceleration)</h3>
+          <p>
+            We realized we were fighting the wrong battle. Scrolling has two
+            phases:
+          </p>
+          <ol>
+            <li>
+              <strong>Acceleration Phase:</strong> Driven by user input (finger
+              on screen). Unpredictable.
+            </li>
+            <li>
+              <strong>Deceleration Phase:</strong> Driven by browser physics
+              (inertia). Highly predictable.
+            </li>
+          </ol>
+          <p>
+            <strong>The Solution:</strong> We simply wait. We keep the header
+            hidden during the chaotic acceleration phase. We only engage our
+            effect when the browser takes over and starts the smooth,
+            predictable deceleration phase.
+          </p>
+          <p>
+            By combining <strong>Deceleration Detection</strong> with
+            <strong>SnapEagerness</strong>, we get the best of both worlds:
+            natural movement when possible, and gap prevention when necessary.
+          </p>
+        </div>
+
         <h2>🔍 What to Observe While Scrolling</h2>
 
         <h3>1. Natural Movement (0.0) - Green Header</h3>

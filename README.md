@@ -204,15 +204,15 @@ Controls whether the element reserves space in document flow:
 
 ### snapEagerness - Tuning Natural vs Gap-Free
 
-Controls how aggressively the element anticipates scroll direction changes:
+Controls how aggressively the element anticipates scroll direction changes to prevent visual gaps during fast scrolling.
 
 - **`0.0`** - Pure natural movement (occasional gaps during very fast scrolling)
 - **`1.0`** - Balanced default (recommended for most cases)
 - **`2.0+`** - Aggressive gap prevention (more predictive, less natural)
 
-**Live Demos:**
+**Learn more about the "Visual Gap" problem and how to solve it:**
 
-- [4-Headers SnapEagerness](https://github.kadykov.com/natural-sticky/demo/multi-header-snap.html) - Live side-by-side comparison
+- [4-Headers SnapEagerness Demo](https://github.kadykov.com/natural-sticky/demo/multi-header-snap.html) - Includes detailed explanation and live comparison
 - [SnapEagerness Demos](https://github.kadykov.com/natural-sticky/demo/comparison-snap.html) - Individual iframe comparisons
 
 ### scrollThreshold - Controlling Activation

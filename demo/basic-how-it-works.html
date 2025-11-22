@@ -164,9 +164,15 @@
               current scroll position so it moves with the content
             </li>
             <li>
-              <strong>Scrolling up (fast):</strong>
-              <code>top: currentScrollY - elementHeight</code> - Positions the
-              element just above the viewport for natural reveal
+              <strong>Scrolling up:</strong>
+              The element remains hidden during the acceleration phase of
+              scrolling, which is driven by user input and can be unpredictable.
+              It reveals itself only when the browser takes over to smooth the
+              scroll (deceleration phase). This predictable deceleration allows
+              us to position the element just above the viewport (<code
+                >top: currentScrollY - elementHeight</code
+              >) exactly when needed, preventing visual gaps that occur during
+              rapid acceleration.
             </li>
           </ul>
           <p>
