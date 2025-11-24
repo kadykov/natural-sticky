@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/kadykov/natural-sticky/compare/v1.4.1...v1.4.2) (2025-11-24)
+
+### Bug Fixes
+
+- engage reveal effect only on scroll deceleration ([2239ca5](https://github.com/kadykov/natural-sticky/commit/2239ca552e1ad4336f21508e5f662a7c54719fab))
+
 ## [1.4.1](https://github.com/kadykov/natural-sticky/compare/v1.4.0...v1.4.1) (2025-10-01)
 
 ### Performance Improvements
