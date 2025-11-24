@@ -113,7 +113,7 @@ export function naturalStickyTop(
       // If not becoming sticky, check if we need to release it above the viewport.
       else if (
         isElementHidden &&
-        // Check if decelerating abs(scrollStep) =< abs(lastScrollStep)
+        // Check if decelerating abs(scrollStep) <= abs(lastScrollStep)
         // AND speed is above threshold abs(scrollStep) >= scrollThreshold
         // Since we are dealing with negative values for upward scroll, this translates to:
         // lastScrollStep <= scrollStep  (decelerating)
