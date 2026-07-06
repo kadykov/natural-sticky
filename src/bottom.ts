@@ -50,9 +50,7 @@ export function naturalStickyBottom(
 
   // Define the possible states for the element
   type StickyState =
-    | typeof STATE_STICKY
-    | typeof STATE_HOME
-    | typeof STATE_RELATIVE;
+    typeof STATE_STICKY | typeof STATE_HOME | typeof STATE_RELATIVE;
 
   let lastScrollY = window.scrollY;
   let lastScrollStep = 0;
