@@ -63,12 +63,12 @@ jobs:
         continue-on-error: true # Allow workflow to continue even if npm audit finds vulnerabilities
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4.38.0
+        uses: github/codeql-action/init@v4.38.2
         with:
           languages: javascript
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4.38.0
+        uses: github/codeql-action/analyze@v4.38.2
 
   release:
     name: Release
